@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+==========================================================================
+【AI HANDOVER NOTE】
+1. DESIGN PHILOSOPHY:
+   - Atmosphere-First Educational Tech: 이 디자인은 '학습의 여정'을 시각화하는 Progressive Disclosure 철학을 따릅니다. 복잡한 AI 아이디어 구체화 프로세스를 단계별로 풀어내며, 사용자가 압도되지 않고 자연스럽게 몰입할 수 있도록 설계되었습니다.
+   - Neo-Professional with Warmth: 기업 교육 자료의 신뢰성과 전문성을 유지하면서도, 딥 블루/퍼플 그라디언트와 소프트한 글래스모피즘으로 접근성과 친근함을 더했습니다. 이는 '기술은 어렵지 않다'는 메시지를 전달합니다.
+   - Structured Clarity: 제안서 문서(스크린샷2324)의 명확한 섹션 구분과 번호 체계를 웹 인터페이스로 변환하여, 학습자가 현재 위치와 다음 단계를 직관적으로 파악할 수 있습니다.
+
+2. TYPOGRAPHY:
+   - Sans: Inter는 기술 문서의 표준으로, 높은 가독성과 현대적 느낌을 제공합니다. Noto Sans KR은 한글 본문에서 Inter와 완벽한 조화를 이루며, 기업 환경에서 요구되는 전문성을 충족합니다.
+   - Mono: JetBrains Mono는 프롬프트 예제, API 코드 스니펫, 데이터 분석 결과 등 기술적 콘텐츠를 표시할 때 사용됩니다. 나라장터 공고 분석 시스템의 Python/Gemini API 코드 예제에 최적화되어 있습니다.
+
+3. COLOR SYSTEM:
+   - 브랜드 주색: Deep Blue (Hue 240°)는 신뢰, 전문성, 기술을 상징하며, AI 교육 플랫폼의 정체성을 구축합니다. 이는 제안서 문서의 파란색 헤더와 섹션 마커를 계승합니다.
+   - --brand → --primary 매핑: Primary는 CTA 버튼, 진행 단계 표시기, 인터랙티브 요소에 사용되어 학습 동선을 명확히 안내합니다.
+   - --accent (Purple-Blue): 그라디언트 배경과 하이라이트에 사용되어 시각적 깊이와 현대적 감각을 더합니다.
+   - Semantic Colors: Success(Green)는 완료된 학습 단계, Warning(Amber)은 주의사항, Destructive(Red)는 오류 피드백에 사용됩니다.
+   - Chart Colors: 5단계 교육 커리큘럼, 데이터 분석 결과(90만건→1,700건→200건), 시간 단축 효과(5분→1분) 등을 시각화하는 데 사용됩니다.
+
+4. USAGE GUIDE:
+   - Layout: Full-width hero section with gradient background, followed by centered container (max-w-7xl) for educational content. 5-step curriculum uses card-based Bento layout with numbered badges.
+   - Effects: backdrop-blur-xl for glassmorphic cards, subtle rim-light on interactive elements, smooth transitions for step progression.
+   - Interactive Components: Progress stepper (1→2→3→4→5), expandable code examples, SCAMPER/Lean Canvas interactive worksheets.
+   - Accessibility: WCAG AA contrast for Korean text, focus indicators for keyboard navigation, semantic HTML for screen readers.
+   - Project-Specific Rules: Blue section markers (like document), numbered steps with icons, case study cards for 나라장터 success story, prompt template code blocks with copy button.
+==========================================================================
+*/
+
+:root {
+  /* Typography */
+  --font-sans: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Core UI Tokens */
+  --background: oklch(0.99 0.002 240);
+  --foreground: oklch(0.15 0.012 240);
+  --card: oklch(0.98 0.004 240);
+  --card-foreground: oklch(0.18 0.012 240);
+  --popover: oklch(0.99 0.002 240);
+  --popover-foreground: oklch(0.15 0.012 240);
+  --primary: oklch(0.48 0.18 240);
+  --primary-foreground: oklch(0.98 0.004 240);
+  --secondary: oklch(0.92 0.008 240);
+  --secondary-foreground: oklch(0.22 0.012 240);
+  --muted: oklch(0.94 0.006 240);
+  --muted-foreground: oklch(0.48 0.012 240);
+  --accent: oklch(0.52 0.16 270);
+  --accent-foreground: oklch(0.98 0.004 270);
+  --destructive: oklch(0.55 0.22 15);
+  --destructive-foreground: oklch(0.98 0.004 15);
+  --border: oklch(0.88 0.008 240);
+  --input: oklch(0.88 0.008 240);
+  --ring: oklch(0.48 0.18 240);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.52 0.18 240);
+  --chart-2: oklch(0.58 0.16 270);
+  --chart-3: oklch(0.62 0.14 150);
+  --chart-4: oklch(0.68 0.12 50);
+  --chart-5: oklch(0.55 0.20 320);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.97 0.004 240);
+  --sidebar-foreground: oklch(0.25 0.012 240);
+  --sidebar-primary: oklch(0.48 0.18 240);
+  --sidebar-primary-foreground: oklch(0.98 0.004 240);
+  --sidebar-accent: oklch(0.92 0.008 240);
+  --sidebar-accent-foreground: oklch(0.22 0.012 240);
+  --sidebar-border: oklch(0.88 0.008 240);
+  --sidebar-ring: oklch(0.48 0.18 240);
+}
+
+.dark {
+  --background: oklch(0.12 0.015 240);
+  --foreground: oklch(0.92 0.006 240);
+  --card: oklch(0.15 0.018 240);
+  --card-foreground: oklch(0.90 0.006 240);
+  --popover: oklch(0.13 0.016 240);
+  --popover-foreground: oklch(0.92 0.006 240);
+  --primary: oklch(0.62 0.22 240);
+  --primary-foreground: oklch(0.12 0.015 240);
+  --secondary: oklch(0.22 0.020 240);
+  --secondary-foreground: oklch(0.88 0.006 240);
+  --muted: oklch(0.20 0.018 240);
+  --muted-foreground: oklch(0.62 0.010 240);
+  --accent: oklch(0.65 0.20 270);
+  --accent-foreground: oklch(0.12 0.015 270);
+  --destructive: oklch(0.62 0.26 15);
+  --destructive-foreground: oklch(0.95 0.004 15);
+  --border: oklch(0.25 0.020 240);
+  --input: oklch(0.25 0.020 240);
+  --ring: oklch(0.62 0.22 240);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.62 0.22 240);
+  --chart-2: oklch(0.68 0.20 270);
+  --chart-3: oklch(0.70 0.18 150);
+  --chart-4: oklch(0.75 0.16 50);
+  --chart-5: oklch(0.65 0.24 320);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.14 0.017 240);
+  --sidebar-foreground: oklch(0.88 0.006 240);
+  --sidebar-primary: oklch(0.62 0.22 240);
+  --sidebar-primary-foreground: oklch(0.12 0.015 240);
+  --sidebar-accent: oklch(0.22 0.020 240);
+  --sidebar-accent-foreground: oklch(0.88 0.006 240);
+  --sidebar-border: oklch(0.25 0.020 240);
+  --sidebar-ring: oklch(0.62 0.22 240);
+}
+
+@theme inline {
+  /* Shadcn Core Mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Charts Mapping */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar Mapping */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+  }
+}
