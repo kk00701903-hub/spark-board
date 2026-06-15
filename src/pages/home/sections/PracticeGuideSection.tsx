@@ -5,8 +5,7 @@ import {
   Brain, Clock, ChevronUp, ChevronDown, Target, Code2, ArrowRight,
 } from 'lucide-react';
 import { springGentle, springSnappy } from '../animations';
-import { CopyButton } from './CopyButton';
-import { HighlightedPrompt } from './HighlightedPrompt';
+import { EditablePrompt } from './EditablePrompt';
 
 const practices = [
   {
@@ -218,16 +217,12 @@ export function PracticeGuideSection() {
                         </div>
 
                         <div>
-                          <div className="flex items-center justify-between mb-3">
-                            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                              <Code2 className="w-4 h-4 text-accent" /> 실습용 프롬프트
-                            </h4>
-                            <CopyButton text={practice.prompt} />
-                          </div>
-                          <HighlightedPrompt
+                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3">
+                            <Code2 className="w-4 h-4 text-accent" /> 실습용 프롬프트
+                          </h4>
+                          <EditablePrompt
                             text={practice.prompt}
-                            highlightKey={practice.title}
-                            className="text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-4 overflow-auto max-h-52 border border-border"
+                            promptKey={practice.title}
                           />
                         </div>
                       </div>
@@ -239,12 +234,19 @@ export function PracticeGuideSection() {
           ))}
         </div>
 
-        <div className="mt-14 flex justify-center">
+        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            to="/workshop/setup"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 text-white font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            준비 단계: VS Code · Python 설치
+            <ArrowRight className="w-4 h-4" />
+          </Link>
           <Link
             to="/workshop/implement"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
           >
-            2단계: ChatGPT → VS Code 구현 실습으로 이동
+            2단계: ChatGPT → VS Code 구현 실습
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

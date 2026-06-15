@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, ChevronDown, ChevronUp, Clock, Code2, Rocket, Target,
+  ArrowLeft, ChevronDown, ChevronUp, Clock, Code2, Rocket, Target, Lightbulb, AlertCircle,
 } from 'lucide-react';
 import { springGentle, springSnappy } from '@/pages/home/animations';
-import { CopyButton } from '@/pages/home/sections/CopyButton';
-import { HighlightedPrompt } from '@/pages/home/sections/HighlightedPrompt';
+import { EditablePrompt } from '@/pages/home/sections/EditablePrompt';
 
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/\*\*/);
@@ -29,7 +28,8 @@ type PromptStep = {
   n: number;
   title: string;
   lead: string;
-  afterChat: string;
+  vsCodeSteps: string[];
+  tip?: string;
   prompt: string;
 };
 
@@ -39,9 +39,8 @@ type ImplementPractice = {
   icon: string;
   duration: string;
   difficulty: '초급' | '중급' | '고급';
-  screenCaption: string;
-  promptFocus: string;
-  aiRole: string;
+  summary: string;
+  warning: string;
   overviewSteps: string[];
   promptSteps: PromptStep[];
 };
@@ -49,108 +48,124 @@ type ImplementPractice = {
 const implementPractices: ImplementPractice[] = [
   {
     id: 'impl-1',
-    listTitle: '실습 1: 프로그램 폴더 뼈대 만들기',
+    listTitle: '실습 1: 프로그램 구조 뼈대 만들기',
     icon: '📁',
     duration: '약 45분',
     difficulty: '중급',
-    screenCaption:
-      'ChatGPT에 **질문 1번부터 순서대로** 보내고, 답을 **VS Code**에 새 파일로 붙여 넣어요. ChatGPT 창은 **이어서** 쓰면 앞 내용을 기억해 줘서 편해요.',
-    promptFocus:
-      '**1단계에서 쓴 글**은 **질문 1번**에만 길게 넣으면 됩니다. **새 채팅**이면 1단계 글을 다시 붙이고 "이걸로 파이썬 프로그램 만들 거야" 한 번 보낸 뒤 이어 가세요.',
-    aiRole:
-      'ChatGPT는 질문마다 답을 적어 줍니다. **파일 만들기·저장·실행**은 VS Code에서 직접 해요.',
+    summary:
+      '1단계에서 정리한 **아이디어 글**을 ChatGPT에게 보여 주고, 파이썬 프로그램에 필요한 **파일 구조를 함께 설계**합니다. ChatGPT가 알려 준 파일 내용을 VS Code에 **하나씩 붙여 넣어** 실제 프로젝트 폴더를 완성합니다.',
+    warning:
+      '⚠️ ChatGPT 창을 절대 닫지 마세요! 같은 창에서 질문을 이어서 보내야 ChatGPT가 앞 내용을 기억합니다.',
     overviewSteps: [
-      'VS Code에서 **빈 폴더**를 엽니다.',
-      '아래 **질문 1번부터** ChatGPT에 순서대로 보냅니다.',
-      '각 답을 VS Code에 옮긴 뒤 **다음 번호**로 넘어갑니다.',
-      '마지막에 README대로 **설치·실행**을 해 봅니다.',
+      'VS Code를 열고 **빈 폴더**를 하나 만들어 엽니다 (예: "my_project")',
+      '**질문 1**: 아이디어 글 붙여넣기 → ChatGPT가 어떤 파일이 필요한지 목록으로 알려 줌',
+      '**질문 2**: requirements.txt · .gitignore 내용 받기 → VS Code에 파일 만들어 저장',
+      '**질문 3**: README.md 내용 받기 → VS Code에 파일 만들어 저장',
+      '**질문 4**: main.py 코드 받기 → VS Code에 src 폴더 만들고 저장',
+      '**질문 5**: 테스트 코드 받기 → tests 폴더 만들고 저장 후 실행',
     ],
     promptSteps: [
       {
         n: 1,
-        title: '어떤 파일이 필요한지 먼저 물어보기',
-        lead:
-          'ChatGPT가 우리 아이디어를 이해하게 해요. 아래 프롬프트를 ChatGPT에 넣기 전, 칸에 **1단계 실습에서 정리한 글**을 붙여 넣으세요. (길면 요약만 넣어도 됩니다.)',
-        afterChat:
-          '아직 파일을 많이 만들 필요 없어요. 폴더·파일 **목록**만 메모해 두고 **질문 2번**으로 가요.',
-        prompt: `너는 중고등학생도 이해할 수 있게 말해 주는 Python 선생님이야.
+        title: '아이디어를 ChatGPT에 소개하고 파일 목록 받기',
+        lead: '1단계에서 정리한 글(페인포인트 분석, 린캔버스, 제안서 등)을 아래 노란 칸에 붙여 넣으세요. 그런 다음 "완성본 복사" 버튼을 눌러 ChatGPT 창에 붙여 넣고 전송합니다.\n\n💡 너무 길면 핵심 내용만 잘라도 됩니다.',
+        vsCodeSteps: [
+          'ChatGPT가 폴더·파일 목록을 텍스트 구조로 보여 줄 거예요.',
+          '아직 파일을 만들 필요 없어요. 목록만 눈으로 확인하고 **질문 2번**으로 넘어가세요.',
+        ],
+        tip: '새로운 아이디어라도 OK! ChatGPT가 적합한 파일 구조를 제안해 줘요.',
+        prompt: `너는 중고등학생도 쉽게 이해하도록 설명해 주는 파이썬 선생님이야.
 
-아래는 우리가 **1단계 실습**에서 이미 정리한 **아이디어와 설명**이야. 이걸 바탕으로 **파이썬 3.11 이상**으로 돌아가는 **작은 프로그램**을 만들 거야.
+아래는 내가 1단계 실습에서 정리한 아이디어야. 이걸 바탕으로 파이썬 3.11 이상으로 실행되는 작은 프로그램을 만들 거야.
 
---- 여기에 1단계에서 쓴 글 붙여넣기 ---
-[아이디어 정리, 캔버스, 제안서 중에서 복사한 내용]
----
+=== 1단계에서 정리한 내용 ===
+[여기에 1단계 아이디어 글 붙여넣기]
+===
 
-**지금은 코드를 쓰지 마.** 한국어로만 답해 줘.
+지금은 코드를 작성하지 마. 한국어로만 답해 줘.
 
-1) 이 아이디어를 **한 문장**으로 요약
-2) 만들 폴더와 파일 이름을 **나무 구조**처럼 그려 줘 (텍스트로)
-3) 각 파일이 **무슨 일**을 하는지 **한 줄씩**만 설명`,
+1) 이 아이디어를 한 문장으로 요약해 줘
+2) 만들 폴더와 파일 이름을 나무 구조(트리)처럼 그려 줘
+3) 각 파일이 어떤 역할을 하는지 한 줄씩 설명해 줘`,
       },
       {
         n: 2,
-        title: '필요한 도구 목록·업로드 제외 목록 받기',
-        lead:
-          '**같은 ChatGPT 대화**에서 이어서 보냅니다. (새 채팅이면: 1단계 글을 다시 붙이고 "이걸로 파이썬 프로그램 만들 거야" 한 번 보낸 뒤 이 프롬프트를 씁니다.)',
-        afterChat:
-          'VS Code 프로젝트 **맨 바깥**에 `requirements.txt`, `.gitignore`를 만들고 답 내용을 붙여 넣어 **저장**합니다.',
-        prompt: `아까 말한 **그 프로그램** 그대로로, 아래 두 파일의 **전체 내용**만 보여 줘. 각각 따로 코드 상자로 구분해 줘.
+        title: '필요한 도구 목록(requirements.txt)과 .gitignore 받기',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다. 프롬프트를 그대로 복사해서 전송하면 됩니다.',
+        vsCodeSteps: [
+          'VS Code 왼쪽 탐색기에서 "새 파일" 아이콘을 클릭합니다.',
+          '파일 이름을 **requirements.txt** 로 입력하고 Enter 를 누릅니다.',
+          'ChatGPT가 알려 준 requirements.txt 내용을 복사해 붙여 넣고 **Ctrl+S** 로 저장합니다.',
+          '같은 방법으로 **.gitignore** 파일도 만들고 내용을 붙여 넣어 저장합니다.',
+        ],
+        tip: 'requirements.txt 는 프로그램을 실행하는 데 필요한 도구(라이브러리) 목록이에요. 다른 PC에서도 같은 환경을 만들 수 있게 해줍니다.',
+        prompt: `방금 말한 그 프로그램 그대로, 아래 두 파일의 전체 내용만 각각 코드 상자로 보여 줘.
 
-1) requirements.txt — 필요한 파이썬 도구(라이브러리) 이름과 버전
-2) .gitignore — 파이썬 프로젝트에서 보통 안 올리는 파일 목록
+1) requirements.txt — 필요한 파이썬 라이브러리 이름과 버전 (예: pandas==2.2.0)
+2) .gitignore — 파이썬 프로젝트에서 깃(Git)에 올리면 안 되는 파일 목록
 
-설명은 **두 줄 이내**로만.`,
+설명은 두 줄 이내로만 해 줘.`,
       },
       {
         n: 3,
-        title: '설치·실행 방법 글 (README) 받기',
-        lead: '**같은 대화**에서 이어서 보냅니다.',
-        afterChat:
-          'VS Code에서 `README.md`를 만들고 받은 글을 통째로 붙여 넣습니다. 나중에 **실행 방법**은 여기만 보면 됩니다.',
-        prompt: `같은 프로그램에 대해 **README.md 전체**를 써 줘.
+        title: '설치·실행 안내문(README.md) 받기',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다.',
+        vsCodeSteps: [
+          'VS Code에서 "새 파일" → **README.md** 로 저장합니다.',
+          'ChatGPT 답을 전체 복사해 붙여 넣고 **Ctrl+S** 로 저장합니다.',
+          '나중에 실행 방법이 헷갈리면 이 파일을 보면 됩니다.',
+        ],
+        tip: 'README.md 는 프로그램 사용 설명서예요. 나중에 친구에게 보낼 때도 유용해요.',
+        prompt: `같은 프로그램의 README.md 전체를 한국어 마크다운 형식으로 써 줘.
 
-꼭 넣을 내용:
-- 이 프로그램이 뭔지 **한 줄** 설명
-- 파이썬 3.11 이상 쓴다고 적기
-- 가상환경 만드는 법 (예: python -m venv .venv)
-- 가상환경 켜는 법 (Windows 한 줄, 맥/리눅스 한 줄)
-- pip install -r requirements.txt
-- 프로그램 실행하는 명령 (예: python -m src.main)
-
-**한국어**로, 마크다운 형식으로.`,
+반드시 넣어야 할 내용:
+- 이 프로그램이 무엇인지 한 줄 설명
+- 파이썬 3.11 이상 필요하다고 적기
+- 가상환경 만드는 법: python -m venv .venv
+- 가상환경 활성화 방법 (Windows 한 줄, 맥/리눅스 한 줄 따로)
+- 라이브러리 설치: pip install -r requirements.txt
+- 프로그램 실행 명령어 (예: python main.py)`,
       },
       {
         n: 4,
-        title: '실제로 실행되는 메인 코드 받기',
-        lead:
-          '질문 2에서 나온 파일 이름이 `src/main.py`가 아니면, 프롬프트 안 경로를 그 이름으로 바꿔도 됩니다.',
-        afterChat:
-          'VS Code에서 `src` 폴더와 `main.py`(또는 답의 경로)를 만들고 코드를 붙여 넣어 **저장**합니다.',
-        prompt: `같은 프로그램에서 **아주 작게만** 돌아가는 **시작 파일** 코드를 줘.
+        title: '가장 중요한 메인 코드(main.py) 받기',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다. ChatGPT가 질문 1번에서 제안한 파일 경로와 다를 수도 있으니, 나온 경로 이름을 그대로 사용하세요.',
+        vsCodeSteps: [
+          'VS Code에서 **src 폴더**를 만듭니다 (탐색기에서 "새 폴더" 클릭).',
+          'src 폴더 안에 **main.py** 파일을 만듭니다.',
+          'ChatGPT가 준 코드 전체를 복사해 붙여 넣고 **Ctrl+S** 로 저장합니다.',
+          'VS Code 상단 메뉴 → 터미널 → 새 터미널을 엽니다.',
+          '터미널에서 **python src/main.py** 를 입력하고 Enter 를 눌러 실행해 봅니다.',
+        ],
+        tip: '오류가 나도 괜찮아요! 오류 메시지를 복사해서 실습 2의 질문 3번에 붙여 넣으면 됩니다.',
+        prompt: `같은 프로그램에서 일단 아주 간단하게만 돌아가는 시작 파일 코드를 줘.
 
 파일 경로: src/main.py
 
 조건:
-- 1단계 아이디어와 맞는 **간단한 동작** 하나만 (예: 화면에 한 줄 출력, 가짜 데이터 하나 처리)
-- 중요한 줄에는 **한국어 주석**
-- 변수 타입을 적는 **타입 힌트** 쓰기
-- 필요하면 **argparse**로 옵션 하나만
+- 1단계 아이디어와 어울리는 간단한 동작 하나만 (예: 화면에 결과 한 줄 출력)
+- 중요한 줄에는 한국어 주석으로 설명 달기
+- 변수에 타입을 표시하는 타입 힌트 사용 (예: name: str = "홍길동")
 
-**파일 전체**를 코드 상자 하나로.`,
+파일 전체를 코드 상자 하나로 보여 줘.`,
       },
       {
         n: 5,
-        title: '자동 점검용 테스트 코드 한 개 받기',
-        lead:
-          '프로그램이 맞게 도는지 **자동으로 확인**하는 코드를 받습니다.',
-        afterChat:
-          'VS Code에 `tests` 폴더와 답의 테스트 파일을 만든 뒤, 터미널에서 README나 안내대로 `pytest` 등을 쳐 봅니다.',
-        prompt: `같은 프로그램에 **pytest 테스트**를 **한 파일만** 추가해 줘.
+        title: '자동 확인용 테스트 코드 받고 실행해 보기',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다. 테스트 코드는 프로그램이 올바르게 작동하는지 자동으로 확인해 주는 코드예요.',
+        vsCodeSteps: [
+          'VS Code에서 **tests 폴더**를 만듭니다.',
+          'ChatGPT가 알려 준 파일 이름으로 tests 폴더 안에 파일을 만들고 코드를 붙여 넣어 저장합니다.',
+          '터미널에서 **pytest** 를 입력하고 Enter 를 눌러 실행합니다.',
+          '초록색 점(.) 이 나오면 성공! 빨간 F 가 나오면 실습 2 질문 3번으로 오류를 고칩니다.',
+        ],
+        tip: 'pytest 가 없다는 오류가 나오면 터미널에서 pip install pytest 를 먼저 실행하세요.',
+        prompt: `같은 프로그램에 pytest 테스트를 파일 하나만 추가해 줘.
 
-- src/main.py 안의 **함수나 동작** 하나를 테스트
-- 파일은 tests/ 안에 두기
-- **테스트 파일 전체**를 코드 상자로
-- 테스트 안에 **한국어 주석** 한 줄
+- src/main.py 안의 함수나 동작 중 하나를 테스트
+- 파일은 tests/ 폴더 안에 두기
+- 테스트 파일 전체를 코드 상자로 보여 줘
+- 테스트 코드 안에 한국어 주석으로 "이 테스트가 무엇을 확인하는지" 한 줄 적기
 
 한국어로 답해 줘.`,
       },
@@ -162,77 +177,86 @@ const implementPractices: ImplementPractice[] = [
     icon: '🔧',
     duration: '약 30분',
     difficulty: '중급',
-    screenCaption:
-      '기능은 **하나씩만** 추가합니다. VS Code 코드를 **복사**해 ChatGPT에 넣고, 돌아온 코드로 파일을 **고칩니다**. **빨간 오류**가 나면 터미널 글을 **통째로** 복사해 질문 3번을 반복합니다.',
-    promptFocus:
-      '**질문 1번**으로 코드 이해를 맞춘 뒤 **질문 2번**으로 기능을 시킵니다. 오류는 **질문 3번**만 여러 번 써도 됩니다.',
-    aiRole:
-      'ChatGPT는 단계마다 짧게 답하도록 나눠 두었습니다. 긴 코드는 **질문 2번**에서 받습니다.',
+    summary:
+      '실습 1에서 만든 뼈대에 **원하는 기능을 하나씩 추가**합니다. VS Code 코드를 ChatGPT에게 보여 주고, 돌아온 코드를 다시 VS Code에 붙여 넣어 반영합니다. **오류가 나면 터미널 메시지를 그대로 복사**해 ChatGPT에 붙여 넣으면 원인과 수정 방법을 알려줍니다.',
+    warning:
+      '⚠️ 기능은 한 번에 하나씩만 추가하세요. 여러 기능을 한꺼번에 요청하면 오류가 더 많아질 수 있어요.',
     overviewSteps: [
-      '추가할 기능을 **한 문장**으로 적어 둡니다.',
-      '**질문 1 → 2**를 같은 ChatGPT 대화에 순서대로 보냅니다.',
-      'VS Code에 반영한 뒤 **실행**해 봅니다.',
-      '오류가 나면 **질문 3**에 터미널 글만 붙여 넣습니다.',
+      '추가할 기능을 **한 문장**으로 먼저 적어 둡니다 (예: "CSV 파일을 불러와서 표로 보여 주기")',
+      '**질문 1**: 현재 코드를 ChatGPT에 보여 주고 이해를 맞춥니다',
+      '**질문 2**: 원하는 기능을 요청합니다 → VS Code에 반영 후 실행',
+      '**질문 3**: 오류가 나면 터미널 메시지를 복사해 붙여 넣습니다',
+      '기능이 잘 작동하면 **질문 2** 를 반복해 다음 기능을 추가합니다',
     ],
     promptSteps: [
       {
         n: 1,
-        title: '지금 코드가 뭘 하는지 맞추기',
-        lead:
-          '**새 채팅**이면: 프롬프트 안에 **1단계 아이디어 요약**과 **VS Code 코드**를 넣습니다.',
-        afterChat:
-          'ChatGPT 답을 읽고 이해가 되면 **질문 2번**으로 넘어갑니다.',
-        prompt: `너는 중고등학생도 이해시키는 Python 선생님이야. 내 프로젝트 상황을 맞추고 싶어.
+        title: '현재 코드를 ChatGPT에 보여 주고 상황 파악하기',
+        lead: '새 ChatGPT 창을 열거나 기존 대화에서 이어서 보냅니다. VS Code에서 현재 main.py 내용을 복사해 아래 노란 칸에 붙여 넣으세요.\n\n이 질문은 ChatGPT가 내 코드를 이해하도록 "준비 단계"예요. 아직 기능을 만들지 않아요.',
+        vsCodeSteps: [
+          'ChatGPT 답을 읽고 현재 코드에 대한 설명이 맞는지 확인합니다.',
+          '이해가 되면 **질문 2번**으로 넘어가 기능을 요청합니다.',
+        ],
+        tip: '새 ChatGPT 창을 열었다면, 1단계 아이디어 요약을 한 줄만 적어서 먼저 보내도 됩니다.',
+        prompt: `너는 중고등학생도 이해시키는 파이썬 선생님이야. 내 프로젝트 상황을 파악해 줘.
 
---- 1단계 아이디어 요약 (한 단락) ---
-[무슨 프로그램인지, 누가 쓰는지, 핵심 기능]
----
+=== 1단계 아이디어 요약 ===
+[무슨 프로그램인지, 누가 쓰는지, 핵심 기능을 2~3줄로]
+===
 
---- 지금 VS Code에 있는 코드 (복사해서 붙여넣기) ---
-[파일 전체 또는 중요한 부분만]
----
+=== 지금 VS Code에 있는 코드 ===
+[main.py 전체 또는 중요한 부분 복사해서 붙여넣기]
+===
 
-**지금은 코드를 고치지 마.** 한국어로만 답해 줘.
+지금은 코드를 수정하지 마. 한국어로만 답해 줘.
 
-1) 이 코드가 하는 일을 **초등학생에게 말하듯** 한 문장으로
-2) 나중에 기능을 넣을 때 **손댈 파일 후보**를 **최대 2개**까지`,
+1) 이 코드가 하는 일을 초등학생에게 말하듯 한 문장으로 설명해 줘
+2) 나중에 기능을 추가할 때 고쳐야 할 파일이 어디인지 최대 2개까지 알려 줘`,
       },
       {
         n: 2,
-        title: '새 기능 만들어 달라고 하기',
-        lead:
-          '**같은 대화**에서 이어서 보냅니다. [내가 원하는 기능]만 본인 말로 바꿉니다.',
-        afterChat:
-          '답의 파일별 코드를 VS Code에 옮기고 **저장**한 뒤, 터미널에서 실행해 봅니다.',
-        prompt: `같은 프로젝트야. 아래 기능을 **지금 구조 그대로** 살려서 만들어 줘.
+        title: '원하는 기능 하나를 만들어 달라고 요청하기',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다. 아래 노란 칸에 **내가 원하는 기능**을 구체적으로 적으세요.\n\n좋은 예: "CSV 파일 경로를 입력받아서 줄 개수와 열 이름을 출력"\n나쁜 예: "기능 추가해 줘" (너무 막연함)',
+        vsCodeSteps: [
+          'ChatGPT가 바꿀 파일과 전체 코드를 보여 줄 거예요.',
+          'VS Code에서 해당 파일을 열고 기존 내용을 **전부 지운 뒤** 새 코드를 붙여 넣습니다.',
+          '**Ctrl+S** 로 저장하고, 터미널에서 **python src/main.py** 로 실행해 봅니다.',
+          '잘 된다면 다음 기능은 이 질문 2번을 반복합니다. 오류가 나면 질문 3번으로 이동하세요.',
+        ],
+        tip: '기능이 복잡할수록 오류도 많아요. "작고 단순하게" 만들고 나서 조금씩 확장하는 게 좋습니다.',
+        prompt: `같은 프로젝트야. 아래 기능을 지금 폴더 구조 그대로 살려서 추가해 줘.
 
-만들 기능: [예: CSV 파일 경로를 입력받아서, 줄 개수랑 열 이름을 화면에 출력]
+추가할 기능: [예: CSV 파일 경로를 입력받아서, 줄 개수와 열 이름을 화면에 출력]
 
 규칙:
-- 먼저 **무엇을 어떻게 바꿀지** 3줄 이내로 설명
-- 고치거나 새로 만든 파일은 **파일 경로 + 전체 코드** 형태로 (코드 상자)
-- 사람이 읽기 쉬운 **한국어 오류 메시지**
-- 가능하면 tests/ 아래에 **테스트 코드** 하나
+- 먼저 무엇을 어떻게 바꿀지 3줄 이내로 설명해 줘
+- 고치거나 새로 만든 파일은 "파일 경로 + 전체 코드" 형태로 코드 상자에 담아 줘
+- 오류 메시지는 한국어로 출력되도록 해 줘
+- 가능하면 tests/ 폴더 아래에 테스트 코드도 하나 추가해 줘
 
 한국어로 답해 줘.`,
       },
       {
         n: 3,
-        title: '오류 났을 때 (같은 대화에 다시 보내기)',
-        lead:
-          '**빨간 오류**가 나면 터미널 글을 **전부 복사**해 아래 칸에 넣고, **같은 대화**에 보냅니다.',
-        afterChat:
-          '고쳐 준 파일을 VS Code에 반영하고 다시 실행합니다. 같은 오류면 **새 로그**로 질문 3을 반복합니다.',
-        prompt: `같은 프로젝트야. VS Code 터미널에서 돌렸더니 아래처럼 오류가 났어.
+        title: '오류가 났을 때 → 원인과 수정 코드 받기',
+        lead: '터미널에 빨간 오류가 나오면 당황하지 마세요! 오류 메시지를 **전체 선택(Ctrl+A) → 복사(Ctrl+C)** 한 뒤 아래 노란 칸에 붙여 넣고 전송합니다.\n\n같은 오류가 반복되면 새 코드로 다시 바꾼 뒤 이 질문을 다시 보내세요.',
+        vsCodeSteps: [
+          'ChatGPT가 원인과 수정된 파일 코드를 알려 줄 거예요.',
+          'VS Code에서 해당 파일을 열고 내용을 **전부 지운 뒤** 새 코드를 붙여 넣습니다.',
+          '**Ctrl+S** 로 저장하고 다시 실행해 봅니다.',
+          '오류가 또 나오면 새 로그를 복사해 이 질문을 다시 보냅니다.',
+        ],
+        tip: '터미널에서 오류를 복사할 때 마지막 "Traceback" 부분까지 포함해서 복사하면 ChatGPT가 더 정확히 분석해요.',
+        prompt: `같은 프로젝트야. VS Code 터미널에서 실행했더니 아래처럼 오류가 났어.
 
 이것만 답해 줘:
-1) 원인 **한 줄** 요약
-2) 고칠 **파일 경로**
-3) 그 파일의 **고친 뒤 전체 코드** (코드 상자 하나)
+1) 오류 원인을 한 줄로 요약
+2) 고쳐야 할 파일 경로
+3) 그 파일의 수정된 전체 코드를 코드 상자 하나에 담아 줘
 
 오류 전체 내용:
 \`\`\`
-[여기에 터미널에 나온 글 전부 붙여넣기]
+[여기에 터미널에 나온 오류 전체 붙여넣기]
 \`\`\``,
       },
     ],
@@ -268,20 +292,45 @@ export function ImplementPracticeSection() {
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            1단계 아이디어 실습으로 돌아가기
+            실습 단계 목록으로 돌아가기
           </Link>
         </div>
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
             <Rocket className="w-4 h-4" /> 2단계 · 구현 실습 (ChatGPT → VS Code)
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            구현 실습 (ChatGPT + VS Code)
+            ChatGPT로 코드 받고 VS Code에 적용하기
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            <BoldText text="**짧은 질문을 번호 순서대로** 보내면 따라 하기 쉬워요. 아래에서 **질문 카드를 펼쳐** 왼쪽 실습 순서와 오른쪽 **실습용 프롬프트**를 확인하세요. 1단계 글은 **실습 1의 질문 1번**에만 넣으면 됩니다." />
+            1단계에서 정리한 아이디어를 실제 파이썬 프로그램으로 만들어 봐요.
+            <br className="hidden sm:block" />
+            <strong className="text-foreground">코딩 경험이 없어도</strong> 프롬프트만 따라 하면 할 수 있어요!
           </p>
+        </div>
+
+        {/* 전체 흐름 안내 배너 */}
+        <div className="mb-10 rounded-2xl border border-border bg-card px-6 py-5">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">전체 진행 흐름</p>
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            {[
+              { icon: '📋', label: '프롬프트 복사' },
+              { icon: '💬', label: 'ChatGPT에 전송' },
+              { icon: '📄', label: '답 코드 복사' },
+              { icon: '💻', label: 'VS Code에 파일 저장' },
+              { icon: '▶️', label: '터미널에서 실행' },
+            ].map((item, i, arr) => (
+              <span key={i} className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted font-medium text-foreground">
+                  <span>{item.icon}</span> {item.label}
+                </span>
+                {i < arr.length - 1 && (
+                  <span className="text-muted-foreground font-bold">→</span>
+                )}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -332,20 +381,20 @@ export function ImplementPracticeSection() {
                     transition={springGentle}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 border-t border-border pt-6 space-y-8">
-                      <div className="rounded-xl border border-border bg-muted/30 p-4 sm:p-5 space-y-3 text-sm text-muted-foreground leading-relaxed">
-                        <p>
-                          <BoldText text={practice.screenCaption} />
-                        </p>
-                        <p>
-                          <BoldText text={practice.promptFocus} />
-                        </p>
-                        <p className="text-xs sm:text-sm border-t border-border pt-3">
-                          <span className="font-semibold text-foreground">역할: </span>
-                          {practice.aiRole}
-                        </p>
+                    <div className="px-6 pb-6 border-t border-border pt-6 space-y-6">
+
+                      {/* 요약 + 경고 */}
+                      <div className="space-y-3">
+                        <div className="rounded-xl border border-border bg-muted/30 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
+                          <BoldText text={practice.summary} />
+                        </div>
+                        <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 flex items-start gap-2">
+                          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                          <span>{practice.warning}</span>
+                        </div>
                       </div>
 
+                      {/* 전체 순서 */}
                       <div>
                         <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                           <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
@@ -364,6 +413,7 @@ export function ImplementPracticeSection() {
                         </div>
                       </div>
 
+                      {/* 질문 카드들 */}
                       <div className="space-y-3">
                         {practice.promptSteps.map((step, si) => {
                           const subOpen = openSubStep[practice.id];
@@ -384,8 +434,8 @@ export function ImplementPracticeSection() {
                                     {step.n}
                                   </div>
                                   <div className="min-w-0">
-                                    <div className="text-xs font-medium text-muted-foreground">질문 {step.n}</div>
-                                    <div className="font-bold text-foreground text-sm sm:text-base leading-snug truncate sm:whitespace-normal">
+                                    <div className="text-xs font-medium text-muted-foreground">ChatGPT 질문 {step.n}</div>
+                                    <div className="font-bold text-foreground text-sm sm:text-base leading-snug">
                                       {step.title}
                                     </div>
                                   </div>
@@ -408,42 +458,54 @@ export function ImplementPracticeSection() {
                                   >
                                     <div className="px-4 pb-4 sm:px-5 sm:pb-5 border-t border-border pt-4">
                                       <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                          <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                                            <Target className="w-4 h-4 text-primary shrink-0" /> 실습 순서
-                                          </h4>
-                                          <div className="space-y-3">
-                                            <div className="flex items-start gap-3">
-                                              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                <span className="text-xs font-bold text-primary">1</span>
-                                              </div>
-                                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                                <BoldText text={step.lead} />
-                                              </p>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                                                <span className="text-xs font-bold text-primary">2</span>
-                                              </div>
-                                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                                <span className="font-medium text-foreground">VS Code에서: </span>
-                                                <BoldText text={step.afterChat} />
-                                              </p>
+
+                                        {/* 왼쪽: 실습 순서 */}
+                                        <div className="space-y-4">
+                                          <div>
+                                            <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                                              <span className="text-base">💬</span> ChatGPT에 보내기 전
+                                            </h4>
+                                            <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                                              <BoldText text={step.lead} />
+                                            </p>
+                                          </div>
+
+                                          <div>
+                                            <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                                              <span className="text-base">💻</span> ChatGPT 답 받은 후 VS Code에서
+                                            </h4>
+                                            <div className="space-y-2">
+                                              {step.vsCodeSteps.map((vs, vsi) => (
+                                                <div key={vsi} className="flex items-start gap-2.5">
+                                                  <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <span className="text-xs font-bold text-accent">{vsi + 1}</span>
+                                                  </div>
+                                                  <p className="text-sm text-muted-foreground leading-relaxed">
+                                                    <BoldText text={vs} />
+                                                  </p>
+                                                </div>
+                                              ))}
                                             </div>
                                           </div>
+
+                                          {step.tip && (
+                                            <div className="flex items-start gap-2 rounded-lg bg-blue-50 border border-blue-100 px-3 py-2.5">
+                                              <Lightbulb className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                                              <p className="text-xs text-blue-700 leading-relaxed">
+                                                <BoldText text={step.tip} />
+                                              </p>
+                                            </div>
+                                          )}
                                         </div>
 
+                                        {/* 오른쪽: 프롬프트 */}
                                         <div>
-                                          <div className="flex items-center justify-between mb-3 gap-2">
-                                            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2 min-w-0">
-                                              <Code2 className="w-4 h-4 text-accent shrink-0" /> 실습용 프롬프트
-                                            </h4>
-                                            <CopyButton text={step.prompt} />
-                                          </div>
-                                          <HighlightedPrompt
+                                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3 min-w-0">
+                                            <Code2 className="w-4 h-4 text-accent shrink-0" /> 실습용 프롬프트
+                                          </h4>
+                                          <EditablePrompt
                                             text={step.prompt}
-                                            highlightKey={`${practice.id}-q${step.n}`}
-                                            className="text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-4 overflow-auto max-h-52 border border-border"
+                                            promptKey={`${practice.id}-q${step.n}`}
                                           />
                                         </div>
                                       </div>

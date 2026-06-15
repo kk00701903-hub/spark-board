@@ -21,11 +21,11 @@ export function PageShell({ children, title }: PageShellProps) {
           <span className="text-sm font-semibold text-foreground truncate text-center flex-1 min-w-0">
             {title}
           </span>
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0 transition-colors hover:opacity-90">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="font-bold text-foreground hidden sm:inline">AI 아이디어 스파크</span>
+            <span className="text-sm font-medium text-muted-foreground hover:text-foreground hidden sm:inline">홈으로 돌아가기</span>
           </Link>
         </div>
       </header>

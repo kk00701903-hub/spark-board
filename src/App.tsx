@@ -8,6 +8,7 @@ import CurriculumPage from "./pages/curriculum/Index";
 import PromptTemplatesPage from "./pages/prompt-templates/Index";
 import TimeSavingsPage from "./pages/time-savings/Index";
 import WorkshopPage from "./pages/workshop/Index";
+import SetupPage from "./pages/workshop/SetupPage";
 import ImplementPage from "./pages/workshop/ImplementPage";
 import NotFound from "./pages/not-found/Index";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/prompts" element={<PromptTemplatesPage />} />
           <Route path="/time-savings" element={<TimeSavingsPage />} />
           <Route path="/workshop" element={<WorkshopPage />} />
+          <Route path="/workshop/setup" element={<SetupPage />} />
           <Route path="/workshop/implement" element={<ImplementPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
