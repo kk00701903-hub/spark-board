@@ -243,10 +243,10 @@ export function PracticeGuideSection() {
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            to="/workshop/implement"
+            to="/workshop/example"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
           >
-            2단계: ChatGPT → VS Code 구현 실습
+            2단계: 예제로 먼저 연습하기
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
