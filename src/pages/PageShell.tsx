@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 type PageShellProps = {
   children: React.ReactNode;
@@ -11,14 +11,7 @@ export function PageShell({ children, title }: PageShellProps) {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors shrink-0"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            홈
-          </Link>
-          <span className="text-sm font-semibold text-foreground truncate text-center flex-1 min-w-0">
+          <span className="text-sm font-semibold text-foreground truncate flex-1 min-w-0">
             {title}
           </span>
           <Link to="/" className="flex items-center gap-2 shrink-0 transition-colors hover:opacity-90">
