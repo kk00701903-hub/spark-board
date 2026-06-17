@@ -79,6 +79,11 @@ function SampleAnswerPanel({ text, answerKey }: { text: string; answerKey: strin
   );
 }
 
+type OverviewStep = {
+  action: string;
+  reason: string;
+};
+
 type ExamplePractice = {
   id: string;
   listTitle: string;
@@ -86,7 +91,7 @@ type ExamplePractice = {
   duration: string;
   summary: string;
   warning: string;
-  overviewSteps: string[];
+  overviewSteps: OverviewStep[];
   promptSteps: PromptStep[];
 };
 
@@ -98,17 +103,38 @@ const examplePractices: ExamplePractice[] = [
     icon: '📁',
     duration: '약 45분',
     summary:
-      '**D:\\example\\명단.xlsx** 파일을 읽어 날짜를 선택하면 파일 이름을 자동으로 바꾸고, 첫 번째 열 데이터를 HTML로 만들어 브라우저에서 인쇄하는 프로그램을 만듭니다. 프롬프트에 예제 내용이 이미 채워져 있으니 **"완성본 복사" 버튼**만 눌러 ChatGPT에 붙여 넣으면 됩니다.',
+      '**D:\\example\\명단.xlsx** 파일을 읽어 날짜를 선택하면 파일 이름을 자동으로 바꾸고, 첫 번째 열 데이터를 HTML로 만들어 브라우저에서 인쇄하는 프로그램을 만듭니다. 프롬프트에 예제 내용이 이미 채워져 있으니 **"복사" 버튼**만 눌러 ChatGPT에 붙여 넣으면 됩니다.',
     warning:
       '⚠️ ChatGPT 창을 절대 닫지 마세요! 질문 1~5번은 모두 같은 창에서 이어서 보내야 합니다.',
     overviewSteps: [
-      '**예제 파일 준비**: D:\\example 폴더 만들기 → 명단.xlsx 만들어 저장 (아래 질문 1 안내 참고)',
-      'VS Code를 열고 **빈 폴더**를 하나 만들어 엽니다 (예: "excel_printer")',
-      '**질문 1**: 아이디어 소개 → 파일 목록(트리 구조) 확인',
-      '**질문 2**: requirements.txt 받기 → VS Code에 저장',
-      '**질문 3**: README.md 받기 → VS Code에 저장',
-      '**질문 4**: main.py 받기 → src 폴더 만들고 저장 → GUI 실행 확인',
-      '**질문 5**: 테스트 코드 받기 → tests 폴더에 저장 → pytest 실행',
+      {
+        action: '**예제 엑셀 파일 준비** — D:\\example 폴더를 만들고 명단.xlsx 저장',
+        reason: '프로그램이 읽을 **실제 엑셀 파일**이 있어야 해요. 요리할 **재료를 먼저 준비**하는 것과 같습니다. (아래 질문 1 안내 참고)',
+      },
+      {
+        action: '**VS Code에서 빈 폴더 열기** — 예: excel_printer',
+        reason: '앞으로 만들 파일들을 **한곳에 모아 둘 작업 공간**이 필요해요. 여러 파일이 흩어지면 나중에 찾기 어렵습니다.',
+      },
+      {
+        action: '**질문 1** — ChatGPT에 아이디어 소개 → 어떤 파일이 필요한지 목록 확인',
+        reason: '바로 코드를 짜지 않고, **설계도(파일 목록)를 먼저** 받는 단계예요. 집을 지을 때 설계도 없이 벽부터 쌓지 않는 것과 같아요.',
+      },
+      {
+        action: '**질문 2** — requirements.txt 받아서 VS Code에 저장',
+        reason: '엑셀 읽기·달력 선택에 필요한 **도구 목록**이에요. 앱 설치 전에 "필요한 프로그램 리스트"를 적어 두는 것과 비슷합니다.',
+      },
+      {
+        action: '**질문 3** — README.md 받아서 VS Code에 저장',
+        reason: '**사용 설명서**예요. 며칠 뒤 "어떻게 실행하지?" 헷갈릴 때 이 파일만 보면 됩니다.',
+      },
+      {
+        action: '**질문 4** — main.py 받아서 저장 → 프로그램 실행해 보기',
+        reason: '지금까지 준비한 것을 합쳐 **실제로 동작하는 프로그램**을 만드는 단계예요. 날짜 선택 → 엑셀 처리 → 인쇄까지 한 번에 확인합니다.',
+      },
+      {
+        action: '**질문 5** — 테스트 코드 받아서 pytest 설치 후 실행',
+        reason: '프로그램이 **제대로 작동하는지 자동으로 점검**해요. pytest 는 테스트 도구이므로 **먼저 설치**한 뒤 실행합니다. 시험지를 내고 채점하는 것과 같아요.',
+      },
     ],
     promptSteps: [
       {
@@ -123,7 +149,7 @@ const examplePractices: ExamplePractice[] = [
 4. 기존 데이터가 있다면 복사해서 A1 아래에 붙여넣기 해도 됩니다.
 5. 파일을 D:\\example\\명단.xlsx 로 저장합니다.
 
-준비가 끝나면 **"완성본 복사" 버튼**을 눌러 ChatGPT에 붙여 넣고 전송하세요.`,
+준비가 끝나면 **"복사" 버튼**을 눌러 ChatGPT에 붙여 넣고 전송하세요.`,
         vsCodeSteps: [
           'ChatGPT가 폴더·파일 목록을 트리 구조로 보여 줄 거예요.',
           '지금은 파일을 만들지 않아도 됩니다. 목록만 확인하고 **질문 2번**으로 넘어가세요.',
@@ -236,14 +262,16 @@ const examplePractices: ExamplePractice[] = [
       {
         n: 5,
         title: '테스트 코드 받고 pytest 실행해 보기',
-        lead: '같은 ChatGPT 창에서 이어서 보냅니다. 테스트 코드는 GUI를 실행하지 않고, 파일 이름 변경 로직과 HTML 생성 로직만 자동으로 확인합니다.',
+        lead: '같은 ChatGPT 창에서 이어서 보냅니다. 테스트 코드는 GUI를 실행하지 않고, 파일 이름 변경 로직과 HTML 생성 로직만 자동으로 확인합니다.\n\npytest 가 아직 설치되지 않았다면, 아래 VS Code 단계에서 **pip install pytest** 를 먼저 실행하세요. (질문 2에서 requirements.txt 로 이미 설치했다면 생략해도 됩니다.)',
         vsCodeSteps: [
           'VS Code에서 **tests 폴더**를 만듭니다.',
           'ChatGPT가 알려 준 파일 이름으로 tests 폴더 안에 파일을 만들고 코드를 붙여 넣어 저장합니다.',
-          '터미널에서 **pytest** 를 입력하고 Enter 를 눌러 실행합니다.',
+          '터미널 맨 앞에 **(.venv)** 가 보이는지 확인합니다. 없으면 가상환경 활성화 명령을 먼저 실행하세요.',
+          'pytest 가 없다면 터미널에 **pip install pytest** 를 입력하고 Enter 를 눌러 설치합니다.',
+          '설치가 끝나면 터미널에서 **pytest** 를 입력하고 Enter 를 눌러 테스트를 실행합니다.',
           '초록색 점(.) 이 나오면 성공! 빨간 F 가 나오면 예제 실습 2 질문 3번으로 오류를 고칩니다.',
         ],
-        tip: 'GUI(tkinter)는 테스트할 때 화면 없이 실행하기 어려워요. 그래서 핵심 로직(파일명 생성, HTML 내용 생성)만 함수로 분리해서 테스트합니다.',
+        tip: '「pytest를 찾을 수 없습니다」 오류가 나오면 pip install pytest 를 실행하세요. 질문 2에서 pip install -r requirements.txt 를 했다면 pytest 는 이미 설치된 상태일 수 있어요.',
         prompt: `같은 엑셀 명단 자동 인쇄 프로그램에 pytest 테스트를 파일 하나만 추가해 줘.
 
 테스트할 항목:
@@ -271,10 +299,22 @@ const examplePractices: ExamplePractice[] = [
     warning:
       '⚠️ 기능은 한 번에 하나씩만 추가하세요. 여러 개를 한꺼번에 요청하면 오류가 더 많아질 수 있어요.',
     overviewSteps: [
-      '**질문 1**: 현재 코드를 ChatGPT에 보여 주고 이해를 맞춥니다',
-      '**질문 2**: GUI에 "미리보기" 리스트박스 추가 요청 → VS Code에 반영 후 실행',
-      '**질문 3**: 오류가 나면 터미널 메시지를 복사해 붙여 넣기',
-      '잘 동작하면 3단계로 넘어가 **내 아이디어**를 직접 만들어 봅니다',
+      {
+        action: '**질문 1** — 지금 만든 코드를 ChatGPT에 보여 주고 이해 맞추기',
+        reason: '기능을 추가하기 전에 ChatGPT가 **내 프로그램 상태를 파악**하게 해요. 의사에게 증상만 말하기 전에 현재 상태를 알려 주는 것과 같습니다.',
+      },
+      {
+        action: '**질문 2** — "미리보기" 기능 추가 요청 → VS Code에 반영 후 실행',
+        reason: '실행 버튼을 누르기 전에 **명단이 맞는지 먼저 확인**하는 기능이에요. 인쇄하기 전에 종이 내용을 한번 훑어보는 것과 같아요.',
+      },
+      {
+        action: '**질문 3** — 오류가 나면 터미널 메시지를 ChatGPT에 보내기',
+        reason: '프로그램은 처음에 오류가 나는 경우가 많아요. **빨간 글씨(오류 메시지)를 그대로 복사**해내면 ChatGPT가 원인과 수정 방법을 알려 줍니다.',
+      },
+      {
+        action: '**완료 후** — 3단계로 넘어가 내 아이디어 직접 만들기',
+        reason: '예제에서 익힌 **"질문 → 답 복사 → VS Code 저장 → 실행"** 흐름을 이번엔 **내 아이디어**에 그대로 적용합니다.',
+      },
     ],
     promptSteps: [
       {
@@ -431,7 +471,7 @@ export function ExamplePracticeSection() {
             <p className="font-semibold text-blue-800 mb-1">이 단계는 예제를 따라하는 연습이에요</p>
             <p className="text-sm text-blue-700 leading-relaxed">
               프롬프트에 <strong>예제 내용이 미리 채워져 있어요.</strong>{' '}
-              노란 칸을 수정하지 않고 "완성본 복사" 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
+              노란 칸을 수정하지 않고 "복사" 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
               단, <strong>질문 1번 전에 D:\example\명단.xlsx 파일을 먼저 준비하세요!</strong>{' '}
               이 흐름을 익힌 뒤, <strong>3단계</strong>에서 내 아이디어로 직접 만들어 보세요!
             </p>
@@ -447,20 +487,36 @@ export function ExamplePracticeSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ ...springSnappy, delay: i * 0.05 }}
-              className="bg-card rounded-2xl border border-border overflow-hidden"
-              style={{ boxShadow: '0 4px 12px -4px oklch(0.48 0.18 240 / 0.06)' }}
+              className={[
+                'rounded-2xl border-2 overflow-hidden',
+                i === 0
+                  ? 'bg-blue-50/60 border-blue-400 ring-2 ring-blue-200/80'
+                  : 'bg-indigo-50/60 border-indigo-400 ring-2 ring-indigo-200/80',
+              ].join(' ')}
+              style={{ boxShadow: '0 8px 24px -8px oklch(0.48 0.18 240 / 0.18)' }}
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-muted/30 transition-colors"
+                className={[
+                  'w-full flex items-center justify-between p-6 text-left transition-colors',
+                  i === 0 ? 'hover:bg-blue-100/50' : 'hover:bg-indigo-100/50',
+                ].join(' ')}
               >
                 <div className="flex items-center gap-4 min-w-0">
                   <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-2xl shrink-0">
                     {practice.icon}
                   </div>
                   <div className="min-w-0">
-                    <div className="font-bold text-foreground">{practice.listTitle}</div>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className={[
+                        'text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full',
+                        i === 0 ? 'bg-blue-200 text-blue-800' : 'bg-indigo-200 text-indigo-800',
+                      ].join(' ')}>
+                        예제 실습 {i + 1}
+                      </span>
+                    </div>
+                    <div className="font-bold text-foreground">{practice.listTitle.replace(/^예제 실습 \d+: /, '')}</div>
                     <div className="flex items-center gap-3 mt-1 flex-wrap">
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Clock className="w-3 h-3 shrink-0" /> {practice.duration}
@@ -485,7 +541,10 @@ export function ExamplePracticeSection() {
                     transition={springGentle}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 border-t border-border pt-6 space-y-6">
+                    <div className={[
+                      'px-6 pb-6 border-t pt-6 space-y-6',
+                      i === 0 ? 'border-blue-200/60' : 'border-indigo-200/60',
+                    ].join(' ')}>
                       {/* 요약 + 경고 */}
                       <div className="space-y-3">
                         <div className="rounded-xl border border-border bg-muted/30 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
@@ -499,18 +558,30 @@ export function ExamplePracticeSection() {
 
                       {/* 전체 순서 */}
                       <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                        <h4 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
                           <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
                         </h4>
-                        <div className="space-y-2">
+                        <p className="text-xs text-muted-foreground mb-4">
+                          무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
+                        </p>
+                        <div className="space-y-3">
                           {practice.overviewSteps.map((step, si) => (
-                            <div key={si} className="flex items-start gap-3">
-                              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                            <div
+                              key={si}
+                              className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3"
+                            >
+                              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                                 <span className="text-xs font-bold text-primary">{si + 1}</span>
                               </div>
-                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                <BoldText text={step} />
-                              </p>
+                              <div className="min-w-0">
+                                <p className="text-sm text-foreground leading-relaxed font-medium">
+                                  <BoldText text={step.action} />
+                                </p>
+                                <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                                  <span className="text-blue-600 font-semibold">왜? </span>
+                                  <BoldText text={step.reason} />
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -606,6 +677,7 @@ export function ExamplePracticeSection() {
                                           <EditablePrompt
                                             text={step.prompt}
                                             promptKey={`${practice.id}-q${step.n}`}
+                                            showSave={false}
                                           />
                                         </div>
                                       </div>

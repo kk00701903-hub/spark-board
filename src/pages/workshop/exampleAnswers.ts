@@ -158,7 +158,13 @@ if __name__ == "__main__":
     App().mainloop()
 \`\`\``;
 
-export const EX1_Q5_ANSWER = `tests/test_main.py
+export const EX1_Q5_ANSWER = `먼저 pytest 설치 (아직 안 했다면)
+\`\`\`
+pip install pytest
+\`\`\`
+※ 질문 2에서 pip install -r requirements.txt 를 실행했다면 pytest 는 이미 설치되어 있을 수 있습니다.
+
+tests/test_main.py
 \`\`\`python
 """파일명 생성·HTML 생성 로직 테스트"""
 import sys, os
@@ -177,7 +183,13 @@ def test_build_html_contains_title_and_items():
     assert "<title>명단_20260617</title>" in html
     assert "<li>홍길동</li>" in html
     assert "window.print()" in html
-\`\`\``;
+\`\`\`
+
+터미널에서 실행:
+\`\`\`
+pytest
+\`\`\`
+초록색 점(.) 이 나오면 성공입니다.`;
 
 export const EX2_Q1_ANSWER = `1) 초등학생 설명
 "엑셀에 적어 둔 이름 목록을 날짜별로 저장하고, 컴퓨터가 알아서 인쇄할 수 있는 종이(HTML)를 만들어 주는 프로그램이에요."

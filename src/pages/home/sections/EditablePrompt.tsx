@@ -122,9 +122,11 @@ function SavedEntryRow({
 type Props = {
   text: string;
   promptKey?: string;
+  /** false이면 저장 버튼·저장 내역 숨김 (2단계 예제 등) */
+  showSave?: boolean;
 };
 
-export function EditablePrompt({ text, promptKey = 'ep' }: Props) {
+export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Props) {
   const segments = useMemo(() => parse(text), [text]);
   const slotCount = useMemo(
     () => segments.filter((s) => s.kind === 'slot').length,
@@ -200,20 +202,21 @@ export function EditablePrompt({ text, promptKey = 'ep' }: Props) {
           )}
         </p>
         <div className="flex items-center gap-1.5">
-          {/* 저장 버튼 */}
-          <button
-            type="button"
-            onClick={handleSave}
-            className={[
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all',
-              saveFlash
-                ? 'bg-green-500 text-white'
-                : 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100',
-            ].join(' ')}
-          >
-            {saveFlash ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
-            {saveFlash ? '저장됨 ✓' : '저장'}
-          </button>
+          {showSave && (
+            <button
+              type="button"
+              onClick={handleSave}
+              className={[
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all',
+                saveFlash
+                  ? 'bg-green-500 text-white'
+                  : 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100',
+              ].join(' ')}
+            >
+              {saveFlash ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+              {saveFlash ? '저장됨 ✓' : '저장'}
+            </button>
+          )}
           {/* 복사 버튼 */}
           <button
             type="button"
@@ -226,7 +229,7 @@ export function EditablePrompt({ text, promptKey = 'ep' }: Props) {
             ].join(' ')}
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied ? '복사됨 ✓' : '완성본 복사'}
+            {copied ? '복사됨 ✓' : '복사'}
           </button>
         </div>
       </div>
@@ -281,7 +284,7 @@ export function EditablePrompt({ text, promptKey = 'ep' }: Props) {
       </div>
 
       {/* 저장 내역 */}
-      {saved.length > 0 && (
+      {showSave && saved.length > 0 && (
         <div className="mt-2">
           <button
             type="button"
