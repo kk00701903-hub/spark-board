@@ -11,6 +11,7 @@ import {
   EX1_Q1_ANSWER, EX1_Q2_ANSWER, EX1_Q3_ANSWER, EX1_Q4_ANSWER, EX1_Q5_ANSWER,
   EX2_Q1_ANSWER, EX2_Q2_ANSWER, EX2_Q3_ANSWER,
 } from '@/pages/workshop/exampleAnswers';
+import { ExampleExcelSamplePanel } from '@/pages/workshop/ExampleExcelSamplePanel';
 
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/\*\*/);
@@ -142,14 +143,11 @@ const examplePractices: ExamplePractice[] = [
         title: '예제 파일 준비 안내 + 아이디어를 ChatGPT에 소개하기',
         lead: `ChatGPT에 보내기 전에 예제 엑셀 파일을 먼저 준비하세요.
 
-📂 예제 파일 준비 방법:
-1. 탐색기에서 D:\\example 폴더를 만듭니다.
-2. 엑셀(Excel)을 열고 A1 셀에 "이름"이라고 입력합니다.
-3. A2부터 아래로 이름을 입력합니다 (예: 홍길동, 김철수, 이영희 …).
-4. 기존 데이터가 있다면 복사해서 A1 아래에 붙여넣기 해도 됩니다.
-5. 파일을 D:\\example\\명단.xlsx 로 저장합니다.
+1. 탐색기에서 **D:\\example** 폴더를 만듭니다.
+2. 아래 **예제 엑셀 파일** 박스에서 **다운로드**하거나, **복사 → 엑셀 A1에 붙여넣기**로 명단을 만듭니다.
+3. 파일을 **D:\\example\\명단.xlsx** 로 저장합니다.
 
-준비가 끝나면 **"복사" 버튼**을 눌러 ChatGPT에 붙여 넣고 전송하세요.`,
+준비가 끝나면 오른쪽 **"복사" 버튼**을 눌러 ChatGPT에 붙여 넣고 전송하세요.`,
         vsCodeSteps: [
           'ChatGPT가 폴더·파일 목록을 트리 구조로 보여 줄 거예요.',
           '지금은 파일을 만들지 않아도 됩니다. 목록만 확인하고 **질문 2번**으로 넘어가세요.',
@@ -719,6 +717,9 @@ export function ExamplePracticeSection() {
                                               <BoldText text={step.lead} />
                                             </p>
                                           </div>
+                                          {practice.id === 'ex-1' && step.n === 1 && (
+                                            <ExampleExcelSamplePanel />
+                                          )}
                                           <div>
                                             <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                                               <span className="text-base">💻</span> ChatGPT 답 받은 후 VS Code에서
