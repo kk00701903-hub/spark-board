@@ -1,40 +1,93 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ClipboardCheck, FlaskConical, Lightbulb, Wrench } from 'lucide-react';
-import { EXAMPLE_ROUTES } from '@/pages/workshop/examplePracticeData';
+import {
+  EXAMPLE_ROUTES,
+  type ExampleFocusStep,
+} from '@/pages/workshop/examplePracticeData';
 
-export function ExampleHubSection() {
-  const steps = [
-    {
-      number: 1,
-      title: '예제 실습 1',
-      subtitle: '엑셀 명단 자동 인쇄 프로그램 뼈대 만들기',
-      description: 'ChatGPT와 VS Code로 프로그램 뼈대를 처음부터 만듭니다. 질문 5개를 순서대로 진행해요.',
-      to: EXAMPLE_ROUTES.ex1,
-      icon: '📁',
-      accent: 'blue',
-      highlight: true,
-    },
-    {
-      number: 2,
-      title: '예제 실습 2',
-      subtitle: '기능 더하기 & 오류 고치기',
-      description: '미리보기 기능을 추가하고, 오류가 나면 ChatGPT로 고치는 방법을 연습합니다.',
-      to: EXAMPLE_ROUTES.ex2,
-      icon: '🔧',
-      accent: 'indigo',
-      highlight: false,
-    },
-    {
-      number: 3,
-      title: '이해도 확인',
-      subtitle: '5문제 퀴즈',
-      description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
-      to: EXAMPLE_ROUTES.quiz,
-      icon: '✅',
-      accent: 'neutral',
-      highlight: false,
-    },
-  ] as const;
+const steps = [
+  {
+    id: 'ex-1' as const,
+    number: 1,
+    title: '예제 실습 1',
+    subtitle: '엑셀 명단 자동 인쇄 프로그램 뼈대 만들기',
+    description: 'ChatGPT와 VS Code로 프로그램 뼈대를 처음부터 만듭니다. 질문 5개를 순서대로 진행해요.',
+    to: EXAMPLE_ROUTES.ex1,
+    icon: '📁',
+    accent: 'blue' as const,
+  },
+  {
+    id: 'ex-2' as const,
+    number: 2,
+    title: '예제 실습 2',
+    subtitle: '기능 더하기 & 오류 고치기',
+    description: '미리보기 기능을 추가하고, 오류가 나면 ChatGPT로 고치는 방법을 연습합니다.',
+    to: EXAMPLE_ROUTES.ex2,
+    icon: '🔧',
+    accent: 'indigo' as const,
+  },
+  {
+    id: 'quiz' as const,
+    number: 3,
+    title: '이해도 확인',
+    subtitle: '5문제 퀴즈',
+    description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
+    to: EXAMPLE_ROUTES.quiz,
+    icon: '✅',
+    accent: 'amber' as const,
+  },
+];
+
+const focusCta: Record<
+  ExampleFocusStep,
+  { to: string; label: string; buttonClass: string; icon: typeof Wrench }
+> = {
+  'ex-1': {
+    to: EXAMPLE_ROUTES.ex1,
+    label: '예제 실습 1 시작하기',
+    buttonClass: 'bg-blue-600 hover:opacity-90',
+    icon: Wrench,
+  },
+  'ex-2': {
+    to: EXAMPLE_ROUTES.ex2,
+    label: '예제 실습 2 시작하기',
+    buttonClass: 'bg-indigo-600 hover:opacity-90',
+    icon: Wrench,
+  },
+  quiz: {
+    to: EXAMPLE_ROUTES.quiz,
+    label: '이해도 확인 시작하기',
+    buttonClass: 'bg-amber-600 hover:opacity-90',
+    icon: ClipboardCheck,
+  },
+};
+
+function cardClass(accent: 'blue' | 'indigo' | 'amber', highlighted: boolean): string {
+  if (!highlighted) {
+    return 'border-border bg-card hover:border-muted-foreground/30';
+  }
+  if (accent === 'blue') {
+    return 'border-blue-400 bg-blue-50/60 ring-2 ring-blue-200/80 shadow-md hover:border-blue-500';
+  }
+  if (accent === 'indigo') {
+    return 'border-indigo-400 bg-indigo-50/60 ring-2 ring-indigo-200/80 shadow-md hover:border-indigo-500';
+  }
+  return 'border-amber-400 bg-amber-50/60 ring-2 ring-amber-200/80 shadow-md hover:border-amber-500';
+}
+
+function highlightLabelClass(accent: 'blue' | 'indigo' | 'amber'): string {
+  if (accent === 'blue') return 'text-blue-700';
+  if (accent === 'indigo') return 'text-indigo-700';
+  return 'text-amber-800';
+}
+
+type ExampleHubSectionProps = {
+  focusStep?: ExampleFocusStep;
+};
+
+export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps) {
+  const cta = focusCta[focusStep];
+  const CtaIcon = cta.icon;
 
   return (
     <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
@@ -96,46 +149,50 @@ export function ExampleHubSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-4 mb-10">
-          {steps.map((step) => (
-            <Link
-              key={step.to}
-              to={step.to}
-              className={[
-                'rounded-2xl border-2 p-6 text-left transition-all duration-200 hover:scale-[1.01] hover:shadow-md group',
-                step.highlight
-                  ? 'border-blue-400 bg-blue-50/60 ring-2 ring-blue-200/80 shadow-md hover:border-blue-500'
-                  : step.accent === 'indigo'
-                    ? 'border-border bg-card hover:border-indigo-300'
-                    : 'border-border bg-card hover:border-amber-300',
-              ].join(' ')}
-            >
-              <div className="text-3xl mb-3">{step.icon}</div>
-              <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
-                {step.highlight ? (
-                  <span className="text-blue-700">지금 시작 · {step.number}단계</span>
-                ) : (
-                  <span>{step.number}단계</span>
-                )}
-              </div>
-              <div className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
-                {step.title}
-              </div>
-              <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-              <span className="text-sm font-semibold text-primary inline-flex items-center gap-1">
-                시작하기 <ArrowRight className="w-4 h-4" />
-              </span>
-            </Link>
-          ))}
+          {steps.map((step) => {
+            const highlighted = step.id === focusStep;
+            return (
+              <Link
+                key={step.to}
+                to={step.to}
+                className={[
+                  'rounded-2xl border-2 p-6 text-left transition-all duration-200 hover:scale-[1.01] hover:shadow-md group',
+                  cardClass(step.accent, highlighted),
+                ].join(' ')}
+              >
+                <div className="text-3xl mb-3">{step.icon}</div>
+                <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
+                  {highlighted ? (
+                    <span className={highlightLabelClass(step.accent)}>
+                      지금 시작 · {step.number}단계
+                    </span>
+                  ) : (
+                    <span>{step.number}단계</span>
+                  )}
+                </div>
+                <div className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
+                  {step.title}
+                </div>
+                <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{step.description}</p>
+                <span className="text-sm font-semibold text-primary inline-flex items-center gap-1">
+                  시작하기 <ArrowRight className="w-4 h-4" />
+                </span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="text-center">
           <Link
-            to={EXAMPLE_ROUTES.ex1}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+            to={cta.to}
+            className={[
+              'inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]',
+              cta.buttonClass,
+            ].join(' ')}
           >
-            <Wrench className="w-4 h-4" />
-            예제 실습 1 시작하기
+            <CtaIcon className="w-4 h-4" />
+            {cta.label}
             <ArrowRight className="w-4 h-4" />
           </Link>
           <p className="text-xs text-muted-foreground mt-3 flex items-center justify-center gap-1.5">

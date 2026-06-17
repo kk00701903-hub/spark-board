@@ -37,6 +37,18 @@ export const EXAMPLE_ROUTES = {
   quiz: '/workshop/example/quiz',
 } as const;
 
+export type ExampleFocusStep = 'ex-1' | 'ex-2' | 'quiz';
+
+export function exampleHubPath(focus: ExampleFocusStep = 'ex-1'): string {
+  if (focus === 'ex-1') return EXAMPLE_ROUTES.hub;
+  return `${EXAMPLE_ROUTES.hub}?focus=${focus}`;
+}
+
+export function parseExampleFocusStep(value: string | null): ExampleFocusStep {
+  if (value === 'ex-2' || value === 'quiz') return value;
+  return 'ex-1';
+}
+
 export const examplePractices: ExamplePractice[] = [
   {
     id: 'ex-1',

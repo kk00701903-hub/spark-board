@@ -1,6 +1,6 @@
 import { PageShell } from '@/pages/PageShell';
 import { ExamplePracticeDetail } from '@/pages/workshop/ExamplePracticeDetail';
-import { EXAMPLE_ROUTES, examplePractice1 } from '@/pages/workshop/examplePracticeData';
+import { EXAMPLE_ROUTES, exampleHubPath, examplePractice1 } from '@/pages/workshop/examplePracticeData';
 
 export default function ExamplePractice1Page() {
   return (
@@ -9,7 +9,7 @@ export default function ExamplePractice1Page() {
         practice={examplePractice1}
         practiceNumber={1}
         prev={{ label: '2단계 개요', to: EXAMPLE_ROUTES.hub }}
-        next={{ label: '예제 실습 2', to: EXAMPLE_ROUTES.ex2 }}
+        next={{ label: '예제 실습 2 안내', to: exampleHubPath('ex-2') }}
       />
     </PageShell>
   );
