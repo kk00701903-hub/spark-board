@@ -192,13 +192,19 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
     <div>
       {/* 안내 + 버튼 영역 */}
       <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
-        <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+        <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
           <span className="inline-block w-3 h-3 rounded-sm bg-yellow-200 border border-yellow-400 shrink-0" />
           노란 칸을 클릭해 내용을 직접 입력하거나 붙여넣으세요.
+          {slotCount > 0 && segments.some((s) => s.kind === 'slot' && s.multiline) && (
+            <span className="text-muted-foreground/80">긴 내용은 칸 안에서 스크롤해 보세요.</span>
+          )}
           {slotCount > 0 && (
-            <span className="ml-1 text-yellow-700 font-medium">
+            <span className="text-yellow-700 font-medium">
               ({filledCount}/{slotCount} 입력됨)
             </span>
+          )}
+          {slotCount > 0 && (
+            <span className="text-muted-foreground/80">복사 버튼은 입력한 전체 내용이 포함됩니다.</span>
           )}
         </p>
         <div className="flex items-center gap-1.5">
@@ -248,10 +254,11 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
                 value={values[seg.idx]}
                 onChange={(e) => setVal(seg.idx, e.target.value)}
                 placeholder={seg.placeholder}
-                rows={3}
+                rows={4}
                 className={[
-                  'block w-full my-1.5 px-3 py-2 rounded-lg text-sm font-sans resize-y',
+                  'block w-full my-1.5 px-3 py-2 rounded-lg text-xs font-mono resize-none',
                   'border-2 bg-yellow-50 placeholder:text-yellow-700/70 text-foreground',
+                  'min-h-[6.5rem] max-h-[6.5rem] overflow-y-auto overflow-x-auto whitespace-pre-wrap break-all',
                   values[seg.idx] ? 'border-yellow-400' : 'border-yellow-300',
                   'focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200',
                   'transition-colors',

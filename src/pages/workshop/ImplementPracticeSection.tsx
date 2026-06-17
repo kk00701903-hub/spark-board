@@ -296,6 +296,17 @@ export function ImplementPracticeSection() {
           </Link>
         </div>
 
+        <div className="mb-8 rounded-2xl border-2 border-purple-200 bg-purple-50 px-6 py-5 flex items-start gap-3">
+          <Rocket className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-purple-900 mb-1">교육 종료 후 개별 실습 단계</p>
+            <p className="text-sm text-purple-800 leading-relaxed">
+              3단계는 오늘 수업 시간에 함께 진행하지 않아요.
+              교육이 끝난 뒤 집이나 개인 시간에 <strong>1단계에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
+            </p>
+          </div>
+        </div>
+
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
             <Rocket className="w-4 h-4" /> 3단계 · 내 아이디어 구현하기 (ChatGPT → VS Code)
@@ -307,6 +318,8 @@ export function ImplementPracticeSection() {
             2단계 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
             <br className="hidden sm:block" />
             이번엔 <strong className="text-foreground">1단계에서 정리한 내 아이디어</strong>를 파이썬 프로그램으로 만듭니다.
+            <br className="hidden sm:block" />
+            <span className="text-sm">(교육 당일이 아닌, 이후 개별 실습용 안내입니다)</span>
           </p>
         </div>
 

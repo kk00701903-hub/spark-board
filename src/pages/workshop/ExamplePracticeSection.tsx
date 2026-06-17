@@ -12,6 +12,7 @@ import {
   EX2_Q1_ANSWER, EX2_Q2_ANSWER, EX2_Q3_ANSWER,
 } from '@/pages/workshop/exampleAnswers';
 import { ExampleExcelSamplePanel } from '@/pages/workshop/ExampleExcelSamplePanel';
+import { ExampleStep2Quiz } from '@/pages/workshop/ExampleStep2Quiz';
 
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/\*\*/);
@@ -38,7 +39,27 @@ type PromptStep = {
   tip?: string;
   prompt: string;
   answer: string;
+  conditionReasons?: { condition: string; reason: string }[];
 };
+
+function PromptConditionReasons({ items }: { items: { condition: string; reason: string }[] }) {
+  return (
+    <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50/60 p-4">
+      <h5 className="text-xs font-semibold text-purple-900 mb-3">프롬프트 조건 4가지 — 왜 넣었을까?</h5>
+      <div className="space-y-3">
+        {items.map((item, i) => (
+          <div key={i} className="text-xs leading-relaxed">
+            <p className="font-medium text-foreground">{i + 1}. {item.condition}</p>
+            <p className="text-muted-foreground mt-0.5 pl-3">
+              <span className="text-purple-700 font-semibold">이유: </span>
+              {item.reason}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function SampleAnswerPanel({ text, answerKey }: { text: string; answerKey: string }) {
   const [open, setOpen] = useState(false);
@@ -284,6 +305,24 @@ const examplePractices: ExamplePractice[] = [
 
 한국어로 답해 줘.`,
         answer: EX1_Q5_ANSWER,
+        conditionReasons: [
+          {
+            condition: '파일은 tests/ 폴더 안에 두기',
+            reason: '질문 1에서 정한 프로젝트 구조와 맞추고, pytest가 테스트 파일을 자동으로 찾기 쉬워요. main.py와 테스트를 분리해 폴더를 깔끔하게 유지합니다.',
+          },
+          {
+            condition: 'GUI(tkinter)는 import 하지 않도록 함수를 분리해서 테스트',
+            reason: '테스트할 때마다 창이 뜨면 자동 확인이 어렵고 시간도 오래 걸려요. 파일 이름·HTML 만드는 로직만 따로 테스트하면 빠르고 안정적으로 확인할 수 있습니다.',
+          },
+          {
+            condition: '테스트 파일 전체를 코드 상자로 보여 줘',
+            reason: 'ChatGPT 답을 통째로 복사해 VS Code에 붙여 넣기 쉽게 하려는 거예요. 일부만 주면 빠진 줄이 있어 실행이 안 될 수 있습니다.',
+          },
+          {
+            condition: '각 테스트 함수 위에 한국어 주석으로 무엇을 확인하는지 한 줄',
+            reason: '나중에도 "이 테스트가 뭘 검사하지?"를 바로 알 수 있게 해요. 오류가 났을 때 어느 부분을 고쳐야 하는지 찾기도 쉽습니다.',
+          },
+        ],
       },
     ],
   },
@@ -310,8 +349,8 @@ const examplePractices: ExamplePractice[] = [
         reason: '프로그램은 처음에 오류가 나는 경우가 많아요. **빨간 글씨(오류 메시지)를 그대로 복사**해내면 ChatGPT가 원인과 수정 방법을 알려 줍니다.',
       },
       {
-        action: '**완료 후** — 3단계로 넘어가 내 아이디어 직접 만들기',
-        reason: '예제에서 익힌 **"질문 → 답 복사 → VS Code 저장 → 실행"** 흐름을 이번엔 **내 아이디어**에 그대로 적용합니다.',
+        action: '**완료 후** — 5문제 이해도 확인 → 3단계는 교육 종료 후 각자 진행',
+        reason: '오늘 배운 내용을 **짧은 퀴즈**로 점검해요. 내 아이디어 구현(3단계)은 **수업이 끝난 뒤** 각자 시간에 도전합니다.',
       },
     ],
     promptSteps: [
@@ -449,7 +488,7 @@ export function ExamplePracticeSection() {
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            실습 단계 목록으로 돌아가기
+            워크숍 실습 구성으로 돌아가기
           </Link>
         </div>
 
@@ -497,7 +536,7 @@ export function ExamplePracticeSection() {
               프롬프트에 <strong>예제 내용이 미리 채워져 있어요.</strong>{' '}
               노란 칸을 수정하지 않고 "복사" 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
               단, <strong>질문 1번 전에 D:\example\명단.xlsx 파일을 먼저 준비하세요!</strong>{' '}
-              이 흐름을 익힌 뒤, <strong>3단계</strong>에서 내 아이디어로 직접 만들어 보세요!
+              예제 실습을 마친 뒤 <strong>5문제 퀴즈</strong>로 이해도를 확인하고, <strong>3단계</strong>는 교육 종료 후 각자 진행합니다.
             </p>
           </div>
         </div>
@@ -755,8 +794,11 @@ export function ExamplePracticeSection() {
                                           <EditablePrompt
                                             text={step.prompt}
                                             promptKey={`${practice.id}-q${step.n}`}
-                                            showSave={false}
+                                            showSave={practice.id === 'ex-2' && (step.n === 1 || step.n === 3)}
                                           />
+                                          {step.conditionReasons && (
+                                            <PromptConditionReasons items={step.conditionReasons} />
+                                          )}
                                         </div>
                                       </div>
 
@@ -785,20 +827,7 @@ export function ExamplePracticeSection() {
           ))}
         </div>
 
-        {/* 하단 CTA */}
-        <div className="mt-14 rounded-2xl border-2 border-primary/20 bg-primary/5 px-6 py-8 text-center">
-          <p className="text-lg font-bold text-foreground mb-2">예제 실습 완료! 이제 내 아이디어로 도전하세요 🎉</p>
-          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-            방금 따라한 <strong className="text-foreground">똑같은 흐름</strong>으로, 이번엔 <strong className="text-foreground">1단계에서 정리한 내 아이디어</strong>를 구현합니다.
-          </p>
-          <Link
-            to="/workshop/implement"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
-          >
-            3단계: 내 아이디어 직접 구현하기
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+        <ExampleStep2Quiz />
       </div>
     </section>
   );

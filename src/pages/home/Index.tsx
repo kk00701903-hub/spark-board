@@ -6,13 +6,14 @@ import {
   Play, Download,
 } from 'lucide-react';
 import { springGentle } from './animations';
+import { NavMenuButton } from '@/components/nav/NavSidebar';
 
 const hubLinks = [
   {
-    to: '/curriculum',
+    to: '/workshop',
     value: '4단계',
-    label: '체계적 커리큘럼',
-    icon: BookOpen,
+    label: '워크숍 실습 구성',
+    icon: Users,
   },
   {
     to: '/prompts',
@@ -27,10 +28,10 @@ const hubLinks = [
     icon: Clock,
   },
   {
-    to: '/workshop',
-    value: '실습형',
-    label: '워크숍 방식',
-    icon: Users,
+    to: '/workshop/curriculum',
+    value: '개요',
+    label: '교육 커리큘럼',
+    icon: BookOpen,
   },
 ] as const;
 
@@ -45,8 +46,16 @@ function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur border-b border-border shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
+        <div className="flex items-center justify-between h-16 gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <NavMenuButton
+              className={
+                scrolled
+                  ? undefined
+                  : 'bg-white/10 border-white/25 text-white hover:bg-white/20'
+              }
+            />
+            <Link to="/" className="flex items-center gap-2 min-w-0">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-primary-foreground" />
             </div>
@@ -54,6 +63,7 @@ function Header() {
               AI 아이디어 스파크
             </span>
           </Link>
+          </div>
           <Link
             to="/workshop"
             className={`hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.97] shadow-md ${
@@ -140,11 +150,11 @@ function HeroSection() {
           transition={{ ...springGentle, delay: 0.4 }}
         >
           <Link
-            to="/curriculum"
+            to="/workshop"
             className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
             style={{ boxShadow: '0 8px 30px -6px oklch(0.48 0.18 240 / 0.5)' }}
           >
-            <BookOpen className="w-5 h-5" /> 교육 커리큘럼 보기 <ChevronRight className="w-4 h-4" />
+            <Users className="w-5 h-5" /> 워크숍 실습 구성 <ChevronRight className="w-4 h-4" />
           </Link>
         </motion.div>
 
@@ -169,9 +179,9 @@ function HeroSection() {
       </div>
 
       <Link
-        to="/curriculum"
+        to="/workshop"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white/80 transition-colors"
-        aria-label="커리큘럼 페이지로 이동"
+        aria-label="워크숍 실습 구성으로 이동"
       >
         <motion.span animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="block">
           <ChevronDown className="w-6 h-6" />

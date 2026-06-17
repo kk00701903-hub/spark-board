@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { springGentle, springSnappy } from '@/pages/home/animations';
 import { CopyButton } from '@/pages/home/sections/CopyButton';
+import { VsCodeExtensionsScreen, VsCodeVenvScreen } from '@/pages/workshop/SetupVsCodeScreens';
 
 /** 2단계 예제(엑셀 명단 자동 인쇄)에서 바로 쓰는 라이브러리 */
 const EXAMPLE_LIBS = ['tkcalendar', 'openpyxl', 'pytest'];
@@ -126,11 +127,11 @@ export function SetupSection() {
 
         <div className="mb-8">
           <Link
-            to="/workshop"
+            to="/workshop/idea"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            1단계 아이디어 실습으로 돌아가기
+            1단계 아이디어 구체화로 돌아가기
           </Link>
         </div>
 
@@ -208,7 +209,7 @@ export function SetupSection() {
                     <div className="px-6 pb-6 border-t border-border pt-6">
                       {step.id === 'venv' ? (
                         <div className="space-y-6">
-                          <div className="grid md:grid-cols-2 gap-6">
+                          <div className="grid lg:grid-cols-2 gap-6">
                             <div>
                               <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                                 <Terminal className="w-4 h-4 text-primary" /> 설정 순서
@@ -230,14 +231,20 @@ export function SetupSection() {
                                   </p>
                                 </div>
                               )}
+                              <div className="mt-4 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                                <h4 className="text-xs font-semibold text-blue-800 mb-2">가상환경이란?</h4>
+                                <p className="text-xs text-blue-700 leading-relaxed">
+                                  프로젝트마다 필요한 라이브러리를 따로 보관하는 <strong>독립된 작업 공간</strong>이에요.
+                                  가상환경에 들어간 뒤 설치한 패키지는 이 프로젝트에서만 사용됩니다.
+                                  터미널 앞에 <strong>(.venv)</strong> 가 보이면 성공이에요.
+                                </p>
+                              </div>
                             </div>
-                            <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-                              <h4 className="text-xs font-semibold text-blue-800 mb-2">가상환경이란?</h4>
-                              <p className="text-xs text-blue-700 leading-relaxed">
-                                프로젝트마다 필요한 라이브러리를 따로 보관하는 <strong>독립된 작업 공간</strong>이에요.
-                                가상환경에 들어간 뒤 설치한 패키지는 이 프로젝트에서만 사용됩니다.
-                                터미널 앞에 <strong>(.venv)</strong> 가 보이면 성공이에요.
-                              </p>
+                            <div>
+                              <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                                <MonitorPlay className="w-4 h-4 text-accent" /> VS Code 화면 예시
+                              </h4>
+                              <VsCodeVenvScreen />
                             </div>
                           </div>
                           <div className="space-y-4">
@@ -256,6 +263,36 @@ export function SetupSection() {
                                 </pre>
                               </div>
                             ))}
+                          </div>
+                        </div>
+                      ) : step.id === 'extensions' ? (
+                        <div className="grid lg:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-primary" /> 설치 순서
+                            </h4>
+                            <div className="space-y-2">
+                              {step.steps.map((s, si) => (
+                                <div key={si} className="flex items-start gap-3">
+                                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <span className="text-xs font-bold text-primary">{si + 1}</span>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground leading-relaxed">{s}</p>
+                                </div>
+                              ))}
+                            </div>
+                            {step.tip && (
+                              <div className="mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4">
+                                <h4 className="text-xs font-semibold text-yellow-800 mb-1">💡 팁</h4>
+                                <p className="text-xs text-yellow-700 leading-relaxed">{step.tip}</p>
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                              <MonitorPlay className="w-4 h-4 text-accent" /> VS Code 화면 예시
+                            </h4>
+                            <VsCodeExtensionsScreen />
                           </div>
                         </div>
                       ) : step.id === 'libs' ? (
