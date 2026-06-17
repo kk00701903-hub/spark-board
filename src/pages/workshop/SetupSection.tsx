@@ -8,7 +8,11 @@ import {
 import { springGentle, springSnappy } from '@/pages/home/animations';
 import { CopyButton } from '@/pages/home/sections/CopyButton';
 
+/** 2단계 예제(엑셀 명단 자동 인쇄)에서 바로 쓰는 라이브러리 */
+const EXAMPLE_LIBS = ['tkcalendar', 'openpyxl', 'pytest'];
+
 const LIBS = [
+  ...EXAMPLE_LIBS,
   'pandas',
   'streamlit',
   'matplotlib',
@@ -19,7 +23,6 @@ const LIBS = [
   'plotly',
   'python-docx',
   'pdfplumber',
-  'openpyxl',
   'pypdf',
   'PyPDF2',
   'openai',
@@ -33,6 +36,9 @@ const LIBS = [
   'youtube-transcript-api',
 ];
 
+const VENV_CREATE = 'python -m venv .venv';
+const VENV_ACTIVATE_WIN = '.venv\\Scripts\\activate';
+const VENV_ACTIVATE_MAC = 'source .venv/bin/activate';
 const PIP_COMMAND = `pip install ${LIBS.join(' ')}`;
 
 const setupSteps = [
@@ -80,18 +86,34 @@ const setupSteps = [
     tip: '설치 후 .py 파일을 열면 오른쪽 아래에 Python 버전이 표시됩니다. 클릭해서 설치한 Python 버전을 선택하세요.',
   },
   {
+    id: 'venv',
+    icon: '🫧',
+    title: '가상환경 만들기 · 들어가기',
+    desc: '프로젝트마다 라이브러리를 따로 관리하기 위한 독립 공간입니다. 2단계 예제 실습 전에 꼭 설정하세요.',
+    steps: [
+      'VS Code에서 "File → Open Folder" 로 실습용 빈 폴더를 엽니다 (예: excel_printer).',
+      '위쪽 메뉴 "Terminal → New Terminal" 을 클릭해 터미널을 엽니다.',
+      '아래 "가상환경 만들기" 명령어를 복사해 터미널에 붙여넣고 Enter를 누릅니다.',
+      '완료되면 폴더 안에 .venv 폴더가 생깁니다.',
+      '이어서 아래 "가상환경 들어가기(Windows)" 명령어를 붙여넣고 Enter를 누릅니다.',
+      '터미널 맨 앞에 (.venv) 가 보이면 가상환경에 들어간 것입니다. 이 상태에서 라이브러리를 설치합니다.',
+    ],
+    tip: 'Mac·리눅스는 "가상환경 들어가기(Mac/리눅스)" 명령어를 사용하세요. VS Code를 껐다 켜면 다시 activate 명령어를 한 번 더 실행해야 합니다.',
+  },
+  {
     id: 'libs',
     icon: '📦',
     title: '파이썬 라이브러리 한 번에 설치',
-    desc: '실습에 필요한 AI·데이터 분석 라이브러리 22개를 한 명령어로 설치합니다.',
+    desc: '가상환경(.venv) 안에서 실습에 필요한 라이브러리를 설치합니다. 2단계 예제용 tkcalendar·openpyxl·pytest 포함.',
     steps: [
-      'VS Code 에서 "Terminal → New Terminal" 을 클릭합니다.',
+      '터미널 맨 앞에 (.venv) 가 보이는지 확인합니다. 없으면 이전 단계의 "가상환경 들어가기" 명령어를 먼저 실행하세요.',
       '아래 복사 버튼을 눌러 설치 명령어를 복사합니다.',
-      '터미널 창에 붙여넣고 Enter를 누릅니다.',
+      '터미널에 붙여넣고 Enter를 누릅니다.',
       '설치가 완료될 때까지 기다립니다. (인터넷 속도에 따라 2~10분 소요)',
       '설치가 끝나면 "Successfully installed ..." 메시지가 나타납니다.',
+      '2단계 예제에서 GUI·엑셀·테스트에 쓰는 tkcalendar, openpyxl, pytest 가 포함되어 있는지 확인하세요.',
     ],
-    tip: '오류가 나면 앞에 "pip3 install" 로 바꿔 다시 시도해 보세요. 그래도 안 되면 선생님께 문의하세요.',
+    tip: '오류가 나면 "python -m pip install ..." 로 바꿔 다시 시도해 보세요. tkcalendar만 따로 설치하려면: pip install tkcalendar openpyxl pytest',
   },
 ];
 
@@ -127,7 +149,7 @@ export function SetupSection() {
 
         {/* 진행 단계 표시 */}
         <div className="flex items-center justify-center gap-2 mb-14 flex-wrap">
-          {['VS Code 설치', 'Python 설치', '확장 설치', '라이브러리 설치'].map((label, i) => (
+          {['VS Code 설치', 'Python 설치', '확장 설치', '가상환경', '라이브러리 설치'].map((label, i) => (
             <div key={label} className="flex items-center gap-2">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border text-xs font-medium text-foreground shadow-sm">
                 <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0">
@@ -135,7 +157,7 @@ export function SetupSection() {
                 </span>
                 {label}
               </div>
-              {i < 3 && <ArrowRight className="w-3 h-3 text-muted-foreground shrink-0" />}
+              {i < 4 && <ArrowRight className="w-3 h-3 text-muted-foreground shrink-0" />}
             </div>
           ))}
         </div>
@@ -184,7 +206,59 @@ export function SetupSection() {
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-6 border-t border-border pt-6">
-                      {step.id === 'libs' ? (
+                      {step.id === 'venv' ? (
+                        <div className="space-y-6">
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div>
+                              <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                                <Terminal className="w-4 h-4 text-primary" /> 설정 순서
+                              </h4>
+                              <div className="space-y-2">
+                                {step.steps.map((s, si) => (
+                                  <div key={si} className="flex items-start gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                                      <span className="text-xs font-bold text-primary">{si + 1}</span>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">{s}</p>
+                                  </div>
+                                ))}
+                              </div>
+                              {step.tip && (
+                                <div className="mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4">
+                                  <p className="text-xs text-yellow-800 leading-relaxed">
+                                    <strong>💡 팁:</strong> {step.tip}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                            <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+                              <h4 className="text-xs font-semibold text-blue-800 mb-2">가상환경이란?</h4>
+                              <p className="text-xs text-blue-700 leading-relaxed">
+                                프로젝트마다 필요한 라이브러리를 따로 보관하는 <strong>독립된 작업 공간</strong>이에요.
+                                가상환경에 들어간 뒤 설치한 패키지는 이 프로젝트에서만 사용됩니다.
+                                터미널 앞에 <strong>(.venv)</strong> 가 보이면 성공이에요.
+                              </p>
+                            </div>
+                          </div>
+                          <div className="space-y-4">
+                            {[
+                              { label: '1. 가상환경 만들기', cmd: VENV_CREATE },
+                              { label: '2. 가상환경 들어가기 (Windows)', cmd: VENV_ACTIVATE_WIN },
+                              { label: '3. 가상환경 들어가기 (Mac / 리눅스)', cmd: VENV_ACTIVATE_MAC },
+                            ].map(({ label, cmd }) => (
+                              <div key={label}>
+                                <div className="flex items-center justify-between mb-2 gap-2">
+                                  <h4 className="text-sm font-semibold text-foreground">{label}</h4>
+                                  <CopyButton text={cmd} />
+                                </div>
+                                <pre className="text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-3 overflow-auto border border-border">
+                                  {cmd}
+                                </pre>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : step.id === 'libs' ? (
                         /* 라이브러리 설치 특별 레이아웃 */
                         <div className="space-y-6">
                           <div className="grid md:grid-cols-2 gap-6">
@@ -213,14 +287,35 @@ export function SetupSection() {
                             </div>
                             {/* 오른쪽: 라이브러리 목록 */}
                             <div>
+                              <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                                <Package className="w-4 h-4 text-accent" /> 2단계 예제 필수 ({EXAMPLE_LIBS.length}개)
+                              </h4>
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {EXAMPLE_LIBS.map((lib) => (
+                                  <span
+                                    key={lib}
+                                    className="text-xs font-mono px-2 py-1 rounded-md bg-blue-50 border border-blue-200 text-blue-800 font-semibold"
+                                  >
+                                    {lib}
+                                  </span>
+                                ))}
+                              </div>
+                              <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                                tkinter 는 Python 기본 내장(GUI) · tkcalendar(날짜 선택) · openpyxl(엑셀 읽기) · pytest(테스트)
+                              </p>
                               <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                                <Package className="w-4 h-4 text-accent" /> 설치 라이브러리 목록 ({LIBS.length}개)
+                                <Package className="w-4 h-4 text-accent" /> 전체 설치 목록 ({LIBS.length}개)
                               </h4>
                               <div className="flex flex-wrap gap-2 mb-4">
                                 {LIBS.map((lib) => (
                                   <span
                                     key={lib}
-                                    className="text-xs font-mono px-2 py-1 rounded-md bg-muted border border-border text-foreground"
+                                    className={[
+                                      'text-xs font-mono px-2 py-1 rounded-md border text-foreground',
+                                      EXAMPLE_LIBS.includes(lib)
+                                        ? 'bg-blue-50 border-blue-200'
+                                        : 'bg-muted border-border',
+                                    ].join(' ')}
                                   >
                                     {lib}
                                   </span>
@@ -295,13 +390,13 @@ export function SetupSection() {
           <div className="text-3xl mb-3">✅</div>
           <h3 className="text-lg font-bold text-foreground mb-2">설치 완료! 이제 2단계로 넘어가세요.</h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
-            VS Code, Python, 라이브러리가 모두 설치됐다면 2단계 구현 실습을 시작할 준비가 됐습니다.
+            VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 2단계 예제 따라하기를 시작할 수 있습니다.
           </p>
           <Link
-            to="/workshop/implement"
+            to="/workshop/example"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
           >
-            2단계 구현 실습으로 이동
+            2단계 예제 따라하기로 이동
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

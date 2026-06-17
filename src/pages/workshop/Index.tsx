@@ -48,7 +48,7 @@ function WorkshopPhaseCards() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              VS Code·Python 설치 및 AI·데이터 분석 라이브러리 22개를 한 번에 세팅합니다.
+              VS Code·Python·가상환경 설정 및 2단계 예제용 라이브러리(tkcalendar, openpyxl 등) 포함 전체 설치.
             </p>
             <span className="text-sm font-semibold text-green-600">준비 단계로 이동 →</span>
           </Link>
