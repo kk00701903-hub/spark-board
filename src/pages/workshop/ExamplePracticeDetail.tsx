@@ -21,12 +21,12 @@ type ExamplePracticeDetailProps = {
 export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: ExamplePracticeDetailProps) {
   const isFirst = practiceNumber === 1;
   const [phase, setPhase] = useState<'overview' | 'questions'>('overview');
-  const [openSubStep, setOpenSubStep] = useState<number | null>(0);
+  const [openSubStep, setOpenSubStep] = useState<number | null>(null);
   const questionsRef = useRef<HTMLDivElement | null>(null);
 
   const startQuestions = () => {
     setPhase('questions');
-    setOpenSubStep(0);
+    setOpenSubStep(null);
     requestAnimationFrame(() => {
       questionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
@@ -166,7 +166,10 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                   <div className="flex items-center justify-between gap-3 flex-wrap">
                     <button
                       type="button"
-                      onClick={() => setPhase('overview')}
+                      onClick={() => {
+                        setPhase('overview');
+                        setOpenSubStep(null);
+                      }}
                       className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4 shrink-0" />
@@ -219,8 +222,8 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                                 className="overflow-hidden"
                               >
                                 <div className="px-4 pb-4 sm:px-5 sm:pb-5 border-t border-border pt-4">
-                                  <div className="grid md:grid-cols-2 gap-6">
-                                    <div className="space-y-4">
+                                  <div className="grid md:grid-cols-2 gap-6 min-w-0">
+                                        <div className="space-y-4 min-w-0">
                                       <div>
                                         <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                                           <span className="text-base">💬</span> ChatGPT에 보내기 전
@@ -257,7 +260,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                                       )}
                                     </div>
 
-                                    <div>
+                                    <div className="min-w-0">
                                       <h4 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3 min-w-0">
                                         <Code2 className="w-4 h-4 text-accent shrink-0" /> 실습용 프롬프트
                                       </h4>

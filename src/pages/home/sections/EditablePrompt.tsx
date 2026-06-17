@@ -15,6 +15,13 @@ type SavedEntry = {
 const MAX_SAVES = 5;
 
 // ── 파서: [...]를 입력 슬롯으로 분리 ─────────────────────────────────────────
+function isMultilineSlot(placeholder: string): boolean {
+  return (
+    placeholder.length > 45 ||
+    /붙여넣|전체 복사|전체를|오류 전체/.test(placeholder)
+  );
+}
+
 function parse(raw: string): Seg[] {
   const parts = raw.split(/(\[[^\]]*\])/g);
   const segs: Seg[] = [];
@@ -27,7 +34,7 @@ function parse(raw: string): Seg[] {
         kind: 'slot',
         idx: si++,
         placeholder: inner,
-        multiline: inner.length > 45,
+        multiline: isMultilineSlot(inner),
       });
     } else {
       segs.push({ kind: 'text', content: p });
@@ -189,7 +196,7 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
   const allFilled = slotCount > 0 && filledCount === slotCount;
 
   return (
-    <div>
+    <div className="min-w-0 max-w-full">
       {/* 안내 + 버튼 영역 */}
       <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
         <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
@@ -241,25 +248,28 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
       </div>
 
       {/* 프롬프트 본문 */}
-      <div className="bg-muted/50 rounded-xl border border-border p-4 sm:p-5 text-sm text-foreground leading-[1.85] font-sans">
+      <div className="bg-muted/50 rounded-xl border border-border p-4 sm:p-5 text-sm text-foreground leading-[1.85] font-sans min-w-0 max-w-full overflow-hidden">
         {segments.map((seg, i) => {
           if (seg.kind === 'text') {
             return <TextPart key={`${promptKey}-t-${i}`} content={seg.content} />;
           }
 
-          if (seg.multiline) {
+          const slotValue = values[seg.idx] ?? '';
+          const useMultiline = seg.multiline || slotValue.length > 45;
+
+          if (useMultiline) {
             return (
               <textarea
                 key={`${promptKey}-s-${seg.idx}`}
-                value={values[seg.idx]}
+                value={slotValue}
                 onChange={(e) => setVal(seg.idx, e.target.value)}
                 placeholder={seg.placeholder}
                 rows={4}
                 className={[
-                  'block w-full my-1.5 px-3 py-2 rounded-lg text-xs font-mono resize-none',
+                  'block w-full max-w-full min-w-0 my-1.5 px-3 py-2 rounded-lg text-xs font-mono resize-none box-border',
                   'border-2 bg-yellow-50 placeholder:text-yellow-700/70 text-foreground',
-                  'min-h-[6.5rem] max-h-[6.5rem] overflow-y-auto overflow-x-auto whitespace-pre-wrap break-all',
-                  values[seg.idx] ? 'border-yellow-400' : 'border-yellow-300',
+                  'min-h-[6.5rem] max-h-[12rem] overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-all',
+                  slotValue ? 'border-yellow-400' : 'border-yellow-300',
                   'focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200',
                   'transition-colors',
                 ].join(' ')}
@@ -267,20 +277,20 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
             );
           }
 
-          const displayLen = values[seg.idx]?.length || seg.placeholder.length;
-          const inputW = Math.max(90, displayLen * 9 + 24);
+          const displayLen = slotValue.length || seg.placeholder.length;
+          const inputW = Math.min(Math.max(90, displayLen * 9 + 24), 280);
 
           return (
             <input
               key={`${promptKey}-s-${seg.idx}`}
               type="text"
-              value={values[seg.idx]}
+              value={slotValue}
               onChange={(e) => setVal(seg.idx, e.target.value)}
               placeholder={seg.placeholder}
               className={[
-                'inline-block px-2 py-0.5 rounded text-sm font-sans align-baseline mx-0.5',
+                'inline-block max-w-full min-w-0 px-2 py-0.5 rounded text-sm font-sans align-baseline mx-0.5 box-border',
                 'border-2 bg-yellow-50 placeholder:text-yellow-700/70 text-foreground',
-                values[seg.idx] ? 'border-yellow-400' : 'border-yellow-300',
+                slotValue ? 'border-yellow-400' : 'border-yellow-300',
                 'focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200',
                 'transition-colors',
               ].join(' ')}

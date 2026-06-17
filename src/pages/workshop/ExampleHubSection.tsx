@@ -12,6 +12,7 @@ export function ExampleHubSection() {
       to: EXAMPLE_ROUTES.ex1,
       icon: '📁',
       accent: 'blue',
+      highlight: true,
     },
     {
       number: 2,
@@ -21,6 +22,7 @@ export function ExampleHubSection() {
       to: EXAMPLE_ROUTES.ex2,
       icon: '🔧',
       accent: 'indigo',
+      highlight: false,
     },
     {
       number: 3,
@@ -29,7 +31,8 @@ export function ExampleHubSection() {
       description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
       to: EXAMPLE_ROUTES.quiz,
       icon: '✅',
-      accent: 'amber',
+      accent: 'neutral',
+      highlight: false,
     },
   ] as const;
 
@@ -99,14 +102,20 @@ export function ExampleHubSection() {
               to={step.to}
               className={[
                 'rounded-2xl border-2 p-6 text-left transition-all duration-200 hover:scale-[1.01] hover:shadow-md group',
-                step.accent === 'blue' && 'border-blue-300 bg-blue-50/50 hover:border-blue-400',
-                step.accent === 'indigo' && 'border-indigo-300 bg-indigo-50/50 hover:border-indigo-400',
-                step.accent === 'amber' && 'border-amber-300 bg-amber-50/50 hover:border-amber-400',
+                step.highlight
+                  ? 'border-blue-400 bg-blue-50/60 ring-2 ring-blue-200/80 shadow-md hover:border-blue-500'
+                  : step.accent === 'indigo'
+                    ? 'border-border bg-card hover:border-indigo-300'
+                    : 'border-border bg-card hover:border-amber-300',
               ].join(' ')}
             >
               <div className="text-3xl mb-3">{step.icon}</div>
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
-                {step.number}단계
+                {step.highlight ? (
+                  <span className="text-blue-700">지금 시작 · {step.number}단계</span>
+                ) : (
+                  <span>{step.number}단계</span>
+                )}
               </div>
               <div className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
                 {step.title}
