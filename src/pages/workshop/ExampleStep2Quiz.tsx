@@ -92,7 +92,7 @@ export function ExampleStep2Quiz() {
   };
 
   return (
-    <div id="step2-quiz" className="mt-14 rounded-2xl border-2 border-amber-200 bg-amber-50/40 overflow-hidden">
+    <div id="step2-quiz" className="rounded-2xl border-2 border-amber-200 bg-amber-50/40 overflow-hidden">
       <div className="px-6 py-5 border-b border-amber-200 bg-amber-50/80">
         <div className="flex items-center gap-2 text-amber-900 font-semibold text-lg">
           <ClipboardCheck className="w-5 h-5 shrink-0" />

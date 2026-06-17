@@ -12,6 +12,9 @@ import WorkshopCurriculumPage from "./pages/workshop/WorkshopCurriculumPage";
 import IdeaPracticePage from "./pages/workshop/IdeaPracticePage";
 import SetupPage from "./pages/workshop/SetupPage";
 import ExamplePage from "./pages/workshop/ExamplePage";
+import ExamplePractice1Page from "./pages/workshop/ExamplePractice1Page";
+import ExamplePractice2Page from "./pages/workshop/ExamplePractice2Page";
+import ExampleQuizPage from "./pages/workshop/ExampleQuizPage";
 import ImplementPage from "./pages/workshop/ImplementPage";
 import NotFound from "./pages/not-found/Index";
 
@@ -33,6 +36,9 @@ const App = () => (
           <Route path="/workshop/idea" element={<IdeaPracticePage />} />
           <Route path="/workshop/setup" element={<SetupPage />} />
           <Route path="/workshop/example" element={<ExamplePage />} />
+          <Route path="/workshop/example/ex-1" element={<ExamplePractice1Page />} />
+          <Route path="/workshop/example/ex-2" element={<ExamplePractice2Page />} />
+          <Route path="/workshop/example/quiz" element={<ExampleQuizPage />} />
           <Route path="/workshop/implement" element={<ImplementPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

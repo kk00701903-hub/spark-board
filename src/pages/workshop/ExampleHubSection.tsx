@@ -1,0 +1,140 @@
+import { Link } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, ClipboardCheck, FlaskConical, Lightbulb, Wrench } from 'lucide-react';
+import { EXAMPLE_ROUTES } from '@/pages/workshop/examplePracticeData';
+
+export function ExampleHubSection() {
+  const steps = [
+    {
+      number: 1,
+      title: '예제 실습 1',
+      subtitle: '엑셀 명단 자동 인쇄 프로그램 뼈대 만들기',
+      description: 'ChatGPT와 VS Code로 프로그램 뼈대를 처음부터 만듭니다. 질문 5개를 순서대로 진행해요.',
+      to: EXAMPLE_ROUTES.ex1,
+      icon: '📁',
+      accent: 'blue',
+    },
+    {
+      number: 2,
+      title: '예제 실습 2',
+      subtitle: '기능 더하기 & 오류 고치기',
+      description: '미리보기 기능을 추가하고, 오류가 나면 ChatGPT로 고치는 방법을 연습합니다.',
+      to: EXAMPLE_ROUTES.ex2,
+      icon: '🔧',
+      accent: 'indigo',
+    },
+    {
+      number: 3,
+      title: '이해도 확인',
+      subtitle: '5문제 퀴즈',
+      description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
+      to: EXAMPLE_ROUTES.quiz,
+      icon: '✅',
+      accent: 'amber',
+    },
+  ] as const;
+
+  return (
+    <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Link
+            to="/workshop"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 shrink-0" />
+            워크숍 실습 구성으로 돌아가기
+          </Link>
+        </div>
+
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">
+            <FlaskConical className="w-4 h-4" /> 2단계 · 예제 따라하기 (ChatGPT → VS Code)
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+            예제로 먼저 연습해 봐요
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            <strong className="text-foreground">엑셀 명단 자동 인쇄 프로그램</strong> 예제를 함께 만들며
+            ChatGPT → VS Code 흐름을 처음부터 끝까지 경험합니다.
+          </p>
+        </div>
+
+        <div className="mb-10 rounded-2xl border border-border bg-card px-6 py-5">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">진행 흐름</p>
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            {[
+              { icon: '📋', label: '프롬프트 복사' },
+              { icon: '💬', label: 'ChatGPT에 전송' },
+              { icon: '📄', label: '답 코드 복사' },
+              { icon: '💻', label: 'VS Code에 저장' },
+              { icon: '▶️', label: '터미널에서 실행' },
+            ].map((item, i, arr) => (
+              <span key={i} className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted font-medium text-foreground">
+                  <span>{item.icon}</span> {item.label}
+                </span>
+                {i < arr.length - 1 && <span className="text-muted-foreground font-bold">→</span>}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-8 rounded-2xl border-2 border-blue-200 bg-blue-50 px-6 py-5 flex items-start gap-3">
+          <Lightbulb className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-blue-800 mb-1">이 단계는 예제를 따라하는 연습이에요</p>
+            <p className="text-sm text-blue-700 leading-relaxed">
+              프롬프트에 <strong>예제 내용이 미리 채워져 있어요.</strong>{' '}
+              노란 칸을 수정하지 않고 "복사" 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
+              단, <strong>질문 1번 전에 D:\example\명단.xlsx 파일을 먼저 준비하세요!</strong>{' '}
+              아래 순서대로 페이지를 이동하며 진행합니다.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-4 mb-10">
+          {steps.map((step) => (
+            <Link
+              key={step.to}
+              to={step.to}
+              className={[
+                'rounded-2xl border-2 p-6 text-left transition-all duration-200 hover:scale-[1.01] hover:shadow-md group',
+                step.accent === 'blue' && 'border-blue-300 bg-blue-50/50 hover:border-blue-400',
+                step.accent === 'indigo' && 'border-indigo-300 bg-indigo-50/50 hover:border-indigo-400',
+                step.accent === 'amber' && 'border-amber-300 bg-amber-50/50 hover:border-amber-400',
+              ].join(' ')}
+            >
+              <div className="text-3xl mb-3">{step.icon}</div>
+              <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
+                {step.number}단계
+              </div>
+              <div className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
+                {step.title}
+              </div>
+              <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{step.description}</p>
+              <span className="text-sm font-semibold text-primary inline-flex items-center gap-1">
+                시작하기 <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <Link
+            to={EXAMPLE_ROUTES.ex1}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <Wrench className="w-4 h-4" />
+            예제 실습 1 시작하기
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <p className="text-xs text-muted-foreground mt-3 flex items-center justify-center gap-1.5">
+            <ClipboardCheck className="w-3.5 h-3.5" />
+            실습 1 → 실습 2 → 이해도 확인 순서로 진행하세요
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
