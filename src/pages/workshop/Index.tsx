@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Download, FlaskConical, Lightbulb, Rocket, Terminal } from 'lucide-react';
+import { ArrowRight, Download, FlaskConical, Lightbulb, Rocket, Terminal } from 'lucide-react';
 import { PageShell } from '@/pages/PageShell';
 import { PracticeGuideSection } from '@/pages/home/sections/PracticeGuideSection';
+
+function scrollToStep1Practice() {
+  document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 function WorkshopPhaseCards() {
   return (
@@ -28,7 +32,7 @@ function WorkshopPhaseCards() {
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
               페인포인트·Lean Canvas·제안서·구현 검토까지 ChatGPT 프롬프트로 진행합니다.
             </p>
-            <span className="text-xs text-muted-foreground">아래 아코디언에서 단계별로 진행하세요.</span>
+            <span className="text-xs text-muted-foreground">아래 버튼으로 1단계 실습을 시작하세요.</span>
           </div>
 
           {/* 준비 단계 */}
@@ -109,6 +113,17 @@ function WorkshopPhaseCards() {
           <span>2단계 예제 따라하기</span>
           <span>→</span>
           <span>3단계 내 아이디어 구현</span>
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <button
+            type="button"
+            onClick={scrollToStep1Practice}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            1단계 아이디어 구체화 시작하기
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </button>
         </div>
       </div>
     </div>

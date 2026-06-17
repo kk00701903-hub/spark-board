@@ -132,7 +132,7 @@ export function PracticeGuideSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="practice" className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
+    <section id="practice" className="py-24 scroll-mt-16" style={{ background: 'oklch(0.97 0.004 240)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
