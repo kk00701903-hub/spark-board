@@ -20,7 +20,7 @@ export default function WorkshopPage() {
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
             {/* 1단계 — 교육 커리큘럼 → 아이디어 구체화 */}
             <Link
-              to="/workshop/curriculum"
+              to="/workshop/idea"
               className="rounded-2xl border-2 border-primary/30 bg-card p-6 shadow-sm transition-all duration-200 hover:border-primary/50 hover:shadow-md group text-left block"
             >
               <div className="flex items-center gap-3 mb-3">
@@ -37,7 +37,7 @@ export default function WorkshopPage() {
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                 먼저 <strong className="text-foreground">교육 커리큘럼</strong>을 확인한 뒤, 페인포인트·Lean Canvas·제안서 실습을 진행합니다.
               </p>
-              <span className="text-sm font-semibold text-primary">교육 커리큘럼 보기 →</span>
+              <span className="text-sm font-semibold text-primary">1단계 아이디어 구체화 →</span>
             </Link>
 
             {/* 준비 단계 */}
@@ -122,10 +122,10 @@ export default function WorkshopPage() {
 
           <div className="mt-10 flex justify-center">
             <Link
-              to="/workshop/curriculum"
+              to="/workshop/idea"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
             >
-              교육 커리큘럼 보기
+              1단계 아이디어 구체화 시작하기
               <ArrowRight className="w-4 h-4 shrink-0" />
             </Link>
           </div>

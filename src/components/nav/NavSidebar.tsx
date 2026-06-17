@@ -133,7 +133,7 @@ function SiteNavSidebar({ open, onOpenChange }: { open: boolean; onOpenChange: (
         <SheetHeader className="px-5 py-4 border-b border-border text-left space-y-1">
           <SheetTitle className="flex items-center gap-2 text-base">
             <Sparkles className="w-4 h-4 text-primary shrink-0" />
-            페이지 메뉴
+            메뉴트리
           </SheetTitle>
           <p className="text-xs text-muted-foreground font-normal">
             트리에서 페이지를 선택해 이동하세요.
@@ -177,13 +177,14 @@ export function NavMenuButton({ className }: { className?: string }) {
     <button
       type="button"
       onClick={() => setOpen(true)}
-      aria-label="메뉴 열기"
+      aria-label="메뉴트리 열기"
       className={cn(
-        'inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border bg-background text-foreground shadow-sm transition-colors hover:bg-muted shrink-0',
+        'inline-flex items-center gap-2 h-9 px-2.5 rounded-lg border border-border bg-background text-foreground shadow-sm transition-colors hover:bg-muted shrink-0',
         className,
       )}
     >
-      <Menu className="w-4 h-4" />
+      <Menu className="w-4 h-4 shrink-0" />
+      <span className="text-sm font-semibold">메뉴트리</span>
     </button>
   );
 }

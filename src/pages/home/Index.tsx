@@ -2,37 +2,16 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  ChevronDown, ChevronRight, Sparkles, BookOpen, Code2, Users,
-  Play, Download,
+  ChevronDown, ChevronRight, Sparkles, Users, Play,
+  Lightbulb, FlaskConical, Rocket,
 } from 'lucide-react';
 import { springGentle } from './animations';
 import { NavMenuButton } from '@/components/nav/NavSidebar';
 
 const workshopStepLinks = [
-  { label: '1단계', sub: '아이디어 구체화', to: '/workshop/curriculum' },
-  { label: '2단계', sub: '예제 따라하기', to: '/workshop/example' },
-  { label: '3단계', sub: '내 아이디어 구현', to: '/workshop/implement' },
-] as const;
-
-const hubLinks = [
-  {
-    to: '/workshop',
-    value: '4단계',
-    label: '워크숍 실습 구성',
-    icon: Users,
-  },
-  {
-    to: '/prompts',
-    value: '4가지',
-    label: '핵심 프롬프트 템플릿',
-    icon: Code2,
-  },
-  {
-    to: '/workshop/curriculum',
-    value: '개요',
-    label: '교육 커리큘럼',
-    icon: BookOpen,
-  },
+  { label: '1단계', sub: '아이디어 구체화', to: '/workshop/idea', icon: Lightbulb },
+  { label: '2단계', sub: '예제 따라하기', to: '/workshop/example', icon: FlaskConical },
+  { label: '3단계', sub: '내 아이디어 구현', to: '/workshop/implement', icon: Rocket },
 ] as const;
 
 function Header() {
@@ -56,13 +35,13 @@ function Header() {
               }
             />
             <Link to="/" className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className={`font-bold text-lg ${scrolled ? 'text-foreground' : 'text-white'}`}>
-              AI 아이디어 스파크
-            </span>
-          </Link>
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <span className={`font-bold text-lg ${scrolled ? 'text-foreground' : 'text-white'}`}>
+                AI 아이디어 스파크
+              </span>
+            </Link>
           </div>
           <Link
             to="/workshop"
@@ -159,48 +138,20 @@ function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4"
+          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.5 }}
         >
-          {/* 워크숍 실습 구성 + 1·2·3단계 바로가기 */}
-          <div className="rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-200 hover:bg-white/10 hover:border-white/25">
+          {workshopStepLinks.map((step) => (
             <Link
-              to="/workshop"
-              className="group block p-4 text-center transition-colors hover:bg-white/5"
+              key={step.to}
+              to={step.to}
+              className="group p-5 rounded-xl bg-white/5 border border-white/10 text-center transition-all duration-200 hover:bg-white/10 hover:border-white/25 hover:scale-[1.02]"
             >
-              <Users className="w-5 h-5 text-blue-300 mx-auto mb-2 group-hover:text-blue-200 transition-colors" />
-              <div className="text-2xl font-bold text-white">4단계</div>
-              <div className="text-xs text-white/60 mt-1">워크숍 실습 구성</div>
-            </Link>
-            <div className="grid grid-cols-3 gap-px bg-white/10 border-t border-white/10">
-              {workshopStepLinks.map((step) => (
-                <Link
-                  key={step.to}
-                  to={step.to}
-                  className="group/step flex flex-col items-center justify-center px-2 py-3 bg-white/5 hover:bg-white/15 transition-colors text-center min-h-[4.5rem]"
-                >
-                  <span className="text-sm font-bold text-white group-hover/step:text-blue-200 transition-colors">
-                    {step.label}
-                  </span>
-                  <span className="text-[10px] text-white/55 mt-0.5 leading-tight group-hover/step:text-white/75">
-                    {step.sub}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {hubLinks.slice(1).map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="group p-4 rounded-xl bg-white/5 border border-white/10 text-center transition-all duration-200 hover:bg-white/10 hover:border-white/25 hover:scale-[1.02]"
-            >
-              <item.icon className="w-5 h-5 text-blue-300 mx-auto mb-2 group-hover:text-blue-200 transition-colors" />
-              <div className="text-2xl font-bold text-white">{item.value}</div>
-              <div className="text-xs text-white/60 mt-1">{item.label}</div>
+              <step.icon className="w-6 h-6 text-blue-300 mx-auto mb-3 group-hover:text-blue-200 transition-colors" />
+              <div className="text-xl font-bold text-white">{step.label}</div>
+              <div className="text-sm text-white/70 mt-1">{step.sub}</div>
             </Link>
           ))}
         </motion.div>
@@ -215,57 +166,6 @@ function HeroSection() {
           <ChevronDown className="w-6 h-6" />
         </motion.span>
       </Link>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section
-      className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, oklch(0.20 0.08 240) 0%, oklch(0.18 0.10 260) 100%)' }}
-    >
-      <div
-        className="absolute inset-0 overflow-hidden pointer-events-none opacity-10"
-        style={{
-          backgroundImage:
-            'linear-gradient(oklch(0.98 0.004 240) 1px, transparent 1px), linear-gradient(90deg, oklch(0.98 0.004 240) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
-      <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={springGentle}
-        >
-          <div className="text-5xl mb-6">🚀</div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            지금 바로 시작해보세요
-          </h2>
-          <p className="text-white/70 text-lg mb-8 leading-relaxed">
-            AI는 어렵지 않습니다.{' '}
-            <strong className="text-white">오늘 업무에서 한 가지 페인포인트를 찾아</strong> ChatGPT와 대화를 시작해 보세요.
-            작은 아이디어가 업무를 바꾸는 첫 걸음이 됩니다.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/workshop"
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary font-bold text-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
-              style={{ boxShadow: '0 8px 30px -6px rgba(255,255,255,0.3)' }}
-            >
-              <Play className="w-5 h-5" /> 실습 바로 시작
-            </Link>
-            <Link
-              to="/prompts"
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/10 text-white border border-white/20 font-bold text-lg transition-all duration-200 hover:bg-white/20 hover:scale-[1.02] active:scale-[0.97]"
-            >
-              <Download className="w-5 h-5" /> 프롬프트 모음 보기
-            </Link>
-          </div>
-        </motion.div>
-      </div>
     </section>
   );
 }
@@ -291,7 +191,6 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection />
-      <CTASection />
       <Footer />
     </div>
   );
