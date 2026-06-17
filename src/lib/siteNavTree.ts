@@ -18,7 +18,6 @@ export const siteNavTree: SiteNavItem[] = [
     ],
   },
   { label: '프롬프트 모음', path: '/prompts' },
-  { label: '시간 단축 사례', path: '/time-savings' },
 ];
 
 export function isNavPathActive(path: string, currentPath: string): boolean {

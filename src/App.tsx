@@ -7,7 +7,6 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/home/Index";
 import CurriculumPage from "./pages/curriculum/Index";
 import PromptTemplatesPage from "./pages/prompt-templates/Index";
-import TimeSavingsPage from "./pages/time-savings/Index";
 import WorkshopPage from "./pages/workshop/Index";
 import WorkshopCurriculumPage from "./pages/workshop/WorkshopCurriculumPage";
 import IdeaPracticePage from "./pages/workshop/IdeaPracticePage";
@@ -29,7 +28,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/curriculum" element={<CurriculumPage />} />
           <Route path="/prompts" element={<PromptTemplatesPage />} />
-          <Route path="/time-savings" element={<TimeSavingsPage />} />
           <Route path="/workshop" element={<WorkshopPage />} />
           <Route path="/workshop/curriculum" element={<WorkshopCurriculumPage />} />
           <Route path="/workshop/idea" element={<IdeaPracticePage />} />

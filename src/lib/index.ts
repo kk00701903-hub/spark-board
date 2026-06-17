@@ -21,13 +21,6 @@ export interface PromptTemplate {
   tip: string;
 }
 
-export interface CaseStudyData {
-  label: string;
-  before: string;
-  after: string;
-  reduction?: string;
-}
-
 // Education Steps Data
 export const educationSteps: Step[] = [
   {
@@ -148,12 +141,4 @@ export const promptTemplates: PromptTemplate[] = [
 - 사용자 수용성`,
     tip: '아이디어의 약점을 미리 파악하면 제안서의 완성도가 크게 높아집니다.',
   },
-];
-
-// Case Study Stats
-export const caseStudyStats: CaseStudyData[] = [
-  { label: '전체 공고 추출', before: '수작업 검색', after: '90만건 자동 추출', reduction: '100% 자동화' },
-  { label: '1차 필터링', before: '담당자 개별 검토', after: '1,700건 자동 선별', reduction: '99.8% 감소' },
-  { label: 'AI 정밀 분석', before: '건당 5분 소요', after: '200건 적합 공고 도출', reduction: '80% 단축' },
-  { label: '보고 주기', before: '주간 보고', after: '일간 자동 발송', reduction: '7배 빠름' },
 ];

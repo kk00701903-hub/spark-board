@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  ChevronDown, ChevronRight, Sparkles, BookOpen, Code2, Clock, Users,
+  ChevronDown, ChevronRight, Sparkles, BookOpen, Code2, Users,
   Play, Download,
 } from 'lucide-react';
 import { springGentle } from './animations';
@@ -20,12 +20,6 @@ const hubLinks = [
     value: '4가지',
     label: '핵심 프롬프트 템플릿',
     icon: Code2,
-  },
-  {
-    to: '/time-savings',
-    value: '80%',
-    label: '업무 시간 단축',
-    icon: Clock,
   },
   {
     to: '/workshop/curriculum',
@@ -159,7 +153,7 @@ function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.5 }}
