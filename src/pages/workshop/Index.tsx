@@ -64,9 +64,12 @@ const steps = [
 export default function WorkshopPage() {
   return (
     <PageShell title="워크숍 · 실습 구성">
-      <div className="py-3 sm:py-4" style={{ background: 'oklch(0.97 0.004 240)' }}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
+      <div
+        className="flex-1 flex flex-col py-3 sm:py-4"
+        style={{ background: 'oklch(0.97 0.004 240)' }}
+      >
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 w-full flex-1 flex flex-col">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3 shrink-0">
             <p className="text-sm text-muted-foreground leading-snug">
               <strong className="text-foreground">1단계</strong> 아이디어 구체화 →{' '}
               <strong className="text-foreground">준비</strong> 환경 설치 →{' '}
@@ -82,7 +85,7 @@ export default function WorkshopPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5 sm:gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5 sm:gap-3 flex-1 auto-rows-fr min-h-0">
             {steps.map((item) => {
               const Icon = item.icon;
               return (
@@ -90,11 +93,11 @@ export default function WorkshopPage() {
                   key={item.to}
                   to={item.to}
                   className={[
-                    'rounded-xl border bg-card p-3.5 sm:p-4 shadow-sm transition-all duration-200 hover:shadow-md group text-left block h-full',
+                    'rounded-xl border bg-card p-3.5 sm:p-4 shadow-sm transition-all duration-200 hover:shadow-md group text-left flex flex-col h-full min-h-[8rem]',
                     item.highlight ? 'border-2 border-primary/30' : item.borderClass,
                   ].join(' ')}
                 >
-                  <div className="flex items-start gap-2.5 mb-2">
+                  <div className="flex items-start gap-2.5 mb-2 shrink-0">
                     <div className={['w-8 h-8 rounded-lg flex items-center justify-center shrink-0', item.iconBg].join(' ')}>
                       <Icon className={['w-4 h-4', item.iconClass].join(' ')} />
                     </div>
@@ -110,10 +113,10 @@ export default function WorkshopPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-2 line-clamp-2">
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2 flex-1">
                     {item.description}
                   </p>
-                  <span className={['text-xs font-semibold inline-flex items-center gap-1', item.ctaClass].join(' ')}>
+                  <span className={['text-xs font-semibold inline-flex items-center gap-1 mt-auto shrink-0', item.ctaClass].join(' ')}>
                     {item.cta}
                     <ArrowRight className="w-3 h-3" />
                   </span>

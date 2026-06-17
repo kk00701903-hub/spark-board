@@ -26,7 +26,7 @@ export function PageShell({ children, title }: PageShellProps) {
           </Link>
         </div>
       </header>
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 flex flex-col min-h-0">{children}</main>
       <footer className="py-8 bg-background border-t border-border">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
