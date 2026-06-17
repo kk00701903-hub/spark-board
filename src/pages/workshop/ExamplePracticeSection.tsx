@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -404,10 +404,36 @@ function difficultyBadge() {
 
 export function ExamplePracticeSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [practicePhase, setPracticePhase] = useState<Record<string, 'overview' | 'questions'>>({
+    'ex-1': 'overview',
+    'ex-2': 'overview',
+  });
   const [openSubStep, setOpenSubStep] = useState<Record<string, number | null>>({
     'ex-1': 0,
     'ex-2': 0,
   });
+  const questionsRef = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const togglePractice = (index: number, practiceId: string) => {
+    if (openIndex === index) {
+      setOpenIndex(null);
+      setPracticePhase((prev) => ({ ...prev, [practiceId]: 'overview' }));
+    } else {
+      setOpenIndex(index);
+    }
+  };
+
+  const startQuestions = (practiceId: string) => {
+    setPracticePhase((prev) => ({ ...prev, [practiceId]: 'questions' }));
+    setOpenSubStep((prev) => ({ ...prev, [practiceId]: 0 }));
+    requestAnimationFrame(() => {
+      questionsRef.current[practiceId]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  const backToOverview = (practiceId: string) => {
+    setPracticePhase((prev) => ({ ...prev, [practiceId]: 'overview' }));
+  };
 
   const toggleSubStep = (practiceId: string, stepIdx: number) => {
     setOpenSubStep((prev) => {
@@ -497,7 +523,7 @@ export function ExamplePracticeSection() {
             >
               <button
                 type="button"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                onClick={() => togglePractice(i, practice.id)}
                 className={[
                   'w-full flex items-center justify-between p-6 text-left transition-colors',
                   i === 0 ? 'hover:bg-blue-100/50' : 'hover:bg-indigo-100/50',
@@ -542,53 +568,104 @@ export function ExamplePracticeSection() {
                     className="overflow-hidden"
                   >
                     <div className={[
-                      'px-6 pb-6 border-t pt-6 space-y-6',
+                      'px-6 pb-6 border-t pt-6',
                       i === 0 ? 'border-blue-200/60' : 'border-indigo-200/60',
                     ].join(' ')}>
-                      {/* 요약 + 경고 */}
-                      <div className="space-y-3">
-                        <div className="rounded-xl border border-border bg-muted/30 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
-                          <BoldText text={practice.summary} />
-                        </div>
-                        <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 flex items-start gap-2">
-                          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                          <span>{practice.warning}</span>
-                        </div>
-                      </div>
-
-                      {/* 전체 순서 */}
-                      <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
-                          <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
-                        </h4>
-                        <p className="text-xs text-muted-foreground mb-4">
-                          무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
-                        </p>
-                        <div className="space-y-3">
-                          {practice.overviewSteps.map((step, si) => (
-                            <div
-                              key={si}
-                              className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3"
-                            >
-                              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                                <span className="text-xs font-bold text-primary">{si + 1}</span>
+                      <AnimatePresence mode="wait">
+                        {practicePhase[practice.id] === 'overview' ? (
+                          <motion.div
+                            key="overview"
+                            initial={{ opacity: 0, x: -12 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -12 }}
+                            transition={springGentle}
+                            className="space-y-6"
+                          >
+                            {/* 요약 + 경고 */}
+                            <div className="space-y-3">
+                              <div className="rounded-xl border border-border bg-white/70 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
+                                <BoldText text={practice.summary} />
                               </div>
-                              <div className="min-w-0">
-                                <p className="text-sm text-foreground leading-relaxed font-medium">
-                                  <BoldText text={step.action} />
-                                </p>
-                                <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
-                                  <span className="text-blue-600 font-semibold">왜? </span>
-                                  <BoldText text={step.reason} />
-                                </p>
+                              <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 flex items-start gap-2">
+                                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                                <span>{practice.warning}</span>
                               </div>
                             </div>
-                          ))}
-                        </div>
-                      </div>
 
-                      {/* 질문 카드들 */}
-                      <div className="space-y-3">
+                            {/* 실습 전체 순서 */}
+                            <div>
+                              <h4 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
+                                <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
+                              </h4>
+                              <p className="text-xs text-muted-foreground mb-4">
+                                무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
+                                끝까지 읽은 뒤 아래 버튼을 누르면 <strong className="text-foreground">질문 1</strong>부터 실습합니다.
+                              </p>
+                              <div className="space-y-3">
+                                {practice.overviewSteps.map((step, si) => (
+                                  <div
+                                    key={si}
+                                    className="flex items-start gap-3 rounded-xl border border-border bg-white/70 px-4 py-3"
+                                  >
+                                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                                      <span className="text-xs font-bold text-primary">{si + 1}</span>
+                                    </div>
+                                    <div className="min-w-0">
+                                      <p className="text-sm text-foreground leading-relaxed font-medium">
+                                        <BoldText text={step.action} />
+                                      </p>
+                                      <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                                        <span className="text-blue-600 font-semibold">왜? </span>
+                                        <BoldText text={step.reason} />
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="pt-2 text-center">
+                              <button
+                                type="button"
+                                onClick={() => startQuestions(practice.id)}
+                                className={[
+                                  'inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]',
+                                  i === 0
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-indigo-600 text-white',
+                                ].join(' ')}
+                              >
+                                질문 1부터 실습 시작하기
+                                <ArrowRight className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="questions"
+                            initial={{ opacity: 0, x: 12 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 12 }}
+                            transition={springGentle}
+                            className="space-y-4"
+                            ref={(el) => { questionsRef.current[practice.id] = el; }}
+                          >
+                            <div className="flex items-center justify-between gap-3 flex-wrap">
+                              <button
+                                type="button"
+                                onClick={() => backToOverview(practice.id)}
+                                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                <ArrowLeft className="w-4 h-4 shrink-0" />
+                                실습 순서로 돌아가기
+                              </button>
+                              <span className="text-xs font-medium text-muted-foreground">
+                                ChatGPT 질문 {practice.promptSteps.length}개 · 순서대로 진행하세요
+                              </span>
+                            </div>
+
+                            {/* 질문 카드들 */}
+                            <div className="space-y-3">
                         {practice.promptSteps.map((step, si) => {
                           const subOpen = openSubStep[practice.id];
                           const isSubOpen = subOpen === si;
@@ -695,7 +772,10 @@ export function ExamplePracticeSection() {
                             </div>
                           );
                         })}
-                      </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </motion.div>
                 )}
