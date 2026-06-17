@@ -8,6 +8,12 @@ import {
 import { springGentle } from './animations';
 import { NavMenuButton } from '@/components/nav/NavSidebar';
 
+const workshopStepLinks = [
+  { label: '1단계', sub: '아이디어 구체화', to: '/workshop/curriculum' },
+  { label: '2단계', sub: '예제 따라하기', to: '/workshop/example' },
+  { label: '3단계', sub: '내 아이디어 구현', to: '/workshop/implement' },
+] as const;
+
 const hubLinks = [
   {
     to: '/workshop',
@@ -158,7 +164,35 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.5 }}
         >
-          {hubLinks.map((item) => (
+          {/* 워크숍 실습 구성 + 1·2·3단계 바로가기 */}
+          <div className="rounded-xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-200 hover:bg-white/10 hover:border-white/25">
+            <Link
+              to="/workshop"
+              className="group block p-4 text-center transition-colors hover:bg-white/5"
+            >
+              <Users className="w-5 h-5 text-blue-300 mx-auto mb-2 group-hover:text-blue-200 transition-colors" />
+              <div className="text-2xl font-bold text-white">4단계</div>
+              <div className="text-xs text-white/60 mt-1">워크숍 실습 구성</div>
+            </Link>
+            <div className="grid grid-cols-3 gap-px bg-white/10 border-t border-white/10">
+              {workshopStepLinks.map((step) => (
+                <Link
+                  key={step.to}
+                  to={step.to}
+                  className="group/step flex flex-col items-center justify-center px-2 py-3 bg-white/5 hover:bg-white/15 transition-colors text-center min-h-[4.5rem]"
+                >
+                  <span className="text-sm font-bold text-white group-hover/step:text-blue-200 transition-colors">
+                    {step.label}
+                  </span>
+                  <span className="text-[10px] text-white/55 mt-0.5 leading-tight group-hover/step:text-white/75">
+                    {step.sub}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {hubLinks.slice(1).map((item) => (
             <Link
               key={item.to}
               to={item.to}
