@@ -53,7 +53,7 @@ const implementPractices: ImplementPractice[] = [
     duration: '약 45분',
     difficulty: '중급',
     summary:
-      '1단계에서 정리한 **아이디어 글**을 ChatGPT에게 보여 주고, 파이썬 프로그램에 필요한 **파일 구조를 함께 설계**합니다. ChatGPT가 알려 준 파일 내용을 VS Code에 **하나씩 붙여 넣어** 실제 프로젝트 폴더를 완성합니다.',
+      'STEP 1.에서 정리한 **아이디어 글**을 ChatGPT에게 보여 주고, 파이썬 프로그램에 필요한 **파일 구조를 함께 설계**합니다. ChatGPT가 알려 준 파일 내용을 VS Code에 **하나씩 붙여 넣어** 실제 프로젝트 폴더를 완성합니다.',
     warning:
       '⚠️ ChatGPT 창을 절대 닫지 마세요! 같은 창에서 질문을 이어서 보내야 ChatGPT가 앞 내용을 기억합니다.',
     overviewSteps: [
@@ -68,7 +68,7 @@ const implementPractices: ImplementPractice[] = [
       {
         n: 1,
         title: '아이디어를 ChatGPT에 소개하고 파일 목록 받기',
-        lead: '1단계에서 정리한 글(페인포인트 분석, 린캔버스, 제안서 등)을 아래 노란 칸에 붙여 넣으세요. 그런 다음 "복사" 버튼을 눌러 ChatGPT 창에 붙여 넣고 전송합니다.\n\n💡 너무 길면 핵심 내용만 잘라도 됩니다.',
+        lead: 'STEP 1.에서 정리한 글(페인포인트 분석, 린캔버스, 제안서 등)을 아래 노란 칸에 붙여 넣으세요. 그런 다음 "복사" 버튼을 눌러 ChatGPT 창에 붙여 넣고 전송합니다.\n\n💡 너무 길면 핵심 내용만 잘라도 됩니다.',
         vsCodeSteps: [
           'ChatGPT가 폴더·파일 목록을 텍스트 구조로 보여 줄 거예요.',
           '아직 파일을 만들 필요 없어요. 목록만 눈으로 확인하고 **질문 2번**으로 넘어가세요.',
@@ -76,10 +76,10 @@ const implementPractices: ImplementPractice[] = [
         tip: '새로운 아이디어라도 OK! ChatGPT가 적합한 파일 구조를 제안해 줘요.',
         prompt: `너는 중고등학생도 쉽게 이해하도록 설명해 주는 파이썬 선생님이야.
 
-아래는 내가 1단계 실습에서 정리한 아이디어야. 이걸 바탕으로 파이썬 3.11 이상으로 실행되는 작은 프로그램을 만들 거야.
+아래는 내가 STEP 1. 실습에서 정리한 아이디어야. 이걸 바탕으로 파이썬 3.11 이상으로 실행되는 작은 프로그램을 만들 거야.
 
-=== 1단계에서 정리한 내용 ===
-[여기에 1단계 아이디어 글 붙여넣기]
+=== STEP 1.에서 정리한 내용 ===
+[여기에 STEP 1. 아이디어 글 붙여넣기]
 ===
 
 지금은 코드를 작성하지 마. 한국어로만 답해 줘.
@@ -143,7 +143,7 @@ const implementPractices: ImplementPractice[] = [
 파일 경로: src/main.py
 
 조건:
-- 1단계 아이디어와 어울리는 간단한 동작 하나만 (예: 화면에 결과 한 줄 출력)
+- STEP 1. 아이디어와 어울리는 간단한 동작 하나만 (예: 화면에 결과 한 줄 출력)
 - 중요한 줄에는 한국어 주석으로 설명 달기
 - 변수에 타입을 표시하는 타입 힌트 사용 (예: name: str = "홍길동")
 
@@ -197,10 +197,10 @@ const implementPractices: ImplementPractice[] = [
           'ChatGPT 답을 읽고 현재 코드에 대한 설명이 맞는지 확인합니다.',
           '이해가 되면 **질문 2번**으로 넘어가 기능을 요청합니다.',
         ],
-        tip: '새 ChatGPT 창을 열었다면, 1단계 아이디어 요약을 한 줄만 적어서 먼저 보내도 됩니다.',
+        tip: '새 ChatGPT 창을 열었다면, STEP 1. 아이디어 요약을 한 줄만 적어서 먼저 보내도 됩니다.',
         prompt: `너는 중고등학생도 이해시키는 파이썬 선생님이야. 내 프로젝트 상황을 파악해 줘.
 
-=== 1단계 아이디어 요약 ===
+=== STEP 1. 아이디어 요약 ===
 [무슨 프로그램인지, 누가 쓰는지, 핵심 기능을 2~3줄로]
 ===
 
@@ -292,7 +292,7 @@ export function ImplementPracticeSection() {
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            2단계 예제 실습으로 돌아가기
+            STEP 2. 예제 따라하기로 돌아가기
           </Link>
         </div>
 
@@ -301,19 +301,19 @@ export function ImplementPracticeSection() {
           <div>
             <p className="font-semibold text-foreground mb-1">교육 종료 후 개별 실습 단계</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              3단계는 오늘 수업 시간에 함께 진행하지 않아요.
-              교육이 끝난 뒤 집이나 개인 시간에 <strong className="text-foreground">1단계에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
+              <span className="edu-step text-[11px]">STEP 3.</span>는 오늘 수업 시간에 함께 진행하지 않아요.
+              교육이 끝난 뒤 집이나 개인 시간에 <strong className="text-foreground">STEP 1.에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
             </p>
           </div>
         </div>
 
         <div className="mb-6">
           <div className="edu-badge mb-3">
-            <Rocket className="w-4 h-4" /> 3단계 · 내 아이디어 구현하기
+            <Rocket className="w-4 h-4" /> <span className="edu-step text-xs">STEP 3.</span> 내 아이디어 구현하기
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            2단계 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
-            이번엔 <strong className="text-foreground">1단계에서 정리한 내 아이디어</strong>를 파이썬 프로그램으로 만듭니다.
+            <span className="edu-step text-[11px]">STEP 2.</span> 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
+            이번엔 <span className="edu-step text-[11px]">STEP 1.</span>에서 정리한 내 아이디어를 파이썬 프로그램으로 만듭니다.
             <span className="text-sm block mt-1">(교육 당일이 아닌, 이후 개별 실습용 안내입니다)</span>
           </p>
         </div>
@@ -533,7 +533,7 @@ export function ImplementPracticeSection() {
 
         <div className="mt-14 text-center max-w-2xl mx-auto">
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-            <BoldText text="1단계 글이 너무 길면 **요약본만** 질문 1번에 넣어도 됩니다. 보안 관련 위배되는 정보는 넣지 마세요." />
+            <BoldText text="STEP 1. 글이 너무 길면 **요약본만** 질문 1번에 넣어도 됩니다. 보안 관련 위배되는 정보는 넣지 마세요." />
           </p>
           <Link
             to="/prompts"

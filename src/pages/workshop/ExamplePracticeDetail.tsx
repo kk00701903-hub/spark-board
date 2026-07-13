@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, ChevronDown, ChevronUp, Clock, Code2, Lightbulb, AlertCircle, Target,
@@ -8,16 +9,15 @@ import { EditablePrompt } from '@/pages/home/sections/EditablePrompt';
 import { ExampleExcelSamplePanel } from '@/pages/workshop/ExampleExcelSamplePanel';
 import { type ExamplePractice } from '@/pages/workshop/examplePracticeData';
 import { BoldText, PromptConditionReasons, SampleAnswerPanel, difficultyBadge } from '@/pages/workshop/examplePracticeUi';
-import { ExampleStepNav, type StepNavLink } from '@/pages/workshop/ExampleStepNav';
 
 type ExamplePracticeDetailProps = {
   practice: ExamplePractice;
   practiceNumber: 1 | 2;
-  prev?: StepNavLink;
-  next?: StepNavLink;
+  /** 질문 실습 끝난 뒤 「다음」으로 이동할 경로 */
+  nextTo?: string;
 };
 
-export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: ExamplePracticeDetailProps) {
+export function ExamplePracticeDetail({ practice, practiceNumber, nextTo }: ExamplePracticeDetailProps) {
   const [phase, setPhase] = useState<'overview' | 'questions'>('overview');
   const [openSubStep, setOpenSubStep] = useState<number | null>(null);
   const questionsRef = useRef<HTMLDivElement | null>(null);
@@ -89,7 +89,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                     </h4>
                     <p className="text-xs text-muted-foreground mb-4">
                       무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
-                      끝까지 읽은 뒤 아래 버튼을 누르면 <strong className="text-foreground">질문 1</strong>부터 실습합니다.
+                      끝까지 읽은 뒤 아래 <strong className="text-foreground">다음</strong>을 누르면 질문 실습으로 넘어갑니다.
                     </p>
                     <div className="space-y-3">
                       {practice.overviewSteps.map((step, si) => (
@@ -120,7 +120,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                       onClick={startQuestions}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
                     >
-                      질문 1부터 실습 시작하기
+                      다음
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -261,14 +261,22 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                     })}
                   </div>
 
-                  {/* 다음 단계는 하단 ExampleStepNav에서 이동 */}
+                  {nextTo ? (
+                    <div className="pt-4 text-center">
+                      <Link
+                        to={nextTo}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
+                      >
+                        다음
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  ) : null}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         </div>
-
-        <ExampleStepNav prev={prev} next={next} />
       </div>
     </section>
   );

@@ -15,13 +15,14 @@ import {
 type PageShellProps = {
   children: React.ReactNode;
   title: string;
+  /** 예: "STEP 1." — 제목 앞에 하이라이트 표시 */
+  stepLabel?: string;
   subtitle?: string;
 };
 
-export function PageShell({ children, title, subtitle }: PageShellProps) {
+export function PageShell({ children, title, stepLabel, subtitle }: PageShellProps) {
   const { pathname } = useLocation();
   const trail = getBreadcrumbTrail(pathname);
-  // 헤더 브레드크럼은 메뉴 라벨 유지 (긴 page title과 중복 방지)
   const crumbs = trail.length > 0 ? trail : [{ label: title, path: undefined as string | undefined }];
 
   return (
@@ -87,7 +88,10 @@ export function PageShell({ children, title, subtitle }: PageShellProps) {
 
       <div className="border-b border-border bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">{title}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight flex flex-wrap items-center gap-2">
+            {stepLabel ? <span className="edu-step text-base sm:text-lg">{stepLabel}</span> : null}
+            <span>{title}</span>
+          </h1>
           {subtitle ? (
             <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{subtitle}</p>
           ) : null}

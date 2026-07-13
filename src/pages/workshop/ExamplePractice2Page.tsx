@@ -11,8 +11,7 @@ export default function ExamplePractice2Page() {
       <ExamplePracticeDetail
         practice={examplePractice2}
         practiceNumber={2}
-        prev={{ label: '예제 실습 1', to: EXAMPLE_ROUTES.ex1 }}
-        next={{ label: '이해도 확인', to: EXAMPLE_ROUTES.quiz }}
+        nextTo={EXAMPLE_ROUTES.quiz}
       />
     </PageShell>
   );

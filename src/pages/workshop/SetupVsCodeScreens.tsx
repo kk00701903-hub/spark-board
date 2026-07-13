@@ -120,7 +120,7 @@ export function VsCodeVenvScreen() {
             <div className="space-y-1 text-[#cccccc]">
               <p className="font-semibold text-[#4ec9b0]">▼ EXCEL_PRINTER</p>
               <p className="pl-3 text-[#9cdcfe]">▸ .venv</p>
-              <p className="pl-3 text-[#858585] italic">(main.py는 2단계에서 만듭니다)</p>
+              <p className="pl-3 text-[#858585] italic">(main.py는 STEP 2.에서 만듭니다)</p>
             </div>
           </div>
           <div className="bg-[#1e1e1e]">

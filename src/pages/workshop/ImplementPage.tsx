@@ -4,7 +4,8 @@ import { ImplementPracticeSection } from '@/pages/workshop/ImplementPracticeSect
 export default function ImplementPage() {
   return (
     <PageShell
-      title="3단계 · 내 아이디어 구현하기"
+      stepLabel="STEP 3."
+      title="내 아이디어 구현하기"
       subtitle="교육 후 개별 실습 · ChatGPT → VS Code"
     >
       <ImplementPracticeSection />

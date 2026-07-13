@@ -9,10 +9,10 @@ import { springGentle } from './animations';
 import { NavMenuButton } from '@/components/nav/NavSidebar';
 
 const workshopStepLinks = [
-  { label: '준비단계', sub: '환경 설치', to: '/workshop/setup', icon: Download },
-  { label: '1단계', sub: '아이디어 구체화', to: '/workshop/idea', icon: Lightbulb },
-  { label: '2단계', sub: '예제 따라하기', to: '/workshop/example', icon: FlaskConical },
-  { label: '3단계', sub: '내 아이디어 구현', to: '/workshop/implement', icon: Rocket },
+  { label: '준비단계', sub: '환경 설치', to: '/workshop/setup', icon: Download, highlight: false },
+  { label: 'STEP 1.', sub: '아이디어 구체화', to: '/workshop/idea', icon: Lightbulb, highlight: true },
+  { label: 'STEP 2.', sub: '예제 따라하기', to: '/workshop/example', icon: FlaskConical, highlight: true },
+  { label: 'STEP 3.', sub: '내 아이디어 구현', to: '/workshop/implement', icon: Rocket, highlight: true },
 ] as const;
 
 function Header() {
@@ -151,7 +151,13 @@ function HeroSection() {
               className="group p-5 rounded-xl bg-white/5 border border-white/10 text-center transition-all duration-200 hover:bg-white/10 hover:border-white/25 hover:scale-[1.02]"
             >
               <step.icon className="w-6 h-6 text-blue-300 mx-auto mb-3 group-hover:text-blue-200 transition-colors" />
-              <div className="text-xl font-bold text-white">{step.label}</div>
+              <div className="text-xl font-bold text-white">
+                {step.highlight ? (
+                  <span className="edu-step text-base sm:text-lg">{step.label}</span>
+                ) : (
+                  step.label
+                )}
+              </div>
               <div className="text-sm text-white/70 mt-1">{step.sub}</div>
             </Link>
           ))}

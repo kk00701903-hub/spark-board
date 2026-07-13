@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, ClipboardCheck, RotateCcw } from 'lucide-react';
+import { CheckCircle2, ClipboardCheck, RotateCcw, ArrowRight } from 'lucide-react';
 
 type QuizOption = { label: string; correct: boolean };
 
@@ -173,7 +173,7 @@ export function ExampleStep2Quiz() {
               </p>
               <p className="text-sm text-green-800 mt-1 leading-relaxed">
                 {score === QUIZ_QUESTIONS.length
-                  ? '완벽해요! 2단계 예제 흐름을 잘 이해했습니다.'
+                  ? '완벽해요! STEP 2. 예제 흐름을 잘 이해했습니다.'
                   : score >= 3
                     ? '잘했어요! 해설을 보며 틀린 부분만 다시 확인해 보세요.'
                     : '예제 실습 1·2를 한 번 더 살펴본 뒤 다시 도전해 보세요.'}
@@ -189,21 +189,26 @@ export function ExampleStep2Quiz() {
             </div>
 
             <div className="rounded-2xl border-2 border-primary/20 bg-primary/5 px-6 py-8 text-center">
-              <p className="text-lg font-bold text-foreground mb-2">2단계 예제 실습 완료! 🎉</p>
+              <p className="text-lg font-bold text-foreground mb-2">
+                <span className="edu-step text-sm">STEP 2.</span> 예제 실습 완료! 🎉
+              </p>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mx-auto">
                 오늘 교육에서는 여기까지입니다.
-                <strong className="text-foreground"> 3단계(내 아이디어 직접 구현)</strong>는 교육이 끝난 뒤,
-                각자 집이나 개인 시간에 <strong className="text-foreground">1단계에서 정리한 내 아이디어</strong>로
+                <span className="edu-step text-[11px] mx-1">STEP 3.</span>
+                (내 아이디어 직접 구현)는 교육이 끝난 뒤,
+                각자 집이나 개인 시간에{' '}
+                <span className="edu-step text-[11px]">STEP 1.</span>에서 정리한 내 아이디어로
                 천천히 진행해 보세요.
               </p>
               <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
-                3단계 페이지는 미리 읽어볼 수 있지만, 오늘 수업 중에 바로 시작할 필요는 없어요.
+                STEP 3. 페이지는 미리 읽어볼 수 있지만, 오늘 수업 중에 바로 시작할 필요는 없어요.
               </p>
               <Link
                 to="/workshop/implement"
-                className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-primary/30 bg-card text-primary font-semibold text-sm transition-all hover:bg-primary/5"
+                className="mt-5 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
               >
-                3단계 안내 미리 보기
+                STEP 3. 내 아이디어 구현으로 이동
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
             </div>
           </div>

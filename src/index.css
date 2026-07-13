@@ -227,4 +227,8 @@
   .edu-badge {
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium;
   }
+
+  .edu-step {
+    @apply inline-block rounded-sm bg-yellow-200 px-1.5 py-0.5 font-extrabold tracking-wide text-foreground;
+  }
 }

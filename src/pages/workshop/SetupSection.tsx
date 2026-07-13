@@ -90,7 +90,7 @@ const setupSteps = [
     id: 'venv',
     icon: '🫧',
     title: '가상환경 만들기 · 들어가기',
-    desc: '프로젝트마다 라이브러리를 따로 관리하기 위한 독립 공간입니다. 2단계 예제 실습 전에 꼭 설정하세요.',
+    desc: '프로젝트마다 라이브러리를 따로 관리하기 위한 독립 공간입니다. STEP 2. 예제 실습 전에 꼭 설정하세요.',
     steps: [
       'VS Code에서 "File → Open Folder" 로 실습용 빈 폴더를 엽니다 (예: excel_printer).',
       '위쪽 메뉴 "Terminal → New Terminal" 을 클릭해 터미널을 엽니다.',
@@ -105,14 +105,14 @@ const setupSteps = [
     id: 'libs',
     icon: '📦',
     title: '파이썬 라이브러리 한 번에 설치',
-    desc: '가상환경(.venv) 안에서 실습에 필요한 라이브러리를 설치합니다. 2단계 예제용 tkcalendar·openpyxl·pytest 포함.',
+    desc: '가상환경(.venv) 안에서 실습에 필요한 라이브러리를 설치합니다. STEP 2. 예제용 tkcalendar·openpyxl·pytest 포함.',
     steps: [
       '터미널 맨 앞에 (.venv) 가 보이는지 확인합니다. 없으면 이전 단계의 "가상환경 들어가기" 명령어를 먼저 실행하세요.',
       '아래 복사 버튼을 눌러 설치 명령어를 복사합니다.',
       '터미널에 붙여넣고 Enter를 누릅니다.',
       '설치가 완료될 때까지 기다립니다. (인터넷 속도에 따라 2~10분 소요)',
       '설치가 끝나면 "Successfully installed ..." 메시지가 나타납니다.',
-      '2단계 예제에서 GUI·엑셀·테스트에 쓰는 tkcalendar, openpyxl, pytest 가 포함되어 있는지 확인하세요.',
+      'STEP 2. 예제에서 GUI·엑셀·테스트에 쓰는 tkcalendar, openpyxl, pytest 가 포함되어 있는지 확인하세요.',
     ],
     tip: '오류가 나면 "python -m pip install ..." 로 바꿔 다시 시도해 보세요. tkcalendar만 따로 설치하려면: pip install tkcalendar openpyxl pytest',
   },
@@ -140,7 +140,7 @@ export function SetupSection() {
             <Download className="w-4 h-4" /> 준비 단계 · 환경 설치
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            1단계 실습을 시작하기 전에 PC에 도구를 설치합니다.
+            <span className="edu-step text-[11px]">STEP 1.</span> 실습을 시작하기 전에 PC에 도구를 설치합니다.
             순서대로 따라하면 <strong className="text-foreground">약 15~20분</strong> 안에 완료됩니다.
           </p>
         </div>
@@ -321,7 +321,7 @@ export function SetupSection() {
                             {/* 오른쪽: 라이브러리 목록 */}
                             <div>
                               <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
-                                <Package className="w-4 h-4 text-accent" /> 2단계 예제 필수 ({EXAMPLE_LIBS.length}개)
+                                <Package className="w-4 h-4 text-accent" /> STEP 2. 예제 필수 ({EXAMPLE_LIBS.length}개)
                               </h4>
                               <div className="flex flex-wrap gap-2 mb-4">
                                 {EXAMPLE_LIBS.map((lib) => (
@@ -421,15 +421,17 @@ export function SetupSection() {
         {/* 완료 후 다음 단계 안내 */}
         <div className="edu-card p-6 sm:p-8 text-center">
           <div className="text-3xl mb-3">✅</div>
-          <h3 className="text-lg font-bold text-foreground mb-2">설치 완료! 이제 1단계로 넘어가세요.</h3>
+          <h3 className="text-lg font-bold text-foreground mb-2">
+            설치 완료! 이제 <span className="edu-step text-sm">STEP 1.</span>로 넘어가세요.
+          </h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
-            VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 1단계 아이디어 구체화를 시작할 수 있습니다.
+            VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 STEP 1. 아이디어 구체화를 시작할 수 있습니다.
           </p>
           <Link
             to="/workshop/idea"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
           >
-            1단계 아이디어 구체화로 이동
+            STEP 1. 아이디어 구체화로 이동
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

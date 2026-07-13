@@ -14,42 +14,46 @@ const steps = [
     cta: '준비 단계',
     icon: Download,
     highlight: true,
+    stepHighlight: false,
   },
   {
     to: '/workshop/idea',
-    step: '1',
+    step: 'STEP 1.',
     badge: '아이디어',
     title: '아이디어 구체화',
     duration: '약 60분',
     summary: '교육 목표를 확인하고, 내 아이디어를 문서로 정리합니다.',
     details: ['교육 커리큘럼 확인', '페인포인트·해결책 정리', 'Lean Canvas 작성', '제출 양식 문안 완성'],
-    cta: '1단계 시작',
+    cta: 'STEP 1. 시작',
     icon: Lightbulb,
     highlight: false,
+    stepHighlight: true,
   },
   {
     to: '/workshop/example',
-    step: '2',
+    step: 'STEP 2.',
     badge: '예제 따라하기',
     title: 'ChatGPT → VS Code',
     duration: '약 75분',
     summary: '엑셀 명단 자동 인쇄 예제로 AI와 코딩 흐름을 처음부터 익힙니다.',
     details: ['예제 실습 1: 프로그램 뼈대', '예제 실습 2: 기능·오류 수정', '5문제 이해도 확인', 'ChatGPT → VS Code 반복 연습'],
-    cta: '2단계 시작',
+    cta: 'STEP 2. 시작',
     icon: FlaskConical,
     highlight: false,
+    stepHighlight: true,
   },
   {
     to: '/workshop/implement',
-    step: '3',
+    step: 'STEP 3.',
     badge: '교육 후 개별',
     title: '내 아이디어 구현',
     duration: '각자 진행',
-    summary: '2단계에서 배운 흐름으로 1단계에서 정리한 아이디어를 직접 만듭니다.',
-    details: ['1단계 제안서 활용', '예제와 같은 질문 순서', '기능 하나씩 추가·수정', '수업 후 개인 시간에 진행'],
-    cta: '3단계 안내',
+    summary: 'STEP 2.에서 배운 흐름으로 STEP 1.에서 정리한 아이디어를 직접 만듭니다.',
+    details: ['STEP 1. 제안서 활용', '예제와 같은 질문 순서', '기능 하나씩 추가·수정', '수업 후 개인 시간에 진행'],
+    cta: 'STEP 3. 안내',
     icon: Rocket,
     highlight: false,
+    stepHighlight: true,
   },
 ] as const;
 
@@ -57,7 +61,7 @@ export default function WorkshopPage() {
   return (
     <PageShell
       title="실습 구성"
-      subtitle="준비 → 1단계 → 2단계 → 3단계 순서로 진행합니다."
+      subtitle="준비 → STEP 1. → STEP 2. → STEP 3. 순서로 진행합니다."
     >
       <div className="flex-1 flex flex-col items-center justify-center edu-section px-4 sm:px-6">
         <div className="w-full max-w-6xl">
@@ -81,7 +85,13 @@ export default function WorkshopPage() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                        <span
+                          className={
+                            item.stepHighlight
+                              ? 'edu-step text-xs'
+                              : 'text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-muted text-muted-foreground'
+                          }
+                        >
                           {item.step}
                         </span>
                         <span className="text-xs font-medium text-muted-foreground">{item.badge}</span>

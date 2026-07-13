@@ -27,7 +27,7 @@ export default function WorkshopCurriculumPage() {
             <p className="text-base font-bold text-foreground mb-2">커리큘럼 확인 완료</p>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-xl mx-auto">
               이제 <strong className="text-foreground">준비 단계</strong>에서 환경을 맞춘 뒤
-              1단계 아이디어 구체화로 넘어가세요.
+              <span className="edu-step text-[11px] mx-1">STEP 1.</span> 아이디어 구체화로 넘어가세요.
             </p>
             <Link
               to="/workshop/setup"

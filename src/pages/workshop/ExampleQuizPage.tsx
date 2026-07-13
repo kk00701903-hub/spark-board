@@ -15,7 +15,7 @@ export default function ExampleQuizPage() {
 
           <ExampleStepNav
             prev={{ label: '예제 실습 2', to: EXAMPLE_ROUTES.ex2 }}
-            next={{ label: '2단계 개요', to: EXAMPLE_ROUTES.hub }}
+            next={{ label: 'STEP 3. 내 아이디어 구현으로 이동', to: '/workshop/implement' }}
           />
         </div>
       </section>
