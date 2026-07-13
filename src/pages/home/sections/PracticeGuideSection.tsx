@@ -17,6 +17,167 @@ const SUBMIT_FIELDS = [
   { label: '기대 효과', required: true, max: 1000, icon: '📝' },
 ] as const;
 
+const COMPANY_SYSTEM_PRESETS = [
+  { id: 'sce', label: 'SCE (OMS, TMS, WMS 통합패키지)' },
+  { id: 'distribution', label: '유통물류시스템 (유통물류 수주, 발주, 정산 시스템)' },
+  { id: 'tpl', label: '3PL 시스템 (3PL 수주시스템)' },
+  { id: 'gas', label: '주유소 시스템 (주유소관리 시스템)' },
+] as const;
+
+type CompanySystemId = (typeof COMPANY_SYSTEM_PRESETS)[number]['id'];
+
+function buildSystemLine(
+  selected: CompanySystemId[],
+  otherChecked: boolean,
+  otherName: string,
+  otherRole: string,
+): string {
+  const parts: string[] = [];
+  for (const id of selected) {
+    const preset = COMPANY_SYSTEM_PRESETS.find((p) => p.id === id);
+    if (preset) parts.push(preset.label);
+  }
+  if (otherChecked) {
+    const name = otherName.trim();
+    const role = otherRole.trim();
+    if (name && role) parts.push(`${name} (${role})`);
+    else if (name) parts.push(`${name} (역할 미입력)`);
+    else if (role) parts.push(`기타시스템 (${role})`);
+    else parts.push('기타시스템 (명칭·역할 미입력)');
+  }
+  if (parts.length === 0) {
+    return '아직 선택 안 함 — 위에서 시스템을 골라 주세요';
+  }
+  return parts.join(', ');
+}
+
+function buildPractice3Prompt(systemLine: string): string {
+  return `같은 대화에서 이어서, **우리 회사(또는 우리 부서) 맥락**을 알려줄게.
+나중에 제출 양식 5항목(제안 배경·AI 활용 시나리오·활용 데이터·관련 시스템·기대 효과)을 쓸 때 이 정보를 반영해 줘.
+
+**내가 알려주는 내용**
+- 현재 사용 시스템: ${systemLine}
+- 내 부서: [내 부서명]
+- 내가 주로 하는 일: [내가 주로 하는 일 한두 문장]
+- 가장 오래 걸리거나 귀찮은 일: [가장 오래 걸리거나 귀찮은 일]
+- 데이터는 어디에 있나: [예: 엑셀, 시스템 화면]
+- 더 알려줄 말(선택): [더 알려줄 말]
+
+---
+
+## 요청
+1. 위 내용을 **한두 문장으로 요약**해 줘.
+2. 제출 양식 5항목을 현실적으로 쓰기 위해, **쉬운 확인 질문 3~5개**만 번호로 물어봐 줘.
+3. 내가 답하기 전에는 제출 문안을 작성하지 마.
+
+답변은 한국어로 작성해 줘.`;
+}
+
+function CompanySystemPicker({
+  selected,
+  otherChecked,
+  otherName,
+  otherRole,
+  systemLine,
+  onToggle,
+  onOtherChecked,
+  onOtherName,
+  onOtherRole,
+}: {
+  selected: CompanySystemId[];
+  otherChecked: boolean;
+  otherName: string;
+  otherRole: string;
+  systemLine: string;
+  onToggle: (id: CompanySystemId) => void;
+  onOtherChecked: (checked: boolean) => void;
+  onOtherName: (value: string) => void;
+  onOtherRole: (value: string) => void;
+}) {
+  return (
+    <div className="rounded-xl border border-primary/25 bg-primary/5 p-4 sm:p-5 space-y-3">
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-0.5">우리 회사 시스템 고르기</h4>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          해당하는 시스템을 모두 고르세요. 고른 내용이 아래 프롬프트에 자동으로 들어갑니다.
+        </p>
+      </div>
+      <div className="space-y-2">
+        {COMPANY_SYSTEM_PRESETS.map((preset) => {
+          const checked = selected.includes(preset.id);
+          return (
+            <label
+              key={preset.id}
+              className={[
+                'flex items-start gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-colors',
+                checked
+                  ? 'border-primary/40 bg-card'
+                  : 'border-border bg-card/70 hover:border-primary/25',
+              ].join(' ')}
+            >
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => onToggle(preset.id)}
+                className="mt-0.5 rounded border-border"
+              />
+              <span className="text-sm text-foreground leading-snug">{preset.label}</span>
+            </label>
+          );
+        })}
+        <label
+          className={[
+            'flex items-start gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-colors',
+            otherChecked
+              ? 'border-primary/40 bg-card'
+              : 'border-border bg-card/70 hover:border-primary/25',
+          ].join(' ')}
+        >
+          <input
+            type="checkbox"
+            checked={otherChecked}
+            onChange={(e) => onOtherChecked(e.target.checked)}
+            className="mt-0.5 rounded border-border"
+          />
+          <span className="text-sm text-foreground leading-snug font-medium">기타시스템</span>
+        </label>
+        {otherChecked ? (
+          <div className="ml-6 grid sm:grid-cols-2 gap-2">
+            <div>
+              <label className="text-[11px] font-medium text-muted-foreground mb-1 block">
+                시스템 명칭
+              </label>
+              <input
+                type="text"
+                value={otherName}
+                onChange={(e) => onOtherName(e.target.value)}
+                placeholder="예: 그룹웨어"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              />
+            </div>
+            <div>
+              <label className="text-[11px] font-medium text-muted-foreground mb-1 block">
+                역할 (무엇을 하는 시스템?)
+              </label>
+              <input
+                type="text"
+                value={otherRole}
+                onChange={(e) => onOtherRole(e.target.value)}
+                placeholder="예: 결재·공지 확인"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              />
+            </div>
+          </div>
+        ) : null}
+      </div>
+      <p className="text-xs text-muted-foreground leading-relaxed pt-1 border-t border-border/60">
+        <span className="font-semibold text-foreground">선택 반영: </span>
+        {systemLine}
+      </p>
+    </div>
+  );
+}
+
 type Practice = {
   title: string;
   icon: string;
@@ -87,38 +248,19 @@ const practices: Practice[] = [
     title: '실습 3: 회사 시스템·업무 프로세스 알려주기',
     icon: '🏢',
     duration: '15분',
-    difficulty: '중급',
+    difficulty: '초급',
     steps: [
       '실습 1·2와 같은 ChatGPT 창에서 이어서 진행합니다',
-      '아래 프롬프트의 노란 칸에 **우리 회사/부서의 실제 시스템·업무 프로세스**를 최대한 구체적으로 적습니다',
-      'ChatGPT가 맥락을 요약하고, 제출 문안을 위해 확인할 질문 목록을 줍니다',
-      '질문에 답하거나, 아래 「이어서 물어볼 질문」을 복사해 대화를 이어 갑니다',
+      '위에서 **우리 회사 시스템**을 고릅니다 (여러 개 선택 가능, 없으면 기타)',
+      '노란 칸에 부서·하는 일만 **짧게** 적고 복사해 ChatGPT에 보냅니다',
+      'ChatGPT가 묻는 쉬운 질문에 짧게 답한 뒤, 실습 4에서 제출 5항목 문안을 받습니다',
     ],
-    prompt: `같은 대화에서 이어서, **우리 회사(또는 우리 부서)의 실제 맥락**을 알려줄게.
-이후 제출 양식 문안(제안 배경·AI 활용 시나리오·활용 데이터·관련 시스템·기대 효과)을 쓸 때 이 정보를 반드시 반영해 줘.
-
-**회사·부서 맥락** (내가 입력)
-- 사업·업무 영역: [예: 물류·유통, 영업지원, 재무 등]
-- 내 부서·역할: [부서명 / 담당 역할]
-- 주요 업무 프로세스: [누가 → 무엇을 → 어떤 순서로 하는지, 수작업 구간 포함]
-- 현재 사용 시스템: [시스템명과 용도 — 예: ERP, WMS, 그룹웨어, 엑셀 공유폴더]
-- 데이터·문서 흐름: [어디서 만들어져 어디로 가는지]
-- 제약·주의사항: [보안, 승인, 권한, 수기 입력, 외부 연동 제한 등]
-- 관련해서 더 알려줄 내용: [자유롭게]
-
----
-
-## 요청
-1. 위 맥락을 **짧게 요약**해 줘 (내가 맞게 말했는지 확인할 수 있게).
-2. 제출 양식 5항목을 현실적으로 채우기 위해 **나에게 확인할 질문 5~7개**를 번호로 물어봐 줘.
-3. 질문이 끝나면, 내가 답할 때까지 제출 문안은 아직 작성하지 마.
-
-답변은 한국어로 작성해 줘.`,
+    // 프롬프트는 buildPractice3Prompt()로 시스템 선택 반영
+    prompt: '',
     followUps: [
-      '우리 프로세스에서 가장 시간이 오래 걸리는 구간을 다시 짚어 주고, 그 구간에 AI를 넣을 때 주의할 점을 알려 줘.',
-      '관련 시스템끼리 데이터가 어떻게 오가는지 가정하지 말고, 내가 적은 내용만으로 연결도를 짧게 정리해 줘. 모르는 부분은 질문해 줘.',
-      '보안·승인 때문에 AI가 직접 건드리면 안 되는 구간이 있으면 표시해 줘.',
-      '활용 데이터와 관련 시스템 칸에 넣을 후보를 bullet로 정리해 줘. 확신이 낮은 항목은 (확인 필요)라고 표시해 줘.',
+      '내가 고른 시스템 기준으로, 제출 양식 【관련 시스템】에 넣을 문장을 짧게 초안 잡아 줘.',
+      '【활용 데이터】에 넣을 후보를 bullet 3개만 적어 줘. 모르는 건 (확인 필요)라고 표시해 줘.',
+      '실습 4로 가기 전에, 아직 부족한 정보만 쉬운 질문 2개로 더 물어봐 줘.',
     ],
   },
   {
@@ -211,6 +353,18 @@ const practices: Practice[] = [
 
 export function PracticeGuideSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [selectedSystems, setSelectedSystems] = useState<CompanySystemId[]>([]);
+  const [otherChecked, setOtherChecked] = useState(false);
+  const [otherName, setOtherName] = useState('');
+  const [otherRole, setOtherRole] = useState('');
+
+  const systemLine = buildSystemLine(selectedSystems, otherChecked, otherName, otherRole);
+
+  const toggleSystem = (id: CompanySystemId) => {
+    setSelectedSystems((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  };
 
   return (
     <section id="practice" className="edu-section scroll-mt-16">
@@ -311,20 +465,35 @@ export function PracticeGuideSection() {
                   >
                     <div className="px-6 pb-6 border-t border-border pt-6 space-y-6">
                       <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                            <Target className="w-4 h-4 text-primary" /> 실습 순서
-                          </h4>
-                          <div className="space-y-2">
-                            {practice.steps.map((step, si) => (
-                              <div key={si} className="flex items-start gap-3">
-                                <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                  <span className="text-xs font-bold text-primary">{si + 1}</span>
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                              <Target className="w-4 h-4 text-primary" /> 실습 순서
+                            </h4>
+                            <div className="space-y-2">
+                              {practice.steps.map((step, si) => (
+                                <div key={si} className="flex items-start gap-3">
+                                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span className="text-xs font-bold text-primary">{si + 1}</span>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground leading-relaxed">{step}</p>
                                 </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed">{step}</p>
-                              </div>
-                            ))}
+                              ))}
+                            </div>
                           </div>
+                          {i === 2 ? (
+                            <CompanySystemPicker
+                              selected={selectedSystems}
+                              otherChecked={otherChecked}
+                              otherName={otherName}
+                              otherRole={otherRole}
+                              systemLine={systemLine}
+                              onToggle={toggleSystem}
+                              onOtherChecked={setOtherChecked}
+                              onOtherName={setOtherName}
+                              onOtherRole={setOtherRole}
+                            />
+                          ) : null}
                         </div>
 
                         <div>
@@ -332,7 +501,7 @@ export function PracticeGuideSection() {
                             <Code2 className="w-4 h-4 text-accent" /> 실습용 프롬프트
                           </h4>
                           <EditablePrompt
-                            text={practice.prompt}
+                            text={i === 2 ? buildPractice3Prompt(systemLine) : practice.prompt}
                             promptKey={practice.title}
                           />
                         </div>

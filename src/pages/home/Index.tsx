@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  ChevronDown, ChevronRight, Sparkles, Users, Play,
+  ChevronDown, ChevronRight, Sparkles, Users,
   Lightbulb, FlaskConical, Rocket, Download,
 } from 'lucide-react';
 import { springGentle } from './animations';
@@ -26,33 +26,21 @@ function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur border-b border-border shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <NavMenuButton
-              className={
-                scrolled
-                  ? undefined
-                  : 'bg-white/10 border-white/25 text-white hover:bg-white/20'
-              }
-            />
-            <Link to="/" className="flex items-center gap-2 min-w-0">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <span className={`font-bold text-lg ${scrolled ? 'text-foreground' : 'text-white'}`}>
-                AI 아이디어 스파크
-              </span>
-            </Link>
-          </div>
-          <Link
-            to="/workshop"
-            className={`hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.97] shadow-md ${
+        <div className="flex items-center h-16 gap-3">
+          <NavMenuButton
+            className={
               scrolled
-                ? 'bg-foreground text-background border border-border hover:opacity-90'
-                : 'bg-white text-foreground shadow-[0_4px_20px_-4px_rgba(0,0,0,0.45)] border border-white/40 hover:bg-white/95'
-            }`}
-          >
-            <Play className="w-3.5 h-3.5 shrink-0" /> 실습 시작
+                ? undefined
+                : 'bg-white/10 border-white/25 text-white hover:bg-white/20'
+            }
+          />
+          <Link to="/" className="flex items-center gap-2 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className={`font-bold text-lg ${scrolled ? 'text-foreground' : 'text-white'}`}>
+              AI 아이디어 스파크
+            </span>
           </Link>
         </div>
       </div>
