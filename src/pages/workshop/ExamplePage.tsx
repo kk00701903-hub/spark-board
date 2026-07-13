@@ -9,8 +9,7 @@ export default function ExamplePage() {
 
   return (
     <PageShell
-      stepLabel="STEP 2."
-      title="예제 따라하기"
+      title="본격적인 예제를 실습하기 위한 3단계 과정"
       subtitle="ChatGPT → VS Code · 약 75분"
     >
       <ExampleHubSection focusStep={focusStep} />

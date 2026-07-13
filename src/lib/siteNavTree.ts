@@ -56,6 +56,24 @@ function firstNavigablePath(item: SiteNavItem): string | undefined {
   return undefined;
 }
 
+/** DFS 순서로 메뉴에 등록된 경로 목록 */
+export function flattenNavPaths(items: SiteNavItem[] = siteNavTree): string[] {
+  const out: string[] = [];
+  for (const item of items) {
+    if (item.path) out.push(item.path);
+    if (item.children) out.push(...flattenNavPaths(item.children));
+  }
+  return out;
+}
+
+/** 사이드 메뉴 순서상 바로 이전 페이지. 없으면 undefined */
+export function getPreviousPagePath(pathname: string): string | undefined {
+  const paths = flattenNavPaths();
+  const idx = paths.findIndex((p) => isNavPathActive(p, pathname));
+  if (idx <= 0) return undefined;
+  return paths[idx - 1];
+}
+
 /** 현재 경로에 해당하는 메뉴 하이어라키(홈 → … → 현재)를 반환 */
 export function getBreadcrumbTrail(pathname: string): BreadcrumbCrumb[] {
   function walk(items: SiteNavItem[], trail: BreadcrumbCrumb[]): BreadcrumbCrumb[] | null {

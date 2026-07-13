@@ -308,9 +308,6 @@ export function ImplementPracticeSection() {
         </div>
 
         <div className="mb-6">
-          <div className="edu-badge mb-3">
-            <Rocket className="w-4 h-4" /> STEP 3. 내 아이디어 구현하기
-          </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             STEP 2. 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
             이번엔 STEP 1.에서 정리한 내 아이디어를 파이썬 프로그램으로 만듭니다.
@@ -532,15 +529,9 @@ export function ImplementPracticeSection() {
         </div>
 
         <div className="mt-14 text-center max-w-2xl mx-auto">
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             <BoldText text="STEP 1. 글이 너무 길면 **요약본만** 질문 1번에 넣어도 됩니다. 보안 관련 위배되는 정보는 넣지 마세요." />
           </p>
-          <Link
-            to="/prompts"
-            className="text-sm font-semibold text-primary hover:underline"
-          >
-            다른 질문 예시 모음 보기 →
-          </Link>
         </div>
       </div>
     </section>

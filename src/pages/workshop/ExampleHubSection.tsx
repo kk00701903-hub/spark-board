@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, ClipboardCheck, FlaskConical, Lightbulb, Wrench } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ClipboardCheck, Lightbulb, Wrench } from 'lucide-react';
 import {
   EXAMPLE_ROUTES,
   type ExampleFocusStep,
@@ -81,9 +81,6 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
         </div>
 
         <div className="mb-8">
-          <div className="edu-badge mb-3">
-            <FlaskConical className="w-4 h-4" /> STEP 2. 예제 따라하기
-          </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             <strong className="text-foreground">엑셀 명단 자동 인쇄 프로그램</strong> 예제를 함께 만들며
             ChatGPT → VS Code 흐름을 처음부터 끝까지 경험합니다.
