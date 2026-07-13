@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ClipboardCheck, FlaskConical, Lightbulb, Wrench } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ClipboardCheck, FlaskConical, Lightbulb, Wrench } from 'lucide-react';
 import {
   EXAMPLE_ROUTES,
   type ExampleFocusStep,
@@ -13,6 +13,7 @@ const steps = [
     subtitle: '엑셀 명단 자동 인쇄 프로그램 뼈대 만들기',
     description: 'ChatGPT와 VS Code로 프로그램 뼈대를 처음부터 만듭니다. 질문 5개를 순서대로 진행해요.',
     to: EXAMPLE_ROUTES.ex1,
+    guideTo: EXAMPLE_ROUTES.ex1Guide,
     icon: '📁',
   },
   {
@@ -22,6 +23,7 @@ const steps = [
     subtitle: '기능 더하기 & 오류 고치기',
     description: '미리보기 기능을 추가하고, 오류가 나면 ChatGPT로 고치는 방법을 연습합니다.',
     to: EXAMPLE_ROUTES.ex2,
+    guideTo: EXAMPLE_ROUTES.ex2Guide,
     icon: '🔧',
   },
   {
@@ -31,6 +33,7 @@ const steps = [
     subtitle: '5문제 퀴즈',
     description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
     to: EXAMPLE_ROUTES.quiz,
+    guideTo: EXAMPLE_ROUTES.quizGuide,
     icon: '✅',
   },
 ];
@@ -124,14 +127,13 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
           {steps.map((step) => {
             const highlighted = step.id === focusStep;
             return (
-              <Link
+              <div
                 key={step.to}
-                to={step.to}
                 className={[
-                  'edu-card p-5 text-left transition-all duration-200 hover:shadow-md group',
+                  'edu-card p-5 text-left flex flex-col',
                   highlighted
                     ? 'border-2 border-primary ring-2 ring-primary/20'
-                    : 'hover:border-primary/30',
+                    : '',
                 ].join(' ')}
               >
                 <div className="text-2xl mb-3">{step.icon}</div>
@@ -142,15 +144,26 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
                     <span>{step.number}단계</span>
                   )}
                 </div>
-                <div className="font-semibold text-foreground text-base mb-1 group-hover:text-primary transition-colors">
-                  {step.title}
-                </div>
+                <div className="font-semibold text-foreground text-base mb-1">{step.title}</div>
                 <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-                <span className="text-sm font-semibold text-primary inline-flex items-center gap-1">
-                  시작하기 <ArrowRight className="w-4 h-4" />
-                </span>
-              </Link>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.description}</p>
+                <div className="space-y-2 mt-auto">
+                  <Link
+                    to={step.guideTo}
+                    className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border bg-card text-sm font-semibold text-foreground hover:border-primary/40 hover:bg-muted/40 transition-colors"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 shrink-0 text-primary" />
+                    실습내용 상세히 보기
+                  </Link>
+                  <Link
+                    to={step.to}
+                    className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    시작하기
+                    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                  </Link>
+                </div>
+              </div>
             );
           })}
         </div>

@@ -1,6 +1,6 @@
 import { PageShell } from '@/pages/PageShell';
 import { ExamplePracticeDetail } from '@/pages/workshop/ExamplePracticeDetail';
-import { exampleHubPath, examplePractice1 } from '@/pages/workshop/examplePracticeData';
+import { EXAMPLE_ROUTES, exampleHubPath, examplePractice1 } from '@/pages/workshop/examplePracticeData';
 
 export default function ExamplePractice1Page() {
   return (
@@ -11,6 +11,7 @@ export default function ExamplePractice1Page() {
       <ExamplePracticeDetail
         practice={examplePractice1}
         practiceNumber={1}
+        prevTo={EXAMPLE_ROUTES.hub}
         nextTo={exampleHubPath('ex-2')}
       />
     </PageShell>

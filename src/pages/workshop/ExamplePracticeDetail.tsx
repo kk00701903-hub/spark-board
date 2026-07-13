@@ -10,14 +10,21 @@ import { ExampleExcelSamplePanel } from '@/pages/workshop/ExampleExcelSamplePane
 import { type ExamplePractice } from '@/pages/workshop/examplePracticeData';
 import { BoldText, PromptConditionReasons, SampleAnswerPanel, difficultyBadge } from '@/pages/workshop/examplePracticeUi';
 
+const nextBtnClass =
+  'inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90';
+const prevBtnClass =
+  'inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors';
+
 type ExamplePracticeDetailProps = {
   practice: ExamplePractice;
   practiceNumber: 1 | 2;
+  /** 개요 하단 「이전」으로 이동할 경로 */
+  prevTo?: string;
   /** 질문 실습 끝난 뒤 「다음」으로 이동할 경로 */
   nextTo?: string;
 };
 
-export function ExamplePracticeDetail({ practice, practiceNumber, nextTo }: ExamplePracticeDetailProps) {
+export function ExamplePracticeDetail({ practice, practiceNumber, prevTo, nextTo }: ExamplePracticeDetailProps) {
   const [phase, setPhase] = useState<'overview' | 'questions'>('overview');
   const [openSubStep, setOpenSubStep] = useState<number | null>(null);
   const questionsRef = useRef<HTMLDivElement | null>(null);
@@ -114,12 +121,14 @@ export function ExamplePracticeDetail({ practice, practiceNumber, nextTo }: Exam
                     </div>
                   </div>
 
-                  <div className="pt-2 text-center">
-                    <button
-                      type="button"
-                      onClick={startQuestions}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
-                    >
+                  <div className="pt-2 flex items-center justify-center gap-3 flex-wrap">
+                    {prevTo ? (
+                      <Link to={prevTo} className={prevBtnClass}>
+                        <ArrowLeft className="w-4 h-4" />
+                        이전
+                      </Link>
+                    ) : null}
+                    <button type="button" onClick={startQuestions} className={nextBtnClass}>
                       다음
                       <ArrowRight className="w-4 h-4" />
                     </button>
@@ -261,17 +270,25 @@ export function ExamplePracticeDetail({ practice, practiceNumber, nextTo }: Exam
                     })}
                   </div>
 
-                  {nextTo ? (
-                    <div className="pt-4 text-center">
-                      <Link
-                        to={nextTo}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
-                      >
+                  <div className="pt-4 flex items-center justify-center gap-3 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPhase('overview');
+                        setOpenSubStep(null);
+                      }}
+                      className={prevBtnClass}
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      이전
+                    </button>
+                    {nextTo ? (
+                      <Link to={nextTo} className={nextBtnClass}>
                         다음
                         <ArrowRight className="w-4 h-4" />
                       </Link>
-                    </div>
-                  ) : null}
+                    ) : null}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

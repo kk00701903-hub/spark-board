@@ -33,8 +33,11 @@ export type ExamplePractice = {
 export const EXAMPLE_ROUTES = {
   hub: '/workshop/example',
   ex1: '/workshop/example/ex-1',
+  ex1Guide: '/workshop/example/ex-1/guide',
   ex2: '/workshop/example/ex-2',
+  ex2Guide: '/workshop/example/ex-2/guide',
   quiz: '/workshop/example/quiz',
+  quizGuide: '/workshop/example/quiz/guide',
 } as const;
 
 export type ExampleFocusStep = 'ex-1' | 'ex-2' | 'quiz';

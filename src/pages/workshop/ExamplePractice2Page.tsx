@@ -11,6 +11,7 @@ export default function ExamplePractice2Page() {
       <ExamplePracticeDetail
         practice={examplePractice2}
         practiceNumber={2}
+        prevTo={EXAMPLE_ROUTES.ex1}
         nextTo={EXAMPLE_ROUTES.quiz}
       />
     </PageShell>
