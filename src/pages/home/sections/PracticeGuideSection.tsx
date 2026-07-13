@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Brain, Clock, ChevronUp, ChevronDown, Target, Code2, ArrowRight, MessageCircle,
+  Clock, ChevronUp, ChevronDown, Target, Code2, ArrowRight, MessageCircle,
 } from 'lucide-react';
 import { springGentle, springSnappy } from '../animations';
 import { EditablePrompt } from './EditablePrompt';
@@ -416,9 +416,6 @@ export function PracticeGuideSection() {
     <section id="practice" className="edu-section scroll-mt-16">
       <div className="edu-container">
         <div className="mb-6">
-          <div className="edu-badge mb-3">
-            <Brain className="w-4 h-4" /> STEP 1. 아이디어 구체화
-          </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             ChatGPT로 아이디어를 다듬은 뒤, 3단계에서{' '}
             <strong className="text-foreground">AI Idea Spark 포인트 관리시스템</strong>에
