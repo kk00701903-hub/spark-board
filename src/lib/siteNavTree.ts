@@ -11,8 +11,8 @@ export const siteNavTree: SiteNavItem[] = [
     children: [
       { label: '실습 구성', path: '/workshop' },
       { label: '교육 커리큘럼', path: '/workshop/curriculum' },
-      { label: '1단계 · 아이디어 구체화', path: '/workshop/idea' },
       { label: '준비 단계 · 환경 설치', path: '/workshop/setup' },
+      { label: '1단계 · 아이디어 구체화', path: '/workshop/idea' },
       {
         label: '2단계 · 예제 따라하기',
         children: [

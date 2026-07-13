@@ -294,15 +294,8 @@ export function PracticeGuideSection() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
-            to="/workshop/setup"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
-          >
-            준비 단계: VS Code · Python 설치
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link
             to="/workshop/example"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold text-sm transition-all duration-200 hover:border-primary/40"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
           >
             2단계: 예제로 먼저 연습하기
             <ArrowRight className="w-4 h-4" />

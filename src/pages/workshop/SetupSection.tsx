@@ -127,11 +127,11 @@ export function SetupSection() {
 
         <div className="mb-6">
           <Link
-            to="/workshop/idea"
+            to="/workshop"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            1단계 아이디어 구체화로 돌아가기
+            실습 구성으로 돌아가기
           </Link>
         </div>
 
@@ -140,7 +140,7 @@ export function SetupSection() {
             <Download className="w-4 h-4" /> 준비 단계 · 환경 설치
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            2단계 실습을 하기 전에 PC에 도구를 설치해야 합니다.
+            1단계 실습을 시작하기 전에 PC에 도구를 설치합니다.
             순서대로 따라하면 <strong className="text-foreground">약 15~20분</strong> 안에 완료됩니다.
           </p>
         </div>
@@ -421,15 +421,15 @@ export function SetupSection() {
         {/* 완료 후 다음 단계 안내 */}
         <div className="edu-card p-6 sm:p-8 text-center">
           <div className="text-3xl mb-3">✅</div>
-          <h3 className="text-lg font-bold text-foreground mb-2">설치 완료! 이제 2단계로 넘어가세요.</h3>
+          <h3 className="text-lg font-bold text-foreground mb-2">설치 완료! 이제 1단계로 넘어가세요.</h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
-            VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 2단계 예제 따라하기를 시작할 수 있습니다.
+            VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 1단계 아이디어 구체화를 시작할 수 있습니다.
           </p>
           <Link
-            to="/workshop/example"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+            to="/workshop/idea"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
           >
-            2단계 예제 따라하기로 이동
+            1단계 아이디어 구체화로 이동
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

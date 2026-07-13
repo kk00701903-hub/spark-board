@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ChevronDown, ChevronRight, Sparkles, Users, Play,
-  Lightbulb, FlaskConical, Rocket,
+  Lightbulb, FlaskConical, Rocket, Download,
 } from 'lucide-react';
 import { springGentle } from './animations';
 import { NavMenuButton } from '@/components/nav/NavSidebar';
 
 const workshopStepLinks = [
+  { label: '준비단계', sub: '환경 설치', to: '/workshop/setup', icon: Download },
   { label: '1단계', sub: '아이디어 구체화', to: '/workshop/idea', icon: Lightbulb },
   { label: '2단계', sub: '예제 따라하기', to: '/workshop/example', icon: FlaskConical },
   { label: '3단계', sub: '내 아이디어 구현', to: '/workshop/implement', icon: Rocket },
@@ -138,7 +139,7 @@ function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto"
+          className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.5 }}

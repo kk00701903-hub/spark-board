@@ -12,11 +12,11 @@ export default function IdeaPracticePage() {
       <div className="border-b border-border bg-background">
         <div className="edu-container py-4">
           <Link
-            to="/workshop/curriculum"
+            to="/workshop/setup"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            교육 커리큘럼으로 돌아가기
+            준비 단계로 돌아가기
           </Link>
         </div>
       </div>
