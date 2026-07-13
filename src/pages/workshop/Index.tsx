@@ -14,7 +14,6 @@ const steps = [
     cta: '준비 단계',
     icon: Download,
     highlight: true,
-    stepHighlight: false,
   },
   {
     to: '/workshop/idea',
@@ -27,7 +26,6 @@ const steps = [
     cta: 'STEP 1. 시작',
     icon: Lightbulb,
     highlight: false,
-    stepHighlight: true,
   },
   {
     to: '/workshop/example',
@@ -40,7 +38,6 @@ const steps = [
     cta: 'STEP 2. 시작',
     icon: FlaskConical,
     highlight: false,
-    stepHighlight: true,
   },
   {
     to: '/workshop/implement',
@@ -53,7 +50,6 @@ const steps = [
     cta: 'STEP 3. 안내',
     icon: Rocket,
     highlight: false,
-    stepHighlight: true,
   },
 ] as const;
 
@@ -95,11 +91,7 @@ export default function WorkshopPage() {
                         </span>
                       </div>
                       <div className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors leading-snug">
-                        {item.stepHighlight ? (
-                          <span className="edu-step">{item.title}</span>
-                        ) : (
-                          item.title
-                        )}
+                        {item.title}
                       </div>
                     </div>
                   </div>

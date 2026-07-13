@@ -217,7 +217,7 @@ export function PracticeGuideSection() {
       <div className="edu-container">
         <div className="mb-6">
           <div className="edu-badge mb-3">
-            <Brain className="w-4 h-4" /> STEP 1. <span className="edu-step text-xs">아이디어 구체화</span>
+            <Brain className="w-4 h-4" /> STEP 1. 아이디어 구체화
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             ChatGPT로 아이디어를 다듬은 뒤, 실습 3에서{' '}
@@ -265,10 +265,7 @@ export function PracticeGuideSection() {
               >
                 <div className="flex items-center gap-4 min-w-0">
                   <div
-                    className={[
-                      'w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 transition-colors',
-                      openIndex === i ? 'bg-yellow-200' : 'bg-primary/10',
-                    ].join(' ')}
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 bg-primary/10"
                   >
                     {practice.icon}
                   </div>
@@ -282,7 +279,7 @@ export function PracticeGuideSection() {
                       <span className="text-xs sm:text-sm shrink-0 text-muted-foreground font-extrabold tracking-wide">
                         {practice.title.match(/^실습\s*\d+/)?.[0] ?? `실습 ${i + 1}`}
                       </span>
-                      <span className={openIndex === i ? 'edu-step' : undefined}>
+                      <span>
                         {practice.title.replace(/^실습\s*\d+\s*[:：]\s*/, '')}
                       </span>
                     </div>

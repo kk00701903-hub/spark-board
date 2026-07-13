@@ -190,7 +190,7 @@ export function ExampleStep2Quiz() {
 
             <div className="rounded-2xl border-2 border-primary/20 bg-primary/5 px-6 py-8 text-center">
               <p className="text-lg font-bold text-foreground mb-2">
-                STEP 2. <span className="edu-step">예제 실습 완료!</span> 🎉
+                STEP 2. 예제 실습 완료! 🎉
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mx-auto">
                 오늘 교육에서는 여기까지입니다.

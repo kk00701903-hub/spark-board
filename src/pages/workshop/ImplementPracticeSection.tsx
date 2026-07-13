@@ -309,7 +309,7 @@ export function ImplementPracticeSection() {
 
         <div className="mb-6">
           <div className="edu-badge mb-3">
-            <Rocket className="w-4 h-4" /> STEP 3. <span className="edu-step text-xs">내 아이디어 구현하기</span>
+            <Rocket className="w-4 h-4" /> STEP 3. 내 아이디어 구현하기
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             STEP 2. 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
