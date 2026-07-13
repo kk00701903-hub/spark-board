@@ -220,8 +220,9 @@ export function PracticeGuideSection() {
             <Brain className="w-4 h-4" /> <span className="edu-step text-xs">STEP 1.</span> 아이디어 구체화
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            페인포인트 → Lean Canvas → <strong className="text-foreground">회사 시스템·프로세스 설명</strong> →
-            ChatGPT 질의응답으로 <strong className="text-foreground">제출 양식 최종 문안</strong>을 완성합니다.
+            ChatGPT로 아이디어를 다듬은 뒤, 실습 3에서{' '}
+            <strong className="text-foreground">AI Idea Spark 포인트 관리시스템</strong>에
+            양식 그대로 붙여넣을 최종 문안을 만듭니다.
           </p>
         </div>
 
@@ -262,12 +263,35 @@ export function PracticeGuideSection() {
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-muted/30 transition-colors"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-2xl">
+                <div className="flex items-center gap-4 min-w-0">
+                  <div
+                    className={[
+                      'w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 transition-colors',
+                      openIndex === i ? 'bg-yellow-200' : 'bg-primary/10',
+                    ].join(' ')}
+                  >
                     {practice.icon}
                   </div>
-                  <div>
-                    <div className="font-bold text-foreground">{practice.title}</div>
+                  <div className="min-w-0">
+                    <div
+                      className={[
+                        'font-bold text-foreground leading-snug flex flex-wrap items-center gap-1.5',
+                        openIndex === i ? 'text-lg sm:text-xl' : 'text-base',
+                      ].join(' ')}
+                    >
+                      <span className="edu-step text-xs sm:text-sm shrink-0">
+                        {practice.title.match(/^실습\s*\d+/)?.[0] ?? `실습 ${i + 1}`}
+                      </span>
+                      <span
+                        className={
+                          openIndex === i
+                            ? 'rounded-sm bg-yellow-100 px-1.5 py-0.5'
+                            : undefined
+                        }
+                      >
+                        {practice.title.replace(/^실습\s*\d+\s*[:：]\s*/, '')}
+                      </span>
+                    </div>
                     <div className="flex items-center gap-3 mt-1">
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Clock className="w-3 h-3" /> {practice.duration}
