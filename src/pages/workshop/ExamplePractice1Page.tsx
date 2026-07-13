@@ -11,6 +11,7 @@ export default function ExamplePractice1Page() {
       <ExamplePracticeDetail
         practice={examplePractice1}
         practiceNumber={1}
+        guideTo={EXAMPLE_ROUTES.ex1Guide}
         prevTo={EXAMPLE_ROUTES.hub}
         nextTo={exampleHubPath('ex-2')}
       />

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, ArrowRight, ChevronDown, ChevronUp, Clock, Code2, Lightbulb, AlertCircle, Target,
+  ArrowLeft, ArrowRight, BookOpen, ChevronDown, ChevronUp, Clock, Code2, Lightbulb, AlertCircle, Target,
 } from 'lucide-react';
 import { springGentle } from '@/pages/home/animations';
 import { EditablePrompt } from '@/pages/home/sections/EditablePrompt';
@@ -18,13 +18,21 @@ const prevBtnClass =
 type ExamplePracticeDetailProps = {
   practice: ExamplePractice;
   practiceNumber: 1 | 2;
+  /** 예제 설명(안내) 페이지 */
+  guideTo?: string;
   /** 개요 하단 「이전」으로 이동할 경로 */
   prevTo?: string;
   /** 질문 실습 끝난 뒤 「다음」으로 이동할 경로 */
   nextTo?: string;
 };
 
-export function ExamplePracticeDetail({ practice, practiceNumber, prevTo, nextTo }: ExamplePracticeDetailProps) {
+export function ExamplePracticeDetail({
+  practice,
+  practiceNumber,
+  guideTo,
+  prevTo,
+  nextTo,
+}: ExamplePracticeDetailProps) {
   const [phase, setPhase] = useState<'overview' | 'questions'>('overview');
   const [openSubStep, setOpenSubStep] = useState<number | null>(null);
   const questionsRef = useRef<HTMLDivElement | null>(null);
@@ -64,6 +72,15 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prevTo, nextTo
                     <Clock className="w-3 h-3 shrink-0" /> {practice.duration}
                   </span>
                   {difficultyBadge()}
+                  {guideTo ? (
+                    <Link
+                      to={guideTo}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline underline-offset-2"
+                    >
+                      <BookOpen className="w-3.5 h-3.5 shrink-0" />
+                      상세히 보기
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>
