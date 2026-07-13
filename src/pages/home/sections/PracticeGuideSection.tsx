@@ -217,7 +217,7 @@ export function PracticeGuideSection() {
       <div className="edu-container">
         <div className="mb-6">
           <div className="edu-badge mb-3">
-            <Brain className="w-4 h-4" /> <span className="edu-step text-xs">STEP 1.</span> 아이디어 구체화
+            <Brain className="w-4 h-4" /> STEP 1. <span className="edu-step text-xs">아이디어 구체화</span>
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             ChatGPT로 아이디어를 다듬은 뒤, 실습 3에서{' '}
@@ -279,16 +279,10 @@ export function PracticeGuideSection() {
                         openIndex === i ? 'text-lg sm:text-xl' : 'text-base',
                       ].join(' ')}
                     >
-                      <span className="edu-step text-xs sm:text-sm shrink-0">
+                      <span className="text-xs sm:text-sm shrink-0 text-muted-foreground font-extrabold tracking-wide">
                         {practice.title.match(/^실습\s*\d+/)?.[0] ?? `실습 ${i + 1}`}
                       </span>
-                      <span
-                        className={
-                          openIndex === i
-                            ? 'rounded-sm bg-yellow-100 px-1.5 py-0.5'
-                            : undefined
-                        }
-                      >
+                      <span className={openIndex === i ? 'edu-step' : undefined}>
                         {practice.title.replace(/^실습\s*\d+\s*[:：]\s*/, '')}
                       </span>
                     </div>
@@ -382,7 +376,7 @@ export function PracticeGuideSection() {
         <div className="mt-10 edu-card p-6 sm:p-8 text-center">
           <div className="text-3xl mb-3">✅</div>
           <h3 className="text-lg font-bold text-foreground mb-2">
-            <span className="edu-step text-sm">STEP 1.</span> 완료! 이제 <span className="edu-step text-sm">STEP 2.</span>로 넘어가세요.
+            STEP 1. 완료! 이제 STEP 2.로 넘어가세요.
           </h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
             제출 양식 문안을 붙여넣었다면, 예제로 ChatGPT → VS Code 흐름을 연습해 보세요.

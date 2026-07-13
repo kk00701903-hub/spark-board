@@ -85,13 +85,7 @@ export default function WorkshopPage() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span
-                          className={
-                            item.stepHighlight
-                              ? 'edu-step text-xs'
-                              : 'text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-muted text-muted-foreground'
-                          }
-                        >
+                        <span className="text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-muted text-muted-foreground">
                           {item.step}
                         </span>
                         <span className="text-xs font-medium text-muted-foreground">{item.badge}</span>
@@ -101,7 +95,11 @@ export default function WorkshopPage() {
                         </span>
                       </div>
                       <div className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors leading-snug">
-                        {item.title}
+                        {item.stepHighlight ? (
+                          <span className="edu-step">{item.title}</span>
+                        ) : (
+                          item.title
+                        )}
                       </div>
                     </div>
                   </div>

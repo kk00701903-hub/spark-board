@@ -151,14 +151,14 @@ function HeroSection() {
               className="group p-5 rounded-xl bg-white/5 border border-white/10 text-center transition-all duration-200 hover:bg-white/10 hover:border-white/25 hover:scale-[1.02]"
             >
               <step.icon className="w-6 h-6 text-blue-300 mx-auto mb-3 group-hover:text-blue-200 transition-colors" />
-              <div className="text-xl font-bold text-white">
+              <div className="text-xs font-bold tracking-wide text-white/60">{step.label}</div>
+              <div className="text-lg sm:text-xl font-bold text-white mt-1">
                 {step.highlight ? (
-                  <span className="edu-step text-base sm:text-lg">{step.label}</span>
+                  <span className="edu-step text-base sm:text-lg text-foreground">{step.sub}</span>
                 ) : (
-                  step.label
+                  step.sub
                 )}
               </div>
-              <div className="text-sm text-white/70 mt-1">{step.sub}</div>
             </Link>
           ))}
         </motion.div>

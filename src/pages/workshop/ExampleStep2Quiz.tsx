@@ -190,14 +190,13 @@ export function ExampleStep2Quiz() {
 
             <div className="rounded-2xl border-2 border-primary/20 bg-primary/5 px-6 py-8 text-center">
               <p className="text-lg font-bold text-foreground mb-2">
-                <span className="edu-step text-sm">STEP 2.</span> 예제 실습 완료! 🎉
+                STEP 2. <span className="edu-step">예제 실습 완료!</span> 🎉
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xl mx-auto">
                 오늘 교육에서는 여기까지입니다.
-                <span className="edu-step text-[11px] mx-1">STEP 3.</span>
-                (내 아이디어 직접 구현)는 교육이 끝난 뒤,
+                STEP 3. (내 아이디어 직접 구현)는 교육이 끝난 뒤,
                 각자 집이나 개인 시간에{' '}
-                <span className="edu-step text-[11px]">STEP 1.</span>에서 정리한 내 아이디어로
+                STEP 1.에서 정리한 내 아이디어로
                 천천히 진행해 보세요.
               </p>
               <p className="text-xs text-muted-foreground mt-3 leading-relaxed">

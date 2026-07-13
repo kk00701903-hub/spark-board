@@ -140,7 +140,7 @@ export function SetupSection() {
             <Download className="w-4 h-4" /> 준비 단계 · 환경 설치
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            <span className="edu-step text-[11px]">STEP 1.</span> 실습을 시작하기 전에 PC에 도구를 설치합니다.
+            STEP 1. 실습을 시작하기 전에 PC에 도구를 설치합니다.
             순서대로 따라하면 <strong className="text-foreground">약 15~20분</strong> 안에 완료됩니다.
           </p>
         </div>
@@ -422,7 +422,7 @@ export function SetupSection() {
         <div className="edu-card p-6 sm:p-8 text-center">
           <div className="text-3xl mb-3">✅</div>
           <h3 className="text-lg font-bold text-foreground mb-2">
-            설치 완료! 이제 <span className="edu-step text-sm">STEP 1.</span>로 넘어가세요.
+            설치 완료! 이제 STEP 1.로 넘어가세요.
           </h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
             VS Code, Python, 가상환경, 라이브러리가 모두 준비됐다면 STEP 1. 아이디어 구체화를 시작할 수 있습니다.

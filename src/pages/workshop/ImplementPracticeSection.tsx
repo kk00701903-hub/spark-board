@@ -301,7 +301,7 @@ export function ImplementPracticeSection() {
           <div>
             <p className="font-semibold text-foreground mb-1">교육 종료 후 개별 실습 단계</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              <span className="edu-step text-[11px]">STEP 3.</span>는 오늘 수업 시간에 함께 진행하지 않아요.
+              STEP 3.는 오늘 수업 시간에 함께 진행하지 않아요.
               교육이 끝난 뒤 집이나 개인 시간에 <strong className="text-foreground">STEP 1.에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
             </p>
           </div>
@@ -309,11 +309,11 @@ export function ImplementPracticeSection() {
 
         <div className="mb-6">
           <div className="edu-badge mb-3">
-            <Rocket className="w-4 h-4" /> <span className="edu-step text-xs">STEP 3.</span> 내 아이디어 구현하기
+            <Rocket className="w-4 h-4" /> STEP 3. <span className="edu-step text-xs">내 아이디어 구현하기</span>
           </div>
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
-            <span className="edu-step text-[11px]">STEP 2.</span> 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
-            이번엔 <span className="edu-step text-[11px]">STEP 1.</span>에서 정리한 내 아이디어를 파이썬 프로그램으로 만듭니다.
+            STEP 2. 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
+            이번엔 STEP 1.에서 정리한 내 아이디어를 파이썬 프로그램으로 만듭니다.
             <span className="text-sm block mt-1">(교육 당일이 아닌, 이후 개별 실습용 안내입니다)</span>
           </p>
         </div>
