@@ -13,10 +13,6 @@ const steps = [
     details: ['교육 커리큘럼 확인', '페인포인트·해결책 정리', 'Lean Canvas 작성', '1페이지 제안서 완성'],
     cta: '1단계 시작',
     icon: Lightbulb,
-    iconClass: 'text-primary',
-    iconBg: 'bg-primary/15',
-    borderClass: 'border-primary/30 hover:border-primary/50',
-    ctaClass: 'text-primary',
     highlight: true,
   },
   {
@@ -29,10 +25,6 @@ const steps = [
     details: ['VS Code·Python 설치', '가상환경(.venv) 만들기', 'pip로 라이브러리 설치', 'tkcalendar·openpyxl 포함'],
     cta: '준비 단계',
     icon: Download,
-    iconClass: 'text-green-600',
-    iconBg: 'bg-green-100',
-    borderClass: 'border-border hover:border-green-400/60',
-    ctaClass: 'text-green-600',
     highlight: false,
   },
   {
@@ -45,10 +37,6 @@ const steps = [
     details: ['예제 실습 1: 프로그램 뼈대', '예제 실습 2: 기능·오류 수정', '5문제 이해도 확인', 'ChatGPT → VS Code 반복 연습'],
     cta: '2단계 시작',
     icon: FlaskConical,
-    iconClass: 'text-blue-600',
-    iconBg: 'bg-blue-100',
-    borderClass: 'border-border hover:border-blue-400/60',
-    ctaClass: 'text-blue-600',
     highlight: false,
   },
   {
@@ -61,29 +49,19 @@ const steps = [
     details: ['1단계 제안서 활용', '예제와 같은 질문 순서', '기능 하나씩 추가·수정', '수업 후 개인 시간에 진행'],
     cta: '3단계 안내',
     icon: Rocket,
-    iconClass: 'text-accent',
-    iconBg: 'bg-accent/15',
-    borderClass: 'border-border hover:border-primary/40',
-    ctaClass: 'text-primary',
     highlight: false,
   },
 ] as const;
 
 export default function WorkshopPage() {
   return (
-    <PageShell title="워크숍 · 실습 구성">
-      <div
-        className="flex-1 flex flex-col items-center justify-center py-6 sm:py-8 px-3 sm:px-4"
-        style={{ background: 'oklch(0.97 0.004 240)' }}
-      >
+    <PageShell
+      title="실습 구성"
+      subtitle="1단계 → 준비 → 2단계 → 3단계 순서로 진행합니다."
+    >
+      <div className="flex-1 flex flex-col items-center justify-center edu-section px-3 sm:px-4">
         <div className="w-full max-w-5xl">
-          <div className="text-center mb-5 sm:mb-6">
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              <strong className="text-foreground">1단계</strong> 아이디어 구체화 →{' '}
-              <strong className="text-foreground">준비</strong> 환경 설치 →{' '}
-              <strong className="text-foreground">2단계</strong> 예제 따라하기 →{' '}
-              <strong className="text-foreground">3단계</strong> 내 아이디어 구현
-            </p>
+          <div className="text-center mb-6">
             <Link
               to="/workshop/idea"
               className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm transition-all hover:opacity-90"
@@ -101,13 +79,15 @@ export default function WorkshopPage() {
                   key={item.to}
                   to={item.to}
                   className={[
-                    'rounded-xl border bg-card p-4 shadow-sm transition-all duration-200 hover:shadow-md group text-left block',
-                    item.highlight ? 'border-2 border-primary/30 ring-1 ring-primary/10' : item.borderClass,
+                    'edu-card p-4 transition-all duration-200 hover:shadow-md group text-left block',
+                    item.highlight
+                      ? 'border-2 border-primary/40 ring-1 ring-primary/15'
+                      : 'hover:border-primary/30',
                   ].join(' ')}
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className={['w-9 h-9 rounded-lg flex items-center justify-center shrink-0', item.iconBg].join(' ')}>
-                      <Icon className={['w-[18px] h-[18px]', item.iconClass].join(' ')} />
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
+                      <Icon className="w-[18px] h-[18px] text-primary" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-0.5">
@@ -142,7 +122,7 @@ export default function WorkshopPage() {
                     ))}
                   </ul>
 
-                  <span className={['text-xs font-semibold inline-flex items-center gap-1', item.ctaClass].join(' ')}>
+                  <span className="text-xs font-semibold inline-flex items-center gap-1 text-primary">
                     {item.cta}
                     <ArrowRight className="w-3 h-3" />
                   </span>

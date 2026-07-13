@@ -8,16 +8,16 @@ export function CurriculumSection() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section id="curriculum" className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+    <section id="curriculum" className="edu-section bg-background">
+      <div className="edu-container">
+        <div className="text-center mb-10">
+          <div className="edu-badge mb-3">
             <BookOpen className="w-4 h-4" /> 교육 커리큘럼
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
             4단계 AI 아이디어 구체화 과정
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base max-w-2xl mx-auto">
             이론보다는 워크숍 형태로 진행하여, 참가자가 자신의 실무 데이터를 직접 넣어보는 실습 중심 교육
           </p>
         </div>
@@ -54,10 +54,7 @@ export function CurriculumSection() {
             transition={springGentle}
             className="grid md:grid-cols-2 gap-8 items-start"
           >
-            <div
-              className="bg-card rounded-2xl border border-border p-8"
-              style={{ boxShadow: '0 8px 30px -6px oklch(0.48 0.18 240 / 0.08)' }}
-            >
+            <div className="edu-card p-6 sm:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-gradient-to-br ${educationSteps[activeStep].color}`}>
                   {educationSteps[activeStep].icon}

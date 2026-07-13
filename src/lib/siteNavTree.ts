@@ -37,3 +37,41 @@ export function branchHasActivePath(item: SiteNavItem, currentPath: string): boo
   if (item.path && isNavPathActive(item.path, currentPath)) return true;
   return item.children?.some((child) => branchHasActivePath(child, currentPath)) ?? false;
 }
+
+export type BreadcrumbCrumb = {
+  label: string;
+  path?: string;
+};
+
+function firstNavigablePath(item: SiteNavItem): string | undefined {
+  if (item.path) return item.path;
+  if (!item.children) return undefined;
+  for (const child of item.children) {
+    const path = firstNavigablePath(child);
+    if (path) return path;
+  }
+  return undefined;
+}
+
+/** 현재 경로에 해당하는 메뉴 하이어라키(홈 → … → 현재)를 반환 */
+export function getBreadcrumbTrail(pathname: string): BreadcrumbCrumb[] {
+  function walk(items: SiteNavItem[], trail: BreadcrumbCrumb[]): BreadcrumbCrumb[] | null {
+    for (const item of items) {
+      const crumb: BreadcrumbCrumb = {
+        label: item.label,
+        path: item.path ?? firstNavigablePath(item),
+      };
+      const next = [...trail, crumb];
+      if (item.path && isNavPathActive(item.path, pathname)) {
+        return next;
+      }
+      if (item.children) {
+        const found = walk(item.children, next);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  return walk(siteNavTree, []) ?? [{ label: '홈', path: '/' }];
+}

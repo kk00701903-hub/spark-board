@@ -284,9 +284,9 @@ export function ImplementPracticeSection() {
   };
 
   return (
-    <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
+    <section className="edu-section">
+      <div className="edu-container">
+        <div className="mb-6">
           <Link
             to="/workshop/example"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -296,35 +296,30 @@ export function ImplementPracticeSection() {
           </Link>
         </div>
 
-        <div className="mb-8 rounded-2xl border-2 border-purple-200 bg-purple-50 px-6 py-5 flex items-start gap-3">
-          <Rocket className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+        <div className="mb-6 edu-card border-primary/25 bg-primary/5 px-5 py-4 flex items-start gap-3">
+          <Rocket className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
-            <p className="font-semibold text-purple-900 mb-1">교육 종료 후 개별 실습 단계</p>
-            <p className="text-sm text-purple-800 leading-relaxed">
+            <p className="font-semibold text-foreground mb-1">교육 종료 후 개별 실습 단계</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               3단계는 오늘 수업 시간에 함께 진행하지 않아요.
-              교육이 끝난 뒤 집이나 개인 시간에 <strong>1단계에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
+              교육이 끝난 뒤 집이나 개인 시간에 <strong className="text-foreground">1단계에서 정리한 아이디어</strong>로 천천히 따라해 보세요.
             </p>
           </div>
         </div>
 
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
-            <Rocket className="w-4 h-4" /> 3단계 · 내 아이디어 구현하기 (ChatGPT → VS Code)
+        <div className="mb-6">
+          <div className="edu-badge mb-3">
+            <Rocket className="w-4 h-4" /> 3단계 · 내 아이디어 구현하기
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            내 아이디어를 직접 구현해 봐요
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             2단계 예제에서 익힌 <strong className="text-foreground">똑같은 흐름</strong>으로,
-            <br className="hidden sm:block" />
             이번엔 <strong className="text-foreground">1단계에서 정리한 내 아이디어</strong>를 파이썬 프로그램으로 만듭니다.
-            <br className="hidden sm:block" />
-            <span className="text-sm">(교육 당일이 아닌, 이후 개별 실습용 안내입니다)</span>
+            <span className="text-sm block mt-1">(교육 당일이 아닌, 이후 개별 실습용 안내입니다)</span>
           </p>
         </div>
 
         {/* 전체 흐름 안내 배너 */}
-        <div className="mb-10 rounded-2xl border border-border bg-card px-6 py-5">
+        <div className="mb-6 edu-card px-5 py-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">전체 진행 흐름</p>
           <div className="flex flex-wrap items-center gap-2 text-sm">
             {[
@@ -346,7 +341,7 @@ export function ImplementPracticeSection() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {implementPractices.map((practice, i) => (
             <motion.div
               key={practice.id}
@@ -354,8 +349,7 @@ export function ImplementPracticeSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ ...springSnappy, delay: i * 0.05 }}
-              className="bg-card rounded-2xl border border-border overflow-hidden"
-              style={{ boxShadow: '0 4px 12px -4px oklch(0.48 0.18 240 / 0.06)' }}
+              className="edu-card overflow-hidden"
             >
               <button
                 type="button"
@@ -434,8 +428,7 @@ export function ImplementPracticeSection() {
                           return (
                             <div
                               key={step.n}
-                              className="rounded-xl border border-border bg-card overflow-hidden"
-                              style={{ boxShadow: '0 2px 8px -4px oklch(0.48 0.18 240 / 0.08)' }}
+                          className="edu-card overflow-hidden"
                             >
                               <button
                                 type="button"
@@ -502,9 +495,9 @@ export function ImplementPracticeSection() {
                                           </div>
 
                                           {step.tip && (
-                                            <div className="flex items-start gap-2 rounded-lg bg-blue-50 border border-blue-100 px-3 py-2.5">
-                                              <Lightbulb className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                                              <p className="text-xs text-blue-700 leading-relaxed">
+                                            <div className="flex items-start gap-2 rounded-lg bg-primary/5 border border-primary/15 px-3 py-2.5">
+                                              <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                                              <p className="text-xs text-foreground/80 leading-relaxed">
                                                 <BoldText text={step.tip} />
                                               </p>
                                             </div>

@@ -15,23 +15,23 @@ export function PromptTemplatesSection() {
   };
 
   const categoryColors: Record<string, string> = {
-    'Context Setting': 'bg-blue-100 text-blue-700',
-    'Idea Expansion': 'bg-purple-100 text-purple-700',
-    'Business Structuring': 'bg-green-100 text-green-700',
-    'Critical Thinking': 'bg-orange-100 text-orange-700',
+    'Context Setting': 'bg-primary/10 text-primary',
+    'Idea Expansion': 'bg-accent/10 text-accent',
+    'Business Structuring': 'bg-chart-3/15 text-chart-3',
+    'Critical Thinking': 'bg-chart-4/15 text-chart-4',
   };
 
   return (
-    <section id="prompts" className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
+    <section id="prompts" className="edu-section">
+      <div className="edu-container">
+        <div className="text-center mb-10">
+          <div className="edu-badge mb-3">
             <Code2 className="w-4 h-4" /> 프롬프트 템플릿
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
             복사해서 바로 쓰는 프롬프트
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base max-w-2xl mx-auto">
             검증된 4가지 프롬프트 템플릿으로 AI와의 대화를 더 효과적으로 만들어 보세요
           </p>
         </div>
@@ -70,8 +70,7 @@ export function PromptTemplatesSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={springGentle}
-                className="bg-card rounded-2xl border border-border overflow-hidden"
-                style={{ boxShadow: '0 8px 30px -6px oklch(0.48 0.18 240 / 0.08)' }}
+                className="edu-card overflow-hidden"
               >
                 <div className="flex items-center justify-between p-4 border-b border-border bg-muted/50">
                   <div className="flex items-center gap-2">

@@ -3,7 +3,10 @@ import { PromptTemplatesSection } from '@/pages/home/sections/PromptTemplatesSec
 
 export default function PromptTemplatesPage() {
   return (
-    <PageShell title="4가지 핵심 프롬프트 템플릿">
+    <PageShell
+      title="프롬프트 템플릿"
+      subtitle="복사해서 바로 쓰는 4가지 핵심 프롬프트"
+    >
       <PromptTemplatesSection />
     </PageShell>
   );

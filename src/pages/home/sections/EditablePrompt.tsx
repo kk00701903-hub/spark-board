@@ -12,7 +12,7 @@ type SavedEntry = {
   savedAt: string;
 };
 
-const MAX_SAVES = 5;
+const MAX_SAVES = 1;
 
 // ── 파서: [...]를 입력 슬롯으로 분리 ─────────────────────────────────────────
 function isMultilineSlot(placeholder: string): boolean {
@@ -47,7 +47,13 @@ function parse(raw: string): Seg[] {
 function loadSaved(key: string): SavedEntry[] {
   try {
     const raw = localStorage.getItem(`ps-${key}`);
-    return raw ? (JSON.parse(raw) as SavedEntry[]) : [];
+    const entries = raw ? (JSON.parse(raw) as SavedEntry[]) : [];
+    const latest = entries.slice(0, MAX_SAVES);
+    // 이전 버전에서 여러 개가 쌓여 있으면 최근 1개만 남기고 정리
+    if (entries.length > MAX_SAVES) {
+      persistSaved(key, latest);
+    }
+    return latest;
   } catch {
     return [];
   }
@@ -55,7 +61,7 @@ function loadSaved(key: string): SavedEntry[] {
 
 function persistSaved(key: string, entries: SavedEntry[]) {
   try {
-    localStorage.setItem(`ps-${key}`, JSON.stringify(entries));
+    localStorage.setItem(`ps-${key}`, JSON.stringify(entries.slice(0, MAX_SAVES)));
   } catch {
     // ignore storage errors
   }
@@ -174,7 +180,8 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
         hour: '2-digit', minute: '2-digit',
       }),
     };
-    const next = [entry, ...saved].slice(0, MAX_SAVES);
+    // 최근 1개만 유지 — 저장할 때마다 덮어씀
+    const next = [entry];
     setSaved(next);
     persistSaved(promptKey, next);
     setSaveFlash(true);
@@ -309,7 +316,7 @@ export function EditablePrompt({ text, promptKey = 'ep', showSave = true }: Prop
             className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
           >
             {showSaved ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            저장된 내역 {saved.length}개
+            저장된 내역
           </button>
           {showSaved && (
             <div className="mt-2 space-y-2">

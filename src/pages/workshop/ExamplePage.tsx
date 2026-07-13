@@ -8,7 +8,10 @@ export default function ExamplePage() {
   const focusStep = parseExampleFocusStep(searchParams.get('focus'));
 
   return (
-    <PageShell title="2단계 · 예제 따라하기 (ChatGPT → VS Code)">
+    <PageShell
+      title="2단계 · 예제 따라하기"
+      subtitle="ChatGPT → VS Code · 약 75분"
+    >
       <ExampleHubSection focusStep={focusStep} />
     </PageShell>
   );

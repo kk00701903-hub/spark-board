@@ -205,3 +205,26 @@
     @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
   }
 }
+
+/* 학습(교육) 화면 공통 레이아웃 */
+@layer components {
+  .edu-surface {
+    @apply bg-muted/40;
+  }
+
+  .edu-section {
+    @apply py-10 sm:py-12;
+  }
+
+  .edu-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .edu-card {
+    @apply rounded-xl border border-border bg-card shadow-sm;
+  }
+
+  .edu-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium;
+  }
+}

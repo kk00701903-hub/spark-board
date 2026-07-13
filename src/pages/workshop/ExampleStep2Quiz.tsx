@@ -92,13 +92,13 @@ export function ExampleStep2Quiz() {
   };
 
   return (
-    <div id="step2-quiz" className="rounded-2xl border-2 border-amber-200 bg-amber-50/40 overflow-hidden">
-      <div className="px-6 py-5 border-b border-amber-200 bg-amber-50/80">
-        <div className="flex items-center gap-2 text-amber-900 font-semibold text-lg">
-          <ClipboardCheck className="w-5 h-5 shrink-0" />
+    <div id="step2-quiz" className="edu-card border-primary/30 overflow-hidden">
+      <div className="px-5 py-5 sm:px-6 border-b border-border bg-primary/5">
+        <div className="flex items-center gap-2 text-foreground font-semibold text-base sm:text-lg">
+          <ClipboardCheck className="w-5 h-5 shrink-0 text-primary" />
           예제 실습 이해도 확인 (5문제)
         </div>
-        <p className="text-sm text-amber-800 mt-1 leading-relaxed">
+        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
           예제 실습 1·2를 모두 마쳤다면, 아래 5문제로 오늘 배운 내용을 간단히 점검해 보세요.
         </p>
       </div>

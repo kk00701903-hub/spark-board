@@ -4,7 +4,10 @@ import { EXAMPLE_ROUTES, examplePractice2 } from '@/pages/workshop/examplePracti
 
 export default function ExamplePractice2Page() {
   return (
-    <PageShell title="예제 실습 2 · 기능 더하기 & 오류 고치기">
+    <PageShell
+      title="예제 실습 2"
+      subtitle="기능 더하기 & 오류 고치기 · ChatGPT → VS Code"
+    >
       <ExamplePracticeDetail
         practice={examplePractice2}
         practiceNumber={2}

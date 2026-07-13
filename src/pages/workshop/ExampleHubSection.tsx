@@ -14,7 +14,6 @@ const steps = [
     description: 'ChatGPT와 VS Code로 프로그램 뼈대를 처음부터 만듭니다. 질문 5개를 순서대로 진행해요.',
     to: EXAMPLE_ROUTES.ex1,
     icon: '📁',
-    accent: 'blue' as const,
   },
   {
     id: 'ex-2' as const,
@@ -24,7 +23,6 @@ const steps = [
     description: '미리보기 기능을 추가하고, 오류가 나면 ChatGPT로 고치는 방법을 연습합니다.',
     to: EXAMPLE_ROUTES.ex2,
     icon: '🔧',
-    accent: 'indigo' as const,
   },
   {
     id: 'quiz' as const,
@@ -34,52 +32,29 @@ const steps = [
     description: '예제 실습 1·2를 마친 뒤, 오늘 배운 내용을 5문제로 간단히 점검합니다.',
     to: EXAMPLE_ROUTES.quiz,
     icon: '✅',
-    accent: 'amber' as const,
   },
 ];
 
 const focusCta: Record<
   ExampleFocusStep,
-  { to: string; label: string; buttonClass: string; icon: typeof Wrench }
+  { to: string; label: string; icon: typeof Wrench }
 > = {
   'ex-1': {
     to: EXAMPLE_ROUTES.ex1,
     label: '예제 실습 1 시작하기',
-    buttonClass: 'bg-blue-600 hover:opacity-90',
     icon: Wrench,
   },
   'ex-2': {
     to: EXAMPLE_ROUTES.ex2,
     label: '예제 실습 2 시작하기',
-    buttonClass: 'bg-indigo-600 hover:opacity-90',
     icon: Wrench,
   },
   quiz: {
     to: EXAMPLE_ROUTES.quiz,
     label: '이해도 확인 시작하기',
-    buttonClass: 'bg-amber-600 hover:opacity-90',
     icon: ClipboardCheck,
   },
 };
-
-function cardClass(accent: 'blue' | 'indigo' | 'amber', highlighted: boolean): string {
-  if (!highlighted) {
-    return 'border-border bg-card hover:border-muted-foreground/30';
-  }
-  if (accent === 'blue') {
-    return 'border-blue-400 bg-blue-50/60 ring-2 ring-blue-200/80 shadow-md hover:border-blue-500';
-  }
-  if (accent === 'indigo') {
-    return 'border-indigo-400 bg-indigo-50/60 ring-2 ring-indigo-200/80 shadow-md hover:border-indigo-500';
-  }
-  return 'border-amber-400 bg-amber-50/60 ring-2 ring-amber-200/80 shadow-md hover:border-amber-500';
-}
-
-function highlightLabelClass(accent: 'blue' | 'indigo' | 'amber'): string {
-  if (accent === 'blue') return 'text-blue-700';
-  if (accent === 'indigo') return 'text-indigo-700';
-  return 'text-amber-800';
-}
 
 type ExampleHubSectionProps = {
   focusStep?: ExampleFocusStep;
@@ -90,9 +65,9 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
   const CtaIcon = cta.icon;
 
   return (
-    <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
+    <section className="edu-section">
+      <div className="edu-container">
+        <div className="mb-6">
           <Link
             to="/workshop"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -102,20 +77,17 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
           </Link>
         </div>
 
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">
-            <FlaskConical className="w-4 h-4" /> 2단계 · 예제 따라하기 (ChatGPT → VS Code)
+        <div className="mb-8">
+          <div className="edu-badge mb-3">
+            <FlaskConical className="w-4 h-4" /> 2단계 · 예제 따라하기
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            예제로 먼저 연습해 봐요
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             <strong className="text-foreground">엑셀 명단 자동 인쇄 프로그램</strong> 예제를 함께 만들며
             ChatGPT → VS Code 흐름을 처음부터 끝까지 경험합니다.
           </p>
         </div>
 
-        <div className="mb-10 rounded-2xl border border-border bg-card px-6 py-5">
+        <div className="mb-6 edu-card px-5 py-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">진행 흐름</p>
           <div className="flex flex-wrap items-center gap-2 text-sm">
             {[
@@ -135,20 +107,20 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
           </div>
         </div>
 
-        <div className="mb-8 rounded-2xl border-2 border-blue-200 bg-blue-50 px-6 py-5 flex items-start gap-3">
-          <Lightbulb className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+        <div className="mb-6 edu-card border-primary/25 bg-primary/5 px-5 py-4 flex items-start gap-3">
+          <Lightbulb className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
-            <p className="font-semibold text-blue-800 mb-1">이 단계는 예제를 따라하는 연습이에요</p>
-            <p className="text-sm text-blue-700 leading-relaxed">
-              프롬프트에 <strong>예제 내용이 미리 채워져 있어요.</strong>{' '}
-              노란 칸을 수정하지 않고 "복사" 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
-              단, <strong>질문 1번 전에 D:\example\명단.xlsx 파일을 먼저 준비하세요!</strong>{' '}
+            <p className="font-semibold text-foreground mb-1">이 단계는 예제를 따라하는 연습이에요</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              프롬프트에 <strong className="text-foreground">예제 내용이 미리 채워져 있어요.</strong>{' '}
+              노란 칸을 수정하지 않고 &quot;복사&quot; 버튼만 눌러서 ChatGPT에 전송하면 됩니다.
+              단, <strong className="text-foreground">질문 1번 전에 D:\example\명단.xlsx 파일을 먼저 준비하세요!</strong>{' '}
               아래 순서대로 페이지를 이동하며 진행합니다.
             </p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-10">
+        <div className="grid md:grid-cols-3 gap-4 mb-8">
           {steps.map((step) => {
             const highlighted = step.id === focusStep;
             return (
@@ -156,21 +128,21 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
                 key={step.to}
                 to={step.to}
                 className={[
-                  'rounded-2xl border-2 p-6 text-left transition-all duration-200 hover:scale-[1.01] hover:shadow-md group',
-                  cardClass(step.accent, highlighted),
+                  'edu-card p-5 text-left transition-all duration-200 hover:shadow-md group',
+                  highlighted
+                    ? 'border-2 border-primary ring-2 ring-primary/20'
+                    : 'hover:border-primary/30',
                 ].join(' ')}
               >
-                <div className="text-3xl mb-3">{step.icon}</div>
+                <div className="text-2xl mb-3">{step.icon}</div>
                 <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
                   {highlighted ? (
-                    <span className={highlightLabelClass(step.accent)}>
-                      지금 시작 · {step.number}단계
-                    </span>
+                    <span className="text-primary">지금 시작 · {step.number}단계</span>
                   ) : (
                     <span>{step.number}단계</span>
                   )}
                 </div>
-                <div className="font-bold text-foreground text-lg mb-1 group-hover:text-primary transition-colors">
+                <div className="font-semibold text-foreground text-base mb-1 group-hover:text-primary transition-colors">
                   {step.title}
                 </div>
                 <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
@@ -186,10 +158,7 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
         <div className="text-center">
           <Link
             to={cta.to}
-            className={[
-              'inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]',
-              cta.buttonClass,
-            ].join(' ')}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
           >
             <CtaIcon className="w-4 h-4" />
             {cta.label}

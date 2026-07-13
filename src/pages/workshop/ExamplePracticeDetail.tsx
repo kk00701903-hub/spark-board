@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, ChevronDown, ChevronUp, Clock, Code2, Lightbulb, AlertCircle, Target,
@@ -19,7 +18,6 @@ type ExamplePracticeDetailProps = {
 };
 
 export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: ExamplePracticeDetailProps) {
-  const isFirst = practiceNumber === 1;
   const [phase, setPhase] = useState<'overview' | 'questions'>('overview');
   const [openSubStep, setOpenSubStep] = useState<number | null>(null);
   const questionsRef = useRef<HTMLDivElement | null>(null);
@@ -37,44 +35,21 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
   };
 
   return (
-    <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <Link
-            to="/workshop/example"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            2단계 예제 따라하기 개요로 돌아가기
-          </Link>
-        </div>
-
-        <div
-          className={[
-            'rounded-2xl border-2 overflow-hidden',
-            isFirst
-              ? 'bg-blue-50/60 border-blue-400 ring-2 ring-blue-200/80'
-              : 'bg-indigo-50/60 border-indigo-400 ring-2 ring-indigo-200/80',
-          ].join(' ')}
-          style={{ boxShadow: '0 8px 24px -8px oklch(0.48 0.18 240 / 0.18)' }}
-        >
-          <div className={['px-6 py-6 border-b', isFirst ? 'border-blue-200/60' : 'border-indigo-200/60'].join(' ')}>
+    <section className="edu-section">
+      <div className="edu-container">
+        <div className="edu-card border-primary/30 overflow-hidden">
+          <div className="px-5 py-5 sm:px-6 sm:py-6 border-b border-border bg-primary/5">
             <div className="flex items-center gap-4 min-w-0">
-              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-2xl shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-2xl shrink-0">
                 {practice.icon}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <span
-                    className={[
-                      'text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full',
-                      isFirst ? 'bg-blue-200 text-blue-800' : 'bg-indigo-200 text-indigo-800',
-                    ].join(' ')}
-                  >
+                  <span className="text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-primary/15 text-primary">
                     예제 실습 {practiceNumber}
                   </span>
                 </div>
-                <h2 className="font-bold text-foreground text-xl sm:text-2xl">
+                <h2 className="font-semibold text-foreground text-lg sm:text-xl">
                   {practice.listTitle.replace(/^예제 실습 \d+: /, '')}
                 </h2>
                 <div className="flex items-center gap-3 mt-1 flex-wrap">
@@ -87,7 +62,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
             </div>
           </div>
 
-          <div className="px-6 py-6">
+          <div className="px-5 py-5 sm:px-6 sm:py-6">
             <AnimatePresence mode="wait">
               {phase === 'overview' ? (
                 <motion.div
@@ -99,7 +74,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                   className="space-y-6"
                 >
                   <div className="space-y-3">
-                    <div className="rounded-xl border border-border bg-white/70 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
+                    <div className="rounded-xl border border-border bg-muted/30 p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
                       <BoldText text={practice.summary} />
                     </div>
                     <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 flex items-start gap-2">
@@ -120,7 +95,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                       {practice.overviewSteps.map((step, si) => (
                         <div
                           key={si}
-                          className="flex items-start gap-3 rounded-xl border border-border bg-white/70 px-4 py-3"
+                          className="flex items-start gap-3 rounded-xl border border-border bg-muted/20 px-4 py-3"
                         >
                           <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-primary">{si + 1}</span>
@@ -130,7 +105,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                               <BoldText text={step.action} />
                             </p>
                             <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
-                              <span className="text-blue-600 font-semibold">왜? </span>
+                              <span className="text-primary font-semibold">왜? </span>
                               <BoldText text={step.reason} />
                             </p>
                           </div>
@@ -143,10 +118,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                     <button
                       type="button"
                       onClick={startQuestions}
-                      className={[
-                        'inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]',
-                        isFirst ? 'bg-blue-600 text-white' : 'bg-indigo-600 text-white',
-                      ].join(' ')}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
                     >
                       질문 1부터 실습 시작하기
                       <ArrowRight className="w-4 h-4" />
@@ -186,8 +158,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                       return (
                         <div
                           key={step.n}
-                          className="rounded-xl border border-border bg-card overflow-hidden"
-                          style={{ boxShadow: '0 2px 8px -4px oklch(0.48 0.18 240 / 0.08)' }}
+                          className="edu-card overflow-hidden"
                         >
                           <button
                             type="button"
@@ -195,12 +166,12 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                             className="w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left hover:bg-muted/30 transition-colors"
                           >
                             <div className="flex items-center gap-3 min-w-0">
-                              <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center shrink-0 text-sm font-bold text-blue-600">
+                              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-sm font-bold text-primary">
                                 {step.n}
                               </div>
                               <div className="min-w-0">
                                 <div className="text-xs font-medium text-muted-foreground">ChatGPT 질문 {step.n}</div>
-                                <div className="font-bold text-foreground text-sm sm:text-base leading-snug">
+                                <div className="font-semibold text-foreground text-sm sm:text-base leading-snug">
                                   {step.title}
                                 </div>
                               </div>
@@ -223,7 +194,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                               >
                                 <div className="px-4 pb-4 sm:px-5 sm:pb-5 border-t border-border pt-4">
                                   <div className="grid md:grid-cols-2 gap-6 min-w-0">
-                                        <div className="space-y-4 min-w-0">
+                                    <div className="space-y-4 min-w-0">
                                       <div>
                                         <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                                           <span className="text-base">💬</span> ChatGPT에 보내기 전
@@ -251,9 +222,9 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                                         </div>
                                       </div>
                                       {step.tip && (
-                                        <div className="flex items-start gap-2 rounded-lg bg-blue-50 border border-blue-100 px-3 py-2.5">
-                                          <Lightbulb className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                                          <p className="text-xs text-blue-700 leading-relaxed">
+                                        <div className="flex items-start gap-2 rounded-lg bg-primary/5 border border-primary/15 px-3 py-2.5">
+                                          <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                                          <p className="text-xs text-foreground/80 leading-relaxed">
                                             <BoldText text={step.tip} />
                                           </p>
                                         </div>
@@ -290,17 +261,7 @@ export function ExamplePracticeDetail({ practice, practiceNumber, prev, next }: 
                     })}
                   </div>
 
-                  {next && (
-                    <div className="pt-4 text-center">
-                      <Link
-                        to={next.to}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
-                      >
-                        {next.label}
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  )}
+                  {/* 다음 단계는 하단 ExampleStepNav에서 이동 */}
                 </motion.div>
               )}
             </AnimatePresence>

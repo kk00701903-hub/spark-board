@@ -122,10 +122,10 @@ export function SetupSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24" style={{ background: 'oklch(0.97 0.004 240)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="edu-section">
+      <div className="edu-container">
 
-        <div className="mb-8">
+        <div className="mb-6">
           <Link
             to="/workshop/idea"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -135,21 +135,18 @@ export function SetupSection() {
           </Link>
         </div>
 
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-4">
+        <div className="mb-8">
+          <div className="edu-badge mb-3">
             <Download className="w-4 h-4" /> 준비 단계 · 환경 설치
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            VS Code · Python · 라이브러리 설치
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             2단계 실습을 하기 전에 PC에 도구를 설치해야 합니다.
             순서대로 따라하면 <strong className="text-foreground">약 15~20분</strong> 안에 완료됩니다.
           </p>
         </div>
 
         {/* 진행 단계 표시 */}
-        <div className="flex items-center justify-center gap-2 mb-14 flex-wrap">
+        <div className="flex items-center gap-2 mb-8 flex-wrap">
           {['VS Code 설치', 'Python 설치', '확장 설치', '가상환경', '라이브러리 설치'].map((label, i) => (
             <div key={label} className="flex items-center gap-2">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border text-xs font-medium text-foreground shadow-sm">
@@ -163,7 +160,7 @@ export function SetupSection() {
           ))}
         </div>
 
-        <div className="space-y-4 mb-14">
+        <div className="space-y-3 mb-10">
           {setupSteps.map((step, i) => (
             <motion.div
               key={step.id}
@@ -171,8 +168,7 @@ export function SetupSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ ...springSnappy, delay: i * 0.05 }}
-              className="bg-card rounded-2xl border border-border overflow-hidden"
-              style={{ boxShadow: '0 4px 12px -4px oklch(0.48 0.18 240 / 0.06)' }}
+              className="edu-card overflow-hidden"
             >
               <button
                 type="button"
@@ -231,7 +227,7 @@ export function SetupSection() {
                                   </p>
                                 </div>
                               )}
-                              <div className="mt-4 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                              <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4">
                                 <h4 className="text-xs font-semibold text-blue-800 mb-2">가상환경이란?</h4>
                                 <p className="text-xs text-blue-700 leading-relaxed">
                                   프로젝트마다 필요한 라이브러리를 따로 보관하는 <strong>독립된 작업 공간</strong>이에요.
@@ -331,7 +327,7 @@ export function SetupSection() {
                                 {EXAMPLE_LIBS.map((lib) => (
                                   <span
                                     key={lib}
-                                    className="text-xs font-mono px-2 py-1 rounded-md bg-blue-50 border border-blue-200 text-blue-800 font-semibold"
+                                    className="text-xs font-mono px-2 py-1 rounded-md bg-primary/5 border border-primary/20 text-primary font-semibold"
                                   >
                                     {lib}
                                   </span>
@@ -350,7 +346,7 @@ export function SetupSection() {
                                     className={[
                                       'text-xs font-mono px-2 py-1 rounded-md border text-foreground',
                                       EXAMPLE_LIBS.includes(lib)
-                                        ? 'bg-blue-50 border-blue-200'
+                                        ? 'bg-primary/10 border-primary/25 text-primary font-semibold'
                                         : 'bg-muted border-border',
                                     ].join(' ')}
                                   >
@@ -423,7 +419,7 @@ export function SetupSection() {
         </div>
 
         {/* 완료 후 다음 단계 안내 */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm text-center">
+        <div className="edu-card p-6 sm:p-8 text-center">
           <div className="text-3xl mb-3">✅</div>
           <h3 className="text-lg font-bold text-foreground mb-2">설치 완료! 이제 2단계로 넘어가세요.</h3>
           <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
