@@ -138,7 +138,7 @@ export function SetupSection() {
         <div className="flex items-center gap-2 mb-8 flex-wrap">
           {['VS Code 설치', 'Python 설치', '확장 설치', '가상환경', '라이브러리 설치'].map((label, i) => (
             <div key={label} className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border text-xs font-medium text-foreground shadow-sm">
+              <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-card border border-border text-sm font-medium text-foreground shadow-sm">
                 <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0">
                   {i + 1}
                 </span>
@@ -211,14 +211,14 @@ export function SetupSection() {
                               </div>
                               {step.tip && (
                                 <div className="mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4">
-                                  <p className="text-xs text-yellow-800 leading-relaxed">
+                                  <p className="text-sm text-yellow-800 leading-relaxed">
                                     <strong>💡 팁:</strong> {step.tip}
                                   </p>
                                 </div>
                               )}
                               <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4">
-                                <h4 className="text-xs font-semibold text-blue-800 mb-2">가상환경이란?</h4>
-                                <p className="text-xs text-blue-700 leading-relaxed">
+                                <h4 className="text-sm font-semibold text-blue-800 mb-2">가상환경이란?</h4>
+                                <p className="text-sm text-blue-700 leading-relaxed">
                                   프로젝트마다 필요한 라이브러리를 따로 보관하는 <strong>독립된 작업 공간</strong>이에요.
                                   가상환경에 들어간 뒤 설치한 패키지는 이 프로젝트에서만 사용됩니다.
                                   터미널 앞에 <strong>(.venv)</strong> 가 보이면 성공이에요.
@@ -243,7 +243,7 @@ export function SetupSection() {
                                   <h4 className="text-sm font-semibold text-foreground">{label}</h4>
                                   <CopyButton text={cmd} />
                                 </div>
-                                <pre className="text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-3 overflow-auto border border-border">
+                                <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-3 overflow-auto border border-border">
                                   {cmd}
                                 </pre>
                               </div>
@@ -268,8 +268,8 @@ export function SetupSection() {
                             </div>
                             {step.tip && (
                               <div className="mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4">
-                                <h4 className="text-xs font-semibold text-yellow-800 mb-1">💡 팁</h4>
-                                <p className="text-xs text-yellow-700 leading-relaxed">{step.tip}</p>
+                                <h4 className="text-sm font-semibold text-yellow-800 mb-1">💡 팁</h4>
+                                <p className="text-sm text-yellow-700 leading-relaxed">{step.tip}</p>
                               </div>
                             )}
                           </div>
@@ -301,7 +301,7 @@ export function SetupSection() {
                               </div>
                               {step.tip && (
                                 <div className="mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4">
-                                  <p className="text-xs text-yellow-800 leading-relaxed">
+                                  <p className="text-sm text-yellow-800 leading-relaxed">
                                     <strong>💡 팁:</strong> {step.tip}
                                   </p>
                                 </div>
@@ -322,7 +322,7 @@ export function SetupSection() {
                                   </span>
                                 ))}
                               </div>
-                              <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                                 tkinter 는 Python 기본 내장(GUI) · tkcalendar(날짜 선택) · openpyxl(엑셀 읽기) · pytest(테스트)
                               </p>
                               <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -354,7 +354,7 @@ export function SetupSection() {
                               </h4>
                               <CopyButton text={PIP_COMMAND} />
                             </div>
-                            <pre className="text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-4 overflow-auto border border-border">
+                            <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed bg-muted/50 rounded-xl p-4 overflow-auto border border-border">
                               {PIP_COMMAND}
                             </pre>
                           </div>
@@ -381,8 +381,8 @@ export function SetupSection() {
                           <div className="flex flex-col gap-4">
                             {step.tip && (
                               <div className="rounded-xl bg-yellow-50 border border-yellow-200 p-4">
-                                <h4 className="text-xs font-semibold text-yellow-800 mb-1">💡 팁</h4>
-                                <p className="text-xs text-yellow-700 leading-relaxed">{step.tip}</p>
+                                <h4 className="text-sm font-semibold text-yellow-800 mb-1">💡 팁</h4>
+                                <p className="text-sm text-yellow-700 leading-relaxed">{step.tip}</p>
                               </div>
                             )}
                             {step.link && (

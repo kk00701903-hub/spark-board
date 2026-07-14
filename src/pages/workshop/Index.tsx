@@ -69,7 +69,7 @@ export default function WorkshopPage() {
                   key={item.to}
                   to={item.to}
                   className={[
-                    'edu-card p-6 sm:p-7 min-h-[240px] sm:min-h-[260px] flex flex-col transition-all duration-200 hover:shadow-md group text-left',
+                    'edu-card p-6 sm:p-7 min-h-[260px] sm:min-h-[290px] flex flex-col transition-all duration-200 hover:shadow-md group text-left',
                     item.highlight
                       ? 'border-2 border-primary/40 ring-1 ring-primary/15'
                       : 'hover:border-primary/30',
@@ -81,11 +81,11 @@ export default function WorkshopPage() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                        <span className="text-sm font-bold uppercase tracking-wide px-2.5 py-1 rounded bg-muted text-muted-foreground">
                           {item.step}
                         </span>
-                        <span className="text-xs font-medium text-muted-foreground">{item.badge}</span>
-                        <span className="text-xs text-muted-foreground inline-flex items-center gap-1 ml-auto">
+                        <span className="text-sm font-medium text-muted-foreground">{item.badge}</span>
+                        <span className="text-sm text-muted-foreground inline-flex items-center gap-1 ml-auto">
                           <Clock className="w-3.5 h-3.5 shrink-0" />
                           {item.duration}
                         </span>

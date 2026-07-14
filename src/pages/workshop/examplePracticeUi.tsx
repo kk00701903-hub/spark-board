@@ -22,10 +22,10 @@ export function BoldText({ text }: { text: string }) {
 export function PromptConditionReasons({ items }: { items: { condition: string; reason: string }[] }) {
   return (
     <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4">
-      <h5 className="text-xs font-semibold text-foreground mb-3">프롬프트 조건 4가지 — 왜 넣었을까?</h5>
+      <h5 className="text-sm font-semibold text-foreground mb-3">프롬프트 조건 4가지 — 왜 넣었을까?</h5>
       <div className="space-y-3">
         {items.map((item, i) => (
-          <div key={i} className="text-xs leading-relaxed">
+          <div key={i} className="text-sm leading-relaxed">
             <p className="font-medium text-foreground">{i + 1}. {item.condition}</p>
             <p className="text-muted-foreground mt-0.5 pl-3">
               <span className="text-primary font-semibold">이유: </span>

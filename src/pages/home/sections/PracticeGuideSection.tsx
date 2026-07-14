@@ -160,7 +160,7 @@ function CompanySystemPicker({
         {otherChecked ? (
           <div className="ml-6 grid sm:grid-cols-2 gap-2">
             <div>
-              <label className="text-[11px] font-medium text-muted-foreground mb-1 block">
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
                 시스템 명칭
               </label>
               <input
@@ -172,7 +172,7 @@ function CompanySystemPicker({
               />
             </div>
             <div>
-              <label className="text-[11px] font-medium text-muted-foreground mb-1 block">
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
                 역할 (무엇을 하는 시스템?)
               </label>
               <input
@@ -390,14 +390,14 @@ export function PracticeGuideSection() {
         </div>
 
         <div className="mb-8 edu-card border-primary/25 bg-primary/5 px-5 py-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {SUBMIT_FIELDS.map((field) => (
               <div
                 key={field.label}
-                className="rounded-lg border border-border bg-card px-3 py-2.5"
+                className="rounded-lg border border-border bg-card px-3.5 py-3"
               >
                 <div className="text-sm leading-none mb-1.5">{field.icon}</div>
-                <p className="text-xs font-semibold text-foreground leading-snug">
+                <p className="text-sm font-semibold text-foreground leading-snug">
                   {field.label}
                   {field.required ? (
                     <span className="text-destructive ml-0.5">*</span>
@@ -405,7 +405,7 @@ export function PracticeGuideSection() {
                     <span className="text-muted-foreground font-normal"> (선택)</span>
                   )}
                 </p>
-                <p className="text-[11px] text-muted-foreground mt-1">최대 {field.max.toLocaleString()}자</p>
+                <p className="text-xs text-muted-foreground mt-1">최대 {field.max.toLocaleString()}자</p>
               </div>
             ))}
           </div>
@@ -522,7 +522,7 @@ export function PracticeGuideSection() {
                             <MessageCircle className="w-4 h-4 text-primary shrink-0" />
                             ChatGPT에 이어서 물어볼 질문
                           </h4>
-                          <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                          <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                             같은 대화창에 복사해 붙여넣으며, 회사 맥락을 보강하고 제출 문안을 다듬으세요.
                           </p>
                           <div className="space-y-2">
@@ -531,7 +531,7 @@ export function PracticeGuideSection() {
                                 key={qi}
                                 className="flex items-start gap-2 rounded-lg border border-border bg-card px-3 py-2.5"
                               >
-                                <p className="flex-1 text-xs sm:text-sm text-foreground leading-relaxed min-w-0">
+                                <p className="flex-1 text-sm text-foreground leading-relaxed min-w-0">
                                   {q}
                                 </p>
                                 <CopyButton text={q} />

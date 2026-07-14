@@ -213,7 +213,7 @@
   }
 
   .edu-section {
-    @apply py-10 sm:py-12;
+    @apply py-12 sm:py-16;
   }
 
   .edu-container {
@@ -221,7 +221,7 @@
   }
 
   .edu-card {
-    @apply rounded-xl border border-border bg-card shadow-sm;
+    @apply rounded-xl border border-border bg-card shadow-sm p-5 sm:p-6;
   }
 
   .edu-badge {

@@ -111,7 +111,7 @@ export function ExamplePracticeDetail({
                     <h4 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
                       <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
                     </h4>
-                    <p className="text-xs text-muted-foreground mb-4">
+                    <p className="text-sm text-muted-foreground mb-4">
                       무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
                       끝까지 읽은 뒤 아래 <strong className="text-foreground">다음</strong>을 누르면 질문 실습으로 넘어갑니다.
                     </p>
@@ -128,7 +128,7 @@ export function ExamplePracticeDetail({
                             <p className="text-sm text-foreground leading-relaxed font-medium">
                               <BoldText text={step.action} />
                             </p>
-                            <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                            <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">
                               <span className="text-primary font-semibold">왜? </span>
                               <BoldText text={step.reason} />
                             </p>
@@ -162,7 +162,7 @@ export function ExamplePracticeDetail({
                   ref={questionsRef}
                 >
                   <div className="flex items-center justify-end gap-3 flex-wrap">
-                    <span className="text-xs font-medium text-muted-foreground">
+                    <span className="text-sm font-medium text-muted-foreground">
                       ChatGPT 질문 {practice.promptSteps.length}개 · 순서대로 진행하세요
                     </span>
                   </div>
@@ -239,7 +239,7 @@ export function ExamplePracticeDetail({
                                       {step.tip && (
                                         <div className="flex items-start gap-2 rounded-lg bg-primary/5 border border-primary/15 px-3 py-2.5">
                                           <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                                          <p className="text-xs text-foreground/80 leading-relaxed">
+                                          <p className="text-sm text-foreground/80 leading-relaxed">
                                             <BoldText text={step.tip} />
                                           </p>
                                         </div>

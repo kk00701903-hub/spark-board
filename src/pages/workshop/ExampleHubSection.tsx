@@ -110,28 +110,28 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
+        <div className="grid md:grid-cols-3 gap-5 sm:gap-6 mb-8">
           {steps.map((step) => {
             const highlighted = step.id === focusStep;
             return (
               <div
                 key={step.to}
                 className={[
-                  'edu-card p-5 text-left flex flex-col',
+                  'edu-card p-6 text-left flex flex-col',
                   highlighted
                     ? 'border-2 border-primary bg-primary/10 ring-2 ring-primary/20'
                     : '',
                 ].join(' ')}
               >
                 <div className="text-2xl mb-3">{step.icon}</div>
-                <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
+                <div className="text-sm font-bold uppercase tracking-wide text-muted-foreground mb-1">
                   {highlighted ? (
                     <span className="text-primary">지금 시작 · {step.number}단계</span>
                   ) : (
                     <span>{step.number}단계</span>
                   )}
                 </div>
-                <div className="font-semibold text-foreground text-base mb-1">{step.title}</div>
+                <div className="font-semibold text-foreground text-lg mb-1">{step.title}</div>
                 <p className="text-sm font-medium text-foreground/80 mb-2">{step.subtitle}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{step.description}</p>
                 <div className="space-y-2 mt-auto">
@@ -164,7 +164,7 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
             {cta.label}
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <p className="text-xs text-muted-foreground mt-3 flex items-center justify-center gap-1.5">
+          <p className="text-sm text-muted-foreground mt-3 flex items-center justify-center gap-1.5">
             <ClipboardCheck className="w-3.5 h-3.5" />
             실습 1 → 실습 2 → 이해도 확인 순서로 진행하세요
           </p>

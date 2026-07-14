@@ -90,12 +90,12 @@ export function PageShell({ children, title, stepLabel, subtitle, titleHighlight
       </header>
 
       <div className="border-b border-border bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex items-start justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight flex flex-wrap items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight flex flex-wrap items-center gap-2">
               {stepLabel ? (
                 <>
-                  <span className="text-base sm:text-lg font-extrabold tracking-wide text-muted-foreground">
+                  <span className="text-lg sm:text-xl font-extrabold tracking-wide text-muted-foreground">
                     {stepLabel}
                   </span>
                   <span className="edu-step">{title}</span>
@@ -109,7 +109,7 @@ export function PageShell({ children, title, stepLabel, subtitle, titleHighlight
               )}
             </h1>
             {subtitle ? (
-              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{subtitle}</p>
+              <p className="mt-1 text-base text-muted-foreground leading-relaxed">{subtitle}</p>
             ) : null}
           </div>
           <Link

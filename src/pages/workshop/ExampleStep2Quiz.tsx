@@ -41,14 +41,14 @@ export function ExampleStep2Quiz() {
 
       <div className="px-6 py-6 space-y-6 bg-card">
         {questions.map((q, index) => (
-          <div key={q.id} className="rounded-xl border border-border p-4 sm:p-5">
+          <div key={q.id} className="rounded-xl border border-border p-5 sm:p-6">
             <p className="text-sm font-semibold text-foreground mb-3">
               <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold mr-2">
                 {index + 1}
               </span>
               {q.question}
             </p>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {q.options.map((opt, oi) => {
                 const selected = answers[q.id] === oi;
                 const showResult = submitted;
@@ -57,7 +57,7 @@ export function ExampleStep2Quiz() {
                   <label
                     key={oi}
                     className={[
-                      'flex items-start gap-3 rounded-lg border px-3 py-2.5 text-sm cursor-pointer transition-colors',
+                      'flex items-start gap-3 rounded-lg border px-3 py-3 text-sm cursor-pointer transition-colors',
                       !showResult && selected ? 'border-primary bg-primary/5' : 'border-border hover:bg-muted/30',
                       showResult && isCorrect ? 'border-green-300 bg-green-50' : '',
                       showResult && selected && !isCorrect ? 'border-red-300 bg-red-50' : '',
@@ -78,7 +78,7 @@ export function ExampleStep2Quiz() {
               })}
             </div>
             {submitted && (
-              <p className="mt-3 text-xs text-muted-foreground leading-relaxed pl-1">
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed pl-1">
                 <strong className="text-foreground">해설: </strong>
                 {q.explanation}
               </p>

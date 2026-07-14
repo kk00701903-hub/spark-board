@@ -63,7 +63,7 @@ export function ExamplePracticeGuideSection({
               <h3 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
                 <Target className="w-4 h-4 text-primary shrink-0" /> 이 실습 전체 순서
               </h3>
-              <p className="text-xs text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 무엇을 하는지와, <strong className="text-foreground">왜 이 순서인지</strong> 함께 읽어 보세요.
                 준비가 되면 아래 <strong className="text-foreground">실습 시작하기</strong>로 질문 실습에 들어가면 됩니다.
               </p>
@@ -80,7 +80,7 @@ export function ExamplePracticeGuideSection({
                       <p className="text-sm text-foreground leading-relaxed font-medium">
                         <BoldText text={step.action} />
                       </p>
-                      <p className="text-xs text-muted-foreground leading-relaxed mt-1.5">
+                      <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">
                         <span className="text-primary font-semibold">왜? </span>
                         <BoldText text={step.reason} />
                       </p>

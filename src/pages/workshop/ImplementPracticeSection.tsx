@@ -426,7 +426,7 @@ export function ImplementPracticeSection() {
                                     {step.n}
                                   </div>
                                   <div className="min-w-0">
-                                    <div className="text-xs font-medium text-muted-foreground">ChatGPT 질문 {step.n}</div>
+                                    <div className="text-sm font-medium text-muted-foreground">ChatGPT 질문 {step.n}</div>
                                     <div className="font-bold text-foreground text-sm sm:text-base leading-snug">
                                       {step.title}
                                     </div>
@@ -483,7 +483,7 @@ export function ImplementPracticeSection() {
                                           {step.tip && (
                                             <div className="flex items-start gap-2 rounded-lg bg-primary/5 border border-primary/15 px-3 py-2.5">
                                               <Lightbulb className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                                              <p className="text-xs text-foreground/80 leading-relaxed">
+                                              <p className="text-sm text-foreground/80 leading-relaxed">
                                                 <BoldText text={step.tip} />
                                               </p>
                                             </div>
