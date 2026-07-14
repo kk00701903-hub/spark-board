@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, ClipboardCheck, Lightbulb, Wrench } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardCheck, Lightbulb } from 'lucide-react';
 import {
   EXAMPLE_ROUTES,
   type ExampleFocusStep,
@@ -38,35 +38,11 @@ const steps = [
   },
 ];
 
-const focusCta: Record<
-  ExampleFocusStep,
-  { to: string; label: string; icon: typeof Wrench }
-> = {
-  'ex-1': {
-    to: EXAMPLE_ROUTES.ex1,
-    label: '예제 실습 1 시작하기',
-    icon: Wrench,
-  },
-  'ex-2': {
-    to: EXAMPLE_ROUTES.ex2,
-    label: '예제 실습 2 시작하기',
-    icon: Wrench,
-  },
-  quiz: {
-    to: EXAMPLE_ROUTES.quiz,
-    label: '이해도 확인 시작하기',
-    icon: ClipboardCheck,
-  },
-};
-
 type ExampleHubSectionProps = {
   focusStep?: ExampleFocusStep;
 };
 
 export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps) {
-  const cta = focusCta[focusStep];
-  const CtaIcon = cta.icon;
-
   return (
     <section className="edu-section">
       <div className="edu-container">
@@ -156,15 +132,7 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
         </div>
 
         <div className="text-center">
-          <Link
-            to={cta.to}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all duration-200 hover:opacity-90"
-          >
-            <CtaIcon className="w-4 h-4" />
-            {cta.label}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <p className="text-sm text-muted-foreground mt-3 flex items-center justify-center gap-1.5">
+          <p className="text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             <ClipboardCheck className="w-3.5 h-3.5" />
             실습 1 → 실습 2 → 이해도 확인 순서로 진행하세요
           </p>

@@ -10,7 +10,6 @@ export const siteNavTree: SiteNavItem[] = [
     label: '워크숍',
     children: [
       { label: '실습 구성', path: '/workshop' },
-      { label: '교육 커리큘럼', path: '/workshop/curriculum' },
       { label: '준비 단계 · 환경 설치', path: '/workshop/setup' },
       { label: 'STEP 1. · 아이디어 구체화', path: '/workshop/idea' },
       {
@@ -29,6 +28,7 @@ export const siteNavTree: SiteNavItem[] = [
     ],
   },
   { label: '프롬프트 모음', path: '/prompts' },
+  { label: '4단계 아이디어 구체화 과정', path: '/workshop/curriculum' },
 ];
 
 export function isNavPathActive(path: string, currentPath: string): boolean {
