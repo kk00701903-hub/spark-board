@@ -119,7 +119,7 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
                 className={[
                   'edu-card p-5 text-left flex flex-col',
                   highlighted
-                    ? 'border-2 border-primary ring-2 ring-primary/20'
+                    ? 'border-2 border-primary bg-primary/10 ring-2 ring-primary/20'
                     : '',
                 ].join(' ')}
               >
