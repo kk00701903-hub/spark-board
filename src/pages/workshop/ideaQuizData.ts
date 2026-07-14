@@ -7,7 +7,7 @@ export type QuizQuestion = {
   explanation: string;
 };
 
-/** PDF Q1–Q30 중 Q4·Q6·Q8·Q11·Q12·Q13·Q25 제외 (실습 명칭 문항·제외분 반영) */
+/** PDF Q1–Q30 중 Q4·Q6·Q8·Q9·Q11·Q12·Q13·Q25 제외 (실습 명칭·메타 문항·제외분 반영) */
 export const IDEA_QUIZ_BANK: QuizQuestion[] = [
   {
     id: 1,
@@ -63,17 +63,6 @@ export const IDEA_QUIZ_BANK: QuizQuestion[] = [
       { label: '실습 4', correct: false },
     ],
     explanation: '회사 시스템·업무 프로세스 알려주기와 연관된 실습 번호입니다.',
-  },
-  {
-    id: 9,
-    question: "실습 1 '내 페인포인트 찾기'의 권장 소요 시간과 난이도로 알맞게 짝지어진 것은?",
-    options: [
-      { label: '15분, 초급', correct: true },
-      { label: '20분, 중급', correct: false },
-      { label: '25분, 중급', correct: false },
-      { label: '20분, 고급', correct: false },
-    ],
-    explanation: '가장 첫 단계인 만큼 시간이 짧고 난이도가 낮습니다.',
   },
   {
     id: 10,
