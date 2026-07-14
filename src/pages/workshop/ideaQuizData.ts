@@ -7,7 +7,7 @@ export type QuizQuestion = {
   explanation: string;
 };
 
-/** PDF Q1–Q30 중 Q4·Q6·Q12·Q13·Q25 제외 (25문항) */
+/** PDF Q1–Q30 중 Q4·Q6·Q8·Q11·Q12·Q13·Q25 제외 (실습 명칭 문항·제외분 반영) */
 export const IDEA_QUIZ_BANK: QuizQuestion[] = [
   {
     id: 1,
@@ -65,17 +65,6 @@ export const IDEA_QUIZ_BANK: QuizQuestion[] = [
     explanation: '회사 시스템·업무 프로세스 알려주기와 연관된 실습 번호입니다.',
   },
   {
-    id: 8,
-    question: "'실습 1'의 주제 명칭은 무엇입니까?",
-    options: [
-      { label: '내 페인포인트 찾기', correct: true },
-      { label: '아이디어 Lean Canvas 작성', correct: false },
-      { label: '구현 가능성 점검', correct: false },
-      { label: '최종 문안 만들기', correct: false },
-    ],
-    explanation: '문제점을 발굴하는 가장 첫 번째 단계입니다.',
-  },
-  {
     id: 9,
     question: "실습 1 '내 페인포인트 찾기'의 권장 소요 시간과 난이도로 알맞게 짝지어진 것은?",
     options: [
@@ -96,17 +85,6 @@ export const IDEA_QUIZ_BANK: QuizQuestion[] = [
       { label: '고급', correct: false },
     ],
     explanation: '초급 다음 단계입니다. 노란색 뱃지입니다.',
-  },
-  {
-    id: 11,
-    question: '실습 3의 명칭은 무엇입니까?',
-    options: [
-      { label: '내 페인포인트 찾기', correct: false },
-      { label: '회사 시스템·업무 프로세스 알려주기', correct: true },
-      { label: '구현 가능성 점검', correct: false },
-      { label: '아이디어 Lean Canvas 작성', correct: false },
-    ],
-    explanation: '내가 속한 환경을 AI에게 설명하는 과정입니다.',
   },
   {
     id: 14,
