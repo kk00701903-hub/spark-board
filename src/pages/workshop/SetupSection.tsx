@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, ChevronUp,
+  ArrowRight, CheckCircle2, ChevronDown, ChevronUp,
   Download, MonitorPlay, Package, Terminal,
 } from 'lucide-react';
 import { springGentle, springSnappy } from '@/pages/home/animations';
@@ -124,17 +124,6 @@ export function SetupSection() {
   return (
     <section className="edu-section">
       <div className="edu-container">
-
-        <div className="mb-6">
-          <Link
-            to="/workshop"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            실습 구성으로 돌아가기
-          </Link>
-        </div>
-
         <div className="mb-8">
           <div className="edu-badge mb-3">
             <Download className="w-4 h-4" /> 준비 단계 · 환경 설치

@@ -5,7 +5,7 @@ import { EXAMPLE_ROUTES, exampleHubPath, examplePractice1 } from '@/pages/worksh
 export default function ExamplePractice1Page() {
   return (
     <PageShell
-      title="예제 실습 1"
+      title="예제 실습 1에 대해 실습전 사전 알아보기"
       subtitle="엑셀 명단 자동 인쇄 프로그램 · ChatGPT → VS Code"
     >
       <ExamplePracticeDetail

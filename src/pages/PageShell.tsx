@@ -18,9 +18,11 @@ type PageShellProps = {
   /** 예: "STEP 1." — 대제목 앞에 표시 (하이라이트는 title에 적용) */
   stepLabel?: string;
   subtitle?: string;
+  /** 제목 강조: marker=노란바탕, contrast=검정바탕+노란글씨 */
+  titleHighlight?: 'marker' | 'contrast';
 };
 
-export function PageShell({ children, title, stepLabel, subtitle }: PageShellProps) {
+export function PageShell({ children, title, stepLabel, subtitle, titleHighlight }: PageShellProps) {
   const { pathname } = useLocation();
   const trail = getBreadcrumbTrail(pathname);
   const crumbs = trail.length > 0 ? trail : [{ label: title, path: undefined as string | undefined }];
@@ -98,6 +100,10 @@ export function PageShell({ children, title, stepLabel, subtitle }: PageShellPro
                   </span>
                   <span className="edu-step">{title}</span>
                 </>
+              ) : titleHighlight === 'contrast' ? (
+                <span className="edu-step-contrast">{title}</span>
+              ) : titleHighlight === 'marker' ? (
+                <span className="edu-step">{title}</span>
               ) : (
                 <span>{title}</span>
               )}

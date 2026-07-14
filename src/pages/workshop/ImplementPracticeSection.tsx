@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, ChevronDown, ChevronUp, Clock, Code2, Rocket, Target, Lightbulb, AlertCircle,
+  ChevronDown, ChevronUp, Clock, Code2, Rocket, Target, Lightbulb, AlertCircle,
 } from 'lucide-react';
 import { springGentle, springSnappy } from '@/pages/home/animations';
 import { EditablePrompt } from '@/pages/home/sections/EditablePrompt';
@@ -286,16 +285,6 @@ export function ImplementPracticeSection() {
   return (
     <section className="edu-section">
       <div className="edu-container">
-        <div className="mb-6">
-          <Link
-            to="/workshop/example"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            STEP 2. 예제 따라하기로 돌아가기
-          </Link>
-        </div>
-
         <div className="mb-6 edu-card border-primary/25 bg-primary/5 px-5 py-4 flex items-start gap-3">
           <Rocket className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>

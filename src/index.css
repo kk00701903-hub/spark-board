@@ -231,4 +231,9 @@
   .edu-step {
     @apply inline-block rounded-sm bg-yellow-200 px-1.5 py-0.5 font-extrabold tracking-wide text-foreground;
   }
+
+  /* 고대비 강조: 검은 바탕 + 노란 글씨 */
+  .edu-step-contrast {
+    @apply inline-block rounded-sm bg-zinc-900 px-2.5 py-1 font-extrabold tracking-wide text-yellow-300;
+  }
 }

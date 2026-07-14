@@ -7,7 +7,7 @@ export default function ExampleQuizPage() {
   return (
     <PageShell
       title="이해도 확인"
-      subtitle="예제 실습 1·2를 마친 뒤 5문제로 점검합니다."
+      subtitle="STEP 1. 아이디어 구체화·제출 양식을 바탕으로, 매번 다른 5문제로 점검합니다."
     >
       <section className="edu-section">
         <div className="edu-container">

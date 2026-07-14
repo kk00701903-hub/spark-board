@@ -18,9 +18,9 @@ export const siteNavTree: SiteNavItem[] = [
         children: [
           { label: '개요', path: '/workshop/example' },
           { label: '예제 실습 1 · 내용', path: '/workshop/example/ex-1/guide' },
-          { label: '예제 실습 1', path: '/workshop/example/ex-1' },
+          { label: '예제 실습 1에 대해 실습전 사전 알아보기', path: '/workshop/example/ex-1' },
           { label: '예제 실습 2 · 내용', path: '/workshop/example/ex-2/guide' },
-          { label: '예제 실습 2', path: '/workshop/example/ex-2' },
+          { label: '예제 실습 2에 대해 실습전 사전 알아보기', path: '/workshop/example/ex-2' },
           { label: '이해도 확인 · 내용', path: '/workshop/example/quiz/guide' },
           { label: '이해도 확인', path: '/workshop/example/quiz' },
         ],

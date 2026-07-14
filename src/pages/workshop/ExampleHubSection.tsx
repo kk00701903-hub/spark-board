@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, ClipboardCheck, Lightbulb, Wrench } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardCheck, Lightbulb, Wrench } from 'lucide-react';
 import {
   EXAMPLE_ROUTES,
   type ExampleFocusStep,
@@ -70,16 +70,6 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
   return (
     <section className="edu-section">
       <div className="edu-container">
-        <div className="mb-6">
-          <Link
-            to="/workshop"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            워크숍 실습 구성으로 돌아가기
-          </Link>
-        </div>
-
         <div className="mb-8">
           <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
             <strong className="text-foreground">엑셀 명단 자동 인쇄 프로그램</strong> 예제를 함께 만들며

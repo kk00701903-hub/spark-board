@@ -161,18 +161,7 @@ export function ExamplePracticeDetail({
                   className="space-y-4"
                   ref={questionsRef}
                 >
-                  <div className="flex items-center justify-between gap-3 flex-wrap">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPhase('overview');
-                        setOpenSubStep(null);
-                      }}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <ArrowLeft className="w-4 h-4 shrink-0" />
-                      실습 순서로 돌아가기
-                    </button>
+                  <div className="flex items-center justify-end gap-3 flex-wrap">
                     <span className="text-xs font-medium text-muted-foreground">
                       ChatGPT 질문 {practice.promptSteps.length}개 · 순서대로 진행하세요
                     </span>

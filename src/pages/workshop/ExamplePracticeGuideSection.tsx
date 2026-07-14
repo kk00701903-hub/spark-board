@@ -19,16 +19,6 @@ export function ExamplePracticeGuideSection({
   return (
     <section className="edu-section">
       <div className="edu-container">
-        <div className="mb-6">
-          <Link
-            to={hubTo}
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            예제 따라하기로 돌아가기
-          </Link>
-        </div>
-
         <div className="edu-card border-primary/30 overflow-hidden">
           <div className="px-5 py-5 sm:px-6 sm:py-6 border-b border-border bg-primary/5">
             <div className="flex items-center gap-4 min-w-0">
