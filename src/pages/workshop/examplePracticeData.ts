@@ -34,8 +34,10 @@ export const EXAMPLE_ROUTES = {
   hub: '/workshop/example',
   ex1: '/workshop/example/ex-1',
   ex1Guide: '/workshop/example/ex-1/guide',
+  ex1Practice: '/workshop/example/ex-1/practice',
   ex2: '/workshop/example/ex-2',
   ex2Guide: '/workshop/example/ex-2/guide',
+  ex2Practice: '/workshop/example/ex-2/practice',
   quiz: '/workshop/example/quiz',
   quizGuide: '/workshop/example/quiz/guide',
 } as const;

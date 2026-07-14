@@ -1,21 +1,21 @@
 import { PageShell } from '@/pages/PageShell';
 import { ExamplePracticeDetail } from '@/pages/workshop/ExamplePracticeDetail';
-import { EXAMPLE_ROUTES, examplePractice1 } from '@/pages/workshop/examplePracticeData';
+import { EXAMPLE_ROUTES, exampleHubPath, examplePractice1 } from '@/pages/workshop/examplePracticeData';
 
-/** 사전학습: 실습 전체 순서 안내 */
-export default function ExamplePractice1Page() {
+/** 실습용 프롬프트: ChatGPT 질문 실습 */
+export default function ExamplePractice1PracticePage() {
   return (
     <PageShell
-      title="예제실습전 사전학습하기"
+      title="예제실습1 직접 실습해보기"
       subtitle="엑셀 명단 자동 인쇄 프로그램 · ChatGPT → VS Code"
     >
       <ExamplePracticeDetail
         practice={examplePractice1}
         practiceNumber={1}
-        mode="overview"
+        mode="questions"
         guideTo={EXAMPLE_ROUTES.ex1Guide}
-        prevTo={EXAMPLE_ROUTES.hub}
-        nextTo={EXAMPLE_ROUTES.ex1Practice}
+        prevTo={EXAMPLE_ROUTES.ex1}
+        nextTo={exampleHubPath('ex-2')}
       />
     </PageShell>
   );

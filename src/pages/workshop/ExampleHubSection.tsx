@@ -120,7 +120,12 @@ export function ExampleHubSection({ focusStep = 'ex-1' }: ExampleHubSectionProps
                   </Link>
                   <Link
                     to={step.to}
-                    className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+                    className={[
+                      'w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90',
+                      highlighted
+                        ? 'bg-orange-500 text-white shadow-sm ring-2 ring-orange-300/60'
+                        : 'bg-primary text-primary-foreground',
+                    ].join(' ')}
                   >
                     시작하기
                     <ArrowRight className="w-3.5 h-3.5 shrink-0" />

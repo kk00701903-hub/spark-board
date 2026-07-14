@@ -14,8 +14,10 @@ import SetupPage from "./pages/workshop/SetupPage";
 import ExamplePage from "./pages/workshop/ExamplePage";
 import ExamplePractice1Page from "./pages/workshop/ExamplePractice1Page";
 import ExamplePractice1GuidePage from "./pages/workshop/ExamplePractice1GuidePage";
+import ExamplePractice1PracticePage from "./pages/workshop/ExamplePractice1PracticePage";
 import ExamplePractice2Page from "./pages/workshop/ExamplePractice2Page";
 import ExamplePractice2GuidePage from "./pages/workshop/ExamplePractice2GuidePage";
+import ExamplePractice2PracticePage from "./pages/workshop/ExamplePractice2PracticePage";
 import ExampleQuizPage from "./pages/workshop/ExampleQuizPage";
 import ExampleQuizGuidePage from "./pages/workshop/ExampleQuizGuidePage";
 import ImplementPage from "./pages/workshop/ImplementPage";
@@ -40,8 +42,10 @@ const App = () => (
           <Route path="/workshop/setup" element={<SetupPage />} />
           <Route path="/workshop/example" element={<ExamplePage />} />
           <Route path="/workshop/example/ex-1/guide" element={<ExamplePractice1GuidePage />} />
+          <Route path="/workshop/example/ex-1/practice" element={<ExamplePractice1PracticePage />} />
           <Route path="/workshop/example/ex-1" element={<ExamplePractice1Page />} />
           <Route path="/workshop/example/ex-2/guide" element={<ExamplePractice2GuidePage />} />
+          <Route path="/workshop/example/ex-2/practice" element={<ExamplePractice2PracticePage />} />
           <Route path="/workshop/example/ex-2" element={<ExamplePractice2Page />} />
           <Route path="/workshop/example/quiz/guide" element={<ExampleQuizGuidePage />} />
           <Route path="/workshop/example/quiz" element={<ExampleQuizPage />} />
